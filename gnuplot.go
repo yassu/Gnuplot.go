@@ -37,7 +37,7 @@ func (fun *Function2d) init(){
         "yMax": "10.0"}
 }
 
-func (fun *Function2d) getData() [][2]float64 {
+func (fun *Function2d) getData() [][2]float64 { // TODO: テスト書く
     xMin, _ := strconv.ParseFloat(fun.plotter.Configures["xMin"], 32)
     xMax, _ := strconv.ParseFloat(fun.plotter.Configures["xMax"], 32)
     yMin, _ := strconv.ParseFloat(fun.plotter.Configures["yMin"], 32)
