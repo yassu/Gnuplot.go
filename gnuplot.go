@@ -46,10 +46,10 @@ func (fun *Function2d) getData() [][2]float64 { // TODO: テスト書く
 
     var a [][2]float64
     for j := 0; j < fun.splitNum; j++ {
-        var t float64 = xMin + float64(j) * sep
-        y := fun.f(xMin + t * float64(j))
+        t := xMin + float64(j) * sep
+        y := fun.f(t)
         if yMin <= y && y <= yMax {
-            a = append(a, [2]float64{t, fun.f(t)})
+            a = append(a, [2]float64{t, y})
         }
     }
     return a
@@ -84,3 +84,11 @@ func (c *Curve2d) getData() [][2]float64 { // TODO: test
     }
     return a
 }
+
+// // Graph
+// type Graph2d struct {
+//     plotter Plotter
+//     data_model interface{}
+//     functions []Function2d
+//     curves []Curve2d
+// }
