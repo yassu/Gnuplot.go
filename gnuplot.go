@@ -6,19 +6,19 @@ import (
 )
 
 type Plotter struct {
-    Configures map[string] string
+    configures map[string] string
 }
 
-func (p *Plotter) init() {
-    p.Configures = map[string] string{}
+func (p *Plotter) Init() {
+    p.configures = map[string] string{}
 }
 
-func (p *Plotter) configure(key, val string) {
-    p.Configures[key] = val
+func (p *Plotter) Configure(key, val string) {
+    p.configures[key] = val
 }
 
-func (p *Plotter) getC(key string) string {
-    return p.Configures[key]
+func (p *Plotter) GetC(key string) string {
+    return p.configures[key]
 }
 
 var DefaultFunction2dSplitNum int = 1000
@@ -28,20 +28,20 @@ type Function2d struct {
     f func(float64) float64
 }
 
-func (fun *Function2d) init(){
+func (fun *Function2d) Init(){
     fun.splitNum = DefaultFunction2dSplitNum
-    fun.plotter.Configures = map[string] string {
+    fun.plotter.configures = map[string] string {
         "_xMin": "-10.0",
         "_xMax": "10.0",
         "_yMin": "-10.0",
         "_yMax": "10.0"}
 }
 
-func (fun *Function2d) getData() [][2]float64 { // TODO: テスト書く
-    xMin, _ := strconv.ParseFloat(fun.plotter.Configures["_xMin"], 32)
-    xMax, _ := strconv.ParseFloat(fun.plotter.Configures["_xMax"], 32)
-    yMin, _ := strconv.ParseFloat(fun.plotter.Configures["_yMin"], 32)
-    yMax, _ := strconv.ParseFloat(fun.plotter.Configures["_yMax"], 32)
+func (fun *Function2d) GetData() [][2]float64 { // TODO: テスト書く
+    xMin, _ := strconv.ParseFloat(fun.plotter.configures["_xMin"], 32)
+    xMax, _ := strconv.ParseFloat(fun.plotter.configures["_xMax"], 32)
+    yMin, _ := strconv.ParseFloat(fun.plotter.configures["_yMin"], 32)
+    yMax, _ := strconv.ParseFloat(fun.plotter.configures["_yMax"], 32)
     var sep = float64(xMax - xMin) / float64(fun.splitNum - 1)
 
     var a [][2]float64
@@ -55,6 +55,10 @@ func (fun *Function2d) getData() [][2]float64 { // TODO: テスト書く
     return a
 }
 
+func (fun *Function2d) SetF(_f func(float64) float64) {
+    fun.f = _f
+}
+
 var DefaultCurve2dSplitNum int = 100
 type Curve2d struct {
     plotter Plotter
@@ -62,16 +66,16 @@ type Curve2d struct {
     c func(float64) [2]float64
 }
 
-func (c *Curve2d) init(){
+func (c *Curve2d) Init(){
     c.splitNum = DefaultCurve2dSplitNum
-    c.plotter.Configures = map[string] string {
+    c.plotter.configures = map[string] string {
         "_tMin": "-10.0",
         "_tMax": "10.0"}
 }
 
-func (c *Curve2d) getData() [][2]float64 { // TODO: test
-    tMin, _ := strconv.ParseFloat(c.plotter.Configures["_tMin"], 32)
-    tMax, _ := strconv.ParseFloat(c.plotter.Configures["_tMax"], 32)
+func (c *Curve2d) GetData() [][2]float64 { // TODO: test
+    tMin, _ := strconv.ParseFloat(c.plotter.configures["_tMin"], 32)
+    tMax, _ := strconv.ParseFloat(c.plotter.configures["_tMax"], 32)
     var sep = float64(tMax - tMin) / float64(c.splitNum - 1)
 
     var a [][2]float64
@@ -92,7 +96,7 @@ type Graph2d struct {
     curves []Curve2d
 }
 
-func (g *Graph2d)run() {
+func (g *Graph2d)Run() {
     // それぞれのfunctionのdataをtempファイルに書き込む
     // また, それらのファイルの名前を func_filenames []string に格納する
 
