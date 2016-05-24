@@ -85,10 +85,12 @@ func (c *Curve2d) getData() [][2]float64 { // TODO: test
     return a
 }
 
-// // Graph
-// type Graph2d struct {
-//     plotter Plotter
-//     data_model interface{}
-//     functions []Function2d
-//     curves []Curve2d
-// }
+// Graph
+type Graph2d struct {
+    plotter Plotter
+    functions []Function2d
+    curves []Curve2d
+}
+
+func (g *Graph2d)run() {
+}

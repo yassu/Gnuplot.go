@@ -2,7 +2,7 @@ package gnuplot
 
 import (
   "testing"
-  "fmt"
+  // "fmt"
   // "math"
 )
 
