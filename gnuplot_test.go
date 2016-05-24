@@ -3,8 +3,10 @@ package gnuplot
 import (
   "testing"
   // "fmt"
+  // "math"
 )
 
+// Plotter
 func TestConfigure(t *testing.T) {
     p := new(Plotter)
     p.init()
@@ -14,10 +16,11 @@ func TestConfigure(t *testing.T) {
     }
 }
 
-func TestConfigure2(t *testing.T) {
-    p := new(Plotter)
-    p.init()
-    if p.getC("xMin") != "-10.0" {
-        t.Errorf("fails in TestConfigure2")
+// Function2d
+func TestFunction2dSplitNum(t *testing.T) {
+    fun := new(Function2d)
+    fun.init()
+    if fun.splitNum != 1000 {
+        t.Errorf("fails in TestFunction2dSplitNum")
     }
 }
