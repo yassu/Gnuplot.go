@@ -1,8 +1,9 @@
 package gnuplot
 
 import (
-  // "fmt"
+  "fmt"
   "strconv"
+  "os"
 )
 
 type Plotter struct {
@@ -37,6 +38,12 @@ func (fun *Function2d) Init(){
         "_yMax": "10.0"}
 }
 
+func (fun *Function2d) UpdatePlotter(plotter *Plotter) {
+    for key, val := range plotter.configures {
+        fun.plotter.configures[key] = val
+    }
+}
+
 func (fun *Function2d) GetData() [][2]float64 { // TODO: テスト書く
     xMin, _ := strconv.ParseFloat(fun.plotter.configures["_xMin"], 32)
     xMax, _ := strconv.ParseFloat(fun.plotter.configures["_xMax"], 32)
@@ -55,8 +62,20 @@ func (fun *Function2d) GetData() [][2]float64 { // TODO: テスト書く
     return a
 }
 
+func (fun *Function2d) getGnuData() string {
+    var s string
+    for _, xs := range fun.GetData() {
+        s += fmt.Sprintf("%f %f\n", xs[0], xs[1])
+    }
+    return s
+}
+
 func (fun *Function2d) SetF(_f func(float64) float64) {
     fun.f = _f
+}
+
+func (fun *Function2d) writeIntoGnufile(f os.File) {
+    f.WriteString(fun.getGnuData())
 }
 
 var DefaultCurve2dSplitNum int = 100
@@ -73,6 +92,12 @@ func (c *Curve2d) Init(){
         "_tMax": "10.0"}
 }
 
+func (c *Curve2d) UpdatePlotter(plotter *Plotter) {
+    for key, val := range plotter.configures {
+        c.plotter.Configure(key, val)
+    }
+}
+
 func (c *Curve2d) GetData() [][2]float64 { // TODO: test
     tMin, _ := strconv.ParseFloat(c.plotter.configures["_tMin"], 32)
     tMax, _ := strconv.ParseFloat(c.plotter.configures["_tMax"], 32)
@@ -82,9 +107,7 @@ func (c *Curve2d) GetData() [][2]float64 { // TODO: test
     for j := 0; j < c.splitNum; j++ {
         var t float64 = tMin + float64(j) * sep
         cs := c.c(tMin + t * float64(j))
-        x0 := cs[0]
-        y0 := cs[1]
-        a = append(a, [2]float64{x0, y0})
+        a = append(a, [2]float64{cs[0], cs[1]})
     }
     return a
 }
@@ -94,6 +117,10 @@ type Graph2d struct {
     plotter Plotter
     functions []Function2d
     curves []Curve2d
+}
+
+func (g *Graph2d) AppendFunc(f Function2d){
+    g.functions = append(g.functions, f)
 }
 
 func (g *Graph2d)Run() {
