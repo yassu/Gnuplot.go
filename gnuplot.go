@@ -71,6 +71,10 @@ func (fun *Function2d) SetF(_f func(float64) float64) {
 	fun.f = _f
 }
 
+func (fun Function2d) gnuplot(filename string) string {
+	return fmt.Sprintf("plot %v\n;", filename)
+}
+
 func (fun *Function2d) writeIntoGnufile(f os.File) {
 	f.WriteString(fun.getGnuData())
 }
@@ -110,6 +114,10 @@ func (c *Curve2d) GetData() [][2]float64 { // TODO: test
 	return a
 }
 
+func (c Curve2d) gnuplot(fileName string) string {
+	return fmt.Sprintf("plot %v\n;", fileName)
+}
+
 // Graph
 type Graph2d struct {
 	plotter   Plotter
@@ -134,11 +142,11 @@ func (g Graph2d) exec_gnuplot() {
 func (g Graph2d) gnuplot(funcFilenames []string, curveFilenames []string) string {
 	var s string
 	for j, _ := range g.functions {
-		s += fmt.Sprintf("plot %v\n;", funcFilenames[j])
+		s += g.functions[j].gnuplot(funcFilenames[j])
 	}
 	s += "\n"
 	for j, _ := range g.curves {
-		s += fmt.Sprintf("plot %v\n;", curveFilenames[j])
+		s += g.curves[j].gnuplot(curveFilenames[j])
 	}
 	s += "pause -1;"
 	s += "\n"
