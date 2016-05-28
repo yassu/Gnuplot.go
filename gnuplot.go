@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"strconv"
+	"strings"
 	// "os/exec"
 )
 
@@ -72,7 +73,13 @@ func (fun *Function2d) SetF(_f func(float64) float64) {
 }
 
 func (fun Function2d) gnuplot(filename string) string {
-	return fmt.Sprintf("plot %v\n;", filename)
+	var s = fmt.Sprintf("plot \"%v\"", filename)
+	for key, val := range fun.plotter.configures {
+		if !strings.HasPrefix(key, "_") {
+			s += fmt.Sprintf(" %v %v", key, val)
+		}
+	}
+	return s + ";\n"
 }
 
 func (fun *Function2d) writeIntoGnufile(f os.File) {
@@ -172,11 +179,10 @@ func (g *Graph2d) Run() {
 	// また, それらのファイルの名前を curve_filenames []stringに格納する
 
 	// 実行するgnuplotの実行ファイルをtempファイルに書き込む
-	exec_file, _ := os.OpenFile("exec_gnu.gnu", os.O_CREATE|os.O_WRONLY, 0666)
+	execFile, _ := os.OpenFile("exec_gnu.gnu", os.O_CREATE|os.O_WRONLY, 0666)
 	defer func() {
-		exec_file.Close()
+		execFile.Close()
 	}()
 	fmt.Println(funcFilenames)
-	exec_file.WriteString(fmt.Sprintf("plot \"%v\" w l; pause -1;", funcFilenames[0]))
-	exec_file.Close()
+	execFile.WriteString(g.gnuplot(funcFilenames, []string{}))
 }
