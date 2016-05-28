@@ -123,7 +123,7 @@ func (c *Curve2d) GetData() [][2]float64 { // TODO: test
 
 func (c Curve2d) gnuplot(fileName string) string {
 	var s = fmt.Sprintf("plot %v\n;", fileName)
-	for key, val := range fun.plotter.configures {
+	for key, val := range c.plotter.configures {
 		if !strings.HasPrefix(key, "_") {
 			s += fmt.Sprintf(" %v %v", key, val)
 		}
@@ -161,8 +161,7 @@ func (g Graph2d) gnuplot(funcFilenames []string, curveFilenames []string) string
 	for j, _ := range g.curves {
 		s += g.curves[j].gnuplot(curveFilenames[j])
 	}
-	s += "pause -1;"
-	s += "\n"
+	s += "pause -1;\n"
 	return s
 }
 
