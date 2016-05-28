@@ -122,7 +122,13 @@ func (c *Curve2d) GetData() [][2]float64 { // TODO: test
 }
 
 func (c Curve2d) gnuplot(fileName string) string {
-	return fmt.Sprintf("plot %v\n;", fileName)
+	var s = fmt.Sprintf("plot %v\n;", fileName)
+	for key, val := range fun.plotter.configures {
+		if !strings.HasPrefix(key, "_") {
+			s += fmt.Sprintf(" %v %v", key, val)
+		}
+	}
+	return s + ";\n"
 }
 
 // Graph
