@@ -33,9 +33,7 @@ func (fun *Function2d) Init(){
     fun.splitNum = DefaultFunction2dSplitNum
     fun.plotter.configures = map[string] string {
         "_xMin": "-10.0",
-        "_xMax": "10.0",
-        "_yMin": "-10.0",
-        "_yMax": "10.0"}
+        "_xMax": "10.0"}
 }
 
 func (fun *Function2d) UpdatePlotter(plotter *Plotter) {
@@ -47,17 +45,13 @@ func (fun *Function2d) UpdatePlotter(plotter *Plotter) {
 func (fun *Function2d) GetData() [][2]float64 { // TODO: テスト書く
     xMin, _ := strconv.ParseFloat(fun.plotter.configures["_xMin"], 32)
     xMax, _ := strconv.ParseFloat(fun.plotter.configures["_xMax"], 32)
-    yMin, _ := strconv.ParseFloat(fun.plotter.configures["_yMin"], 32)
-    yMax, _ := strconv.ParseFloat(fun.plotter.configures["_yMax"], 32)
     var sep = float64(xMax - xMin) / float64(fun.splitNum - 1)
 
     var a [][2]float64
     for j := 0; j < fun.splitNum; j++ {
         t := xMin + float64(j) * sep
         y := fun.f(t)
-        if yMin <= y && y <= yMax {
-            a = append(a, [2]float64{t, y})
-        }
+        a = append(a, [2]float64{t, y})
     }
     return a
 }

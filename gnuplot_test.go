@@ -2,7 +2,7 @@ package gnuplot
 
 import (
   "testing"
-  "fmt"
+  // "fmt"
   // "math"
 )
 
@@ -38,17 +38,17 @@ func TestFunction2dUpdatePlotter(t *testing.T) {
     }
 }
 
-func TestGetGnuData(t *testing.T){
-    // without panic
-    fun := new(Function2d)
-    fun.Init()
-
-    f := func(x float64) float64 {
-        return x * x
-    }
-    fun.SetF(f)
-    fmt.Println(fun.getGnuData())
-}
+// func TestGetGnuData(t *testing.T){
+//     // without panic
+//     fun := new(Function2d)
+//     fun.Init()
+//
+//     f := func(x float64) float64 {
+//         return x * x
+//     }
+//     fun.SetF(f)
+//     fmt.Println(fun.getGnuData())
+// }
 
 // Curve2d
 func TestCurve2dSplitNum(t *testing.T) {
