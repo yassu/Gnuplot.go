@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"os/exec"
+	// "os/exec"
 	"strconv"
 	"strings"
 )
@@ -138,6 +138,10 @@ type Graph2d struct {
 	curves    []Curve2d
 }
 
+func (g *Graph2d) Init() {
+	g.plotter.configures = map[string]string{}
+}
+
 func (g *Graph2d) AppendFunc(f Function2d) {
 	fmt.Println("before of AppendFunc")
 	g.functions = append(g.functions, f)
@@ -148,12 +152,33 @@ func (g Graph2d) writeIntoFile(data string, f *os.File) {
 	f.WriteString(data)
 }
 
+func (g *Graph2d) UpdatePlotter(plotter *Plotter) {
+	fmt.Println("before of Graph2d.UpdatePlotter")
+	for key, val := range plotter.configures {
+		g.plotter.Configure(key, val)
+	}
+	fmt.Println("after of Graph2d.UpdatePlotter")
+}
+
 func (g Graph2d) exec_gnuplot() {
 	// until
 }
 
 func (g Graph2d) gnuplot(funcFilenames []string, curveFilenames []string) string {
 	var s string
+
+	for key, val := range g.plotter.configures {
+		if !strings.HasPrefix(key, "_") {
+			if val == "true" {
+				s += fmt.Sprintf("set %v;\n", key)
+			} else if val == "false" {
+				s += fmt.Sprintf("set no%v;\n", key)
+			} else {
+				s += fmt.Sprintf("set %v %v;\n", key, val)
+			}
+		}
+	}
+
 	for j, _ := range g.functions {
 		s += g.functions[j].gnuplot(funcFilenames[j])
 	}
