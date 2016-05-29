@@ -167,7 +167,8 @@ func (g Graph2d) gnuplot(funcFilenames []string, curveFilenames []string) string
 
 func (g *Graph2d) Run() {
 	tmpDir := os.TempDir() + "/gnuplot.go/"
-	execFilename := tmpDir + "exec.gnu"
+	// execFilename := tmpDir + "exec.gnu"
+	execFilename := "exec.gnu"
 
 	// それぞれのfunctionのdataをtempファイルに書き込む
 	// また, それらのファイルの名前を func_filenames []string に格納する
