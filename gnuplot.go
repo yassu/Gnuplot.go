@@ -252,6 +252,7 @@ func (g *Graph2d) Run() {
 	fmt.Println("Run.after of curves")
 
 	// 実行するgnuplotの実行ファイルをtempファイルに書き込む
+	os.Remove(execFilename)
 	execFile, _ := os.OpenFile(execFilename, os.O_CREATE|os.O_WRONLY, 0666)
 	defer func() {
 		execFile.Close()
