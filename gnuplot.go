@@ -7,7 +7,6 @@ import (
 	"os/exec"
 	"strconv"
 	"strings"
-	"time"
 )
 
 type Plotter struct {
@@ -192,12 +191,4 @@ func (g *Graph2d) Run() {
 	}()
 	fmt.Println(funcFilenames)
 	execFile.WriteString(g.gnuplot(funcFilenames, []string{}))
-
-	cmd := exec.Command("gnuplot", execFilename)
-	_, err := cmd.Output()
-	if err == nil {
-		fmt.Println("non error")
-	} else {
-		fmt.Println(err)
-	}
 }
