@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/exec"
 	"strconv"
 	"strings"
-	// "os/exec"
+	"time"
 )
 
 type Plotter struct {
@@ -25,7 +26,7 @@ func (p *Plotter) GetC(key string) string {
 	return p.configures[key]
 }
 
-var DefaultFunction2dSplitNum int = 1000
+const DefaultFunction2dSplitNum int = 1000
 
 type Function2d struct {
 	plotter  Plotter
@@ -86,7 +87,7 @@ func (fun *Function2d) writeIntoGnufile(f os.File) {
 	f.WriteString(fun.getGnuData())
 }
 
-var DefaultCurve2dSplitNum int = 100
+const DefaultCurve2dSplitNum int = 100
 
 type Curve2d struct {
 	plotter  Plotter
@@ -166,7 +167,8 @@ func (g Graph2d) gnuplot(funcFilenames []string, curveFilenames []string) string
 }
 
 func (g *Graph2d) Run() {
-	tmpDir := os.TempDir()
+	tmpDir := os.TempDir() + "/gnuplot.go/"
+	execFilename := tmpDir + "exec.gnu"
 
 	// それぞれのfunctionのdataをtempファイルに書き込む
 	// また, それらのファイルの名前を func_filenames []string に格納する
@@ -184,10 +186,18 @@ func (g *Graph2d) Run() {
 	// また, それらのファイルの名前を curve_filenames []stringに格納する
 
 	// 実行するgnuplotの実行ファイルをtempファイルに書き込む
-	execFile, _ := os.OpenFile("exec_gnu.gnu", os.O_CREATE|os.O_WRONLY, 0666)
+	execFile, _ := os.OpenFile(execFilename, os.O_CREATE|os.O_WRONLY, 0666)
 	defer func() {
 		execFile.Close()
 	}()
 	fmt.Println(funcFilenames)
 	execFile.WriteString(g.gnuplot(funcFilenames, []string{}))
+
+	cmd := exec.Command("gnuplot", execFilename)
+	_, err := cmd.Output()
+	if err == nil {
+		fmt.Println("non error")
+	} else {
+		fmt.Println(err)
+	}
 }
