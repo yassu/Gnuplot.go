@@ -121,8 +121,27 @@ func (c *Curve2d) GetData() [][2]float64 { // TODO: test
 	return a
 }
 
+func (c *Curve2d) getGnuData() string {
+	fmt.Println("=== In getGnuData()")
+	fmt.Println(c)
+	var s string
+	fmt.Println("before of getData")
+	fmt.Println(c.GetData())
+	fmt.Println("after of getData")
+	for _, xs := range c.GetData() {
+		fmt.Println(xs)
+		s += fmt.Sprintf("%f %f\n", xs[0], xs[1])
+	}
+	fmt.Println("=== Out of getGnuData()")
+	return s
+}
+
+func (c *Curve2d) SetC(_c func(float64) [2]float64) {
+	c.c = _c
+}
+
 func (c Curve2d) gnuplot(fileName string) string {
-	var s = fmt.Sprintf("plot %v\n;", fileName)
+	var s = fmt.Sprintf("plot \"%v\"\n;", fileName)
 	for key, val := range c.plotter.configures {
 		if !strings.HasPrefix(key, "_") {
 			s += fmt.Sprintf(" %v %v", key, val)
@@ -143,9 +162,12 @@ func (g *Graph2d) Init() {
 }
 
 func (g *Graph2d) AppendFunc(f Function2d) {
-	fmt.Println("before of AppendFunc")
 	g.functions = append(g.functions, f)
-	fmt.Println("after of AppendFunc")
+}
+
+func (g *Graph2d) AppendCurve(c Curve2d) {
+	fmt.Println(c)
+	g.curves = append(g.curves, c)
 }
 
 func (g Graph2d) writeIntoFile(data string, f *os.File) {
@@ -183,7 +205,10 @@ func (g Graph2d) gnuplot(funcFilenames []string, curveFilenames []string) string
 		s += g.functions[j].gnuplot(funcFilenames[j])
 	}
 	s += "\n"
+	fmt.Println("curveFilenames = ")
+	fmt.Println(curveFilenames)
 	for j, _ := range g.curves {
+		fmt.Println(j)
 		s += g.curves[j].gnuplot(curveFilenames[j])
 	}
 	s += "pause -1;\n"
@@ -207,8 +232,20 @@ func (g *Graph2d) Run() {
 		funcFilenames = append(funcFilenames, file.Name())
 	}
 
+	fmt.Println("Run.before of curves")
 	// それぞれのcurveのdataをtempファイルに書き込む
 	// また, それらのファイルの名前を curve_filenames []stringに格納する
+	var curveFilenames []string
+	for _, c := range g.curves {
+		file, _ := ioutil.TempFile(tmpDir, "")
+		defer func() {
+			file.Close()
+		}()
+		fmt.Println(c)
+		g.writeIntoFile(c.getGnuData(), file)
+		curveFilenames = append(curveFilenames, file.Name())
+	}
+	fmt.Println("Run.after of curves")
 
 	// 実行するgnuplotの実行ファイルをtempファイルに書き込む
 	execFile, _ := os.OpenFile(execFilename, os.O_CREATE|os.O_WRONLY, 0666)
@@ -216,5 +253,5 @@ func (g *Graph2d) Run() {
 		execFile.Close()
 	}()
 	fmt.Println(funcFilenames)
-	execFile.WriteString(g.gnuplot(funcFilenames, []string{}))
+	execFile.WriteString(g.gnuplot(funcFilenames, curveFilenames))
 }
