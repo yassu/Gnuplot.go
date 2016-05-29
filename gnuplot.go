@@ -73,13 +73,13 @@ func (fun *Function2d) SetF(_f func(float64) float64) {
 }
 
 func (fun Function2d) gnuplot(filename string) string {
-	var s = fmt.Sprintf("plot \"%v\"", filename)
+	var s = fmt.Sprintf("\"%v\"", filename)
 	for key, val := range fun.plotter.configures {
 		if !strings.HasPrefix(key, "_") {
 			s += fmt.Sprintf(" %v %v", key, val)
 		}
 	}
-	return s + ";\n"
+	return s
 }
 
 func (fun *Function2d) writeIntoGnufile(f os.File) {
@@ -141,13 +141,13 @@ func (c *Curve2d) SetC(_c func(float64) [2]float64) {
 }
 
 func (c Curve2d) gnuplot(fileName string) string {
-	var s = fmt.Sprintf("plot \"%v\"\n;", fileName)
+	var s = fmt.Sprintf("\"%v\" ", fileName)
 	for key, val := range c.plotter.configures {
 		if !strings.HasPrefix(key, "_") {
 			s += fmt.Sprintf(" %v %v", key, val)
 		}
 	}
-	return s + ";\n"
+	return s
 }
 
 // Graph
@@ -201,16 +201,20 @@ func (g Graph2d) gnuplot(funcFilenames []string, curveFilenames []string) string
 		}
 	}
 
+	s += "plot "
 	for j, _ := range g.functions {
-		s += g.functions[j].gnuplot(funcFilenames[j])
+		s += g.functions[j].gnuplot(funcFilenames[j]) + ", "
 	}
-	s += "\n"
 	fmt.Println("curveFilenames = ")
 	fmt.Println(curveFilenames)
 	for j, _ := range g.curves {
 		fmt.Println(j)
 		s += g.curves[j].gnuplot(curveFilenames[j])
+		if j != len(g.curves)-1 {
+			s += ", "
+		}
 	}
+	s += ";\n"
 	s += "pause -1;\n"
 	return s
 }
