@@ -40,6 +40,16 @@ func (fun *Function2d) Init() {
 		"_xMax": "10.0"}
 }
 
+func (fun *Function2d) Configure(key, val string) {
+	fun.plotter.Configure(key, val)
+}
+
+func (fun *Function2d) Configures(m map[string]string) {
+	for key, val := range m {
+		fun.plotter.Configure(key, val)
+	}
+}
+
 func (fun *Function2d) UpdatePlotter(plotter *Plotter) {
 	for key, val := range plotter.configures {
 		fun.plotter.configures[key] = val
@@ -99,6 +109,16 @@ func (c *Curve2d) Init() {
 	c.plotter.configures = map[string]string{
 		"_tMin": "-10.0",
 		"_tMax": "10.0"}
+}
+
+func (c *Curve2d) Configure(key, val string) {
+	c.plotter.Configure(key, val)
+}
+
+func (c *Curve2d) Configures(m map[string]string) {
+	for key, val := range m {
+		c.plotter.Configure(key, val)
+	}
 }
 
 func (c *Curve2d) UpdatePlotter(plotter *Plotter) {
@@ -161,6 +181,16 @@ func (g *Graph2d) Init() {
 	g.plotter.configures = map[string]string{}
 }
 
+func (g *Graph2d) Configure(key, val string) {
+	g.plotter.Configure(key, val)
+}
+
+func (g *Graph2d) Configures(m map[string]string) {
+	for key, val := range m {
+		g.plotter.Configure(key, val)
+	}
+}
+
 func (g *Graph2d) AppendFunc(f Function2d) {
 	g.functions = append(g.functions, f)
 }
@@ -180,10 +210,6 @@ func (g *Graph2d) UpdatePlotter(plotter *Plotter) {
 		g.plotter.Configure(key, val)
 	}
 	fmt.Println("after of Graph2d.UpdatePlotter")
-}
-
-func (g Graph2d) exec_gnuplot() {
-	// until
 }
 
 func (g Graph2d) gnuplot(funcFilenames []string, curveFilenames []string) string {
