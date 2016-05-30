@@ -42,12 +42,14 @@ func (conf *Configure) SetVal(val string) {
 	}
 }
 
+// Graph options
 func AnglesConf() *Configure {
 	return NewConfigure("angles", "radians", func(val string) bool {
 		return inStr(val, []string{"degrees", "radians", "true", "false"})
 	})
 }
 
+// Function2d or Curve2d options
 func WithConf() *Configure {
 	return NewConfigure("with", "lines", func(val string) bool {
 		return inStr(val, []string{
