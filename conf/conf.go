@@ -5,7 +5,7 @@ import (
 	"regexp"
 )
 
-func InStr(elem string, array []string) bool {
+func inStr(elem string, array []string) bool {
 	for _, a := range array {
 		if elem == a {
 			return true
@@ -44,7 +44,7 @@ func (conf *Configure) SetVal(val string) {
 
 func WithConf() *Configure {
 	return NewConfigure("with", "lines", func(val string) bool {
-		return InStr(val, []string{
+		return inStr(val, []string{
 			"lines", "dots", "steps", "errorbars", "xerrorbar",
 			"xyerrorlines", "points", "impulses", "fsteps", "errorlines", "xerrorlines",
 			"yerrorlines", "surface", "vectors", "parallelaxes"})
