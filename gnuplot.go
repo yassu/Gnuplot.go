@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	// "os/exec"
+	// "./conf"
 	"strconv"
 	"strings"
 )
@@ -26,33 +27,6 @@ func (p *Plotter) Configure(key, val string) {
 
 func (p *Plotter) GetC(key string) string {
 	return p.configures[key]
-}
-
-// Configure
-type Configure struct {
-	key               string
-	val               string
-	requiredCondition func(val string) bool
-}
-
-func NewConfigure(key, defaultVal string, requiredCondition func(val string) bool) *Configure {
-	conf := new(Configure)
-	conf.key = key
-	conf.val = defaultVal
-	conf.requiredCondition = requiredCondition
-	return conf
-}
-
-var WITH_CONF = NewConfigure("with", "line", func(val string) bool {
-	return val == "line" || val == "dots"
-})
-
-func (conf *Configure) SetVal(val string) {
-	if conf.requiredCondition(val) {
-		conf.val = val
-	} else {
-		panic(fmt.Sprintf("%v is illegal value of %v.", val, conf.key))
-	}
 }
 
 // Function2d
