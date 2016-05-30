@@ -42,6 +42,12 @@ func (conf *Configure) SetVal(val string) {
 	}
 }
 
+func AnglesConf() *Configure {
+	return NewConfigure("angles", "radians", func(val string) bool {
+		return inStr(val, []string{"degrees", "radians", "true", "false"})
+	})
+}
+
 func WithConf() *Configure {
 	return NewConfigure("with", "lines", func(val string) bool {
 		return inStr(val, []string{
