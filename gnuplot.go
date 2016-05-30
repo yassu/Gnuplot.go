@@ -9,12 +9,15 @@ import (
 	"strings"
 )
 
+// Plotter
 type Plotter struct {
 	configures map[string]string
 }
 
-func (p *Plotter) Init() {
-	p.configures = map[string]string{}
+func NewPlotter() *Plotter {
+	plotter := new(Plotter)
+	plotter.configures = map[string]string{}
+	return plotter
 }
 
 func (p *Plotter) Configure(key, val string) {
@@ -33,11 +36,13 @@ type Function2d struct {
 	f        func(float64) float64
 }
 
-func (fun *Function2d) Init() {
+func NewFunction2d() *Function2d {
+	fun := new(Function2d)
 	fun.splitNum = DefaultFunction2dSplitNum
 	fun.plotter.configures = map[string]string{
 		"_xMin": "-10.0",
 		"_xMax": "10.0"}
+	return fun
 }
 
 func (fun *Function2d) Configure(key, val string) {
@@ -104,11 +109,13 @@ type Curve2d struct {
 	c        func(float64) [2]float64
 }
 
-func (c *Curve2d) Init() {
+func NewCurve2d() *Curve2d {
+	c := new(Curve2d)
 	c.splitNum = DefaultCurve2dSplitNum
 	c.plotter.configures = map[string]string{
 		"_tMin": "-10.0",
 		"_tMax": "10.0"}
+	return c
 }
 
 func (c *Curve2d) Configure(key, val string) {
@@ -177,8 +184,10 @@ type Graph2d struct {
 	curves    []Curve2d
 }
 
-func (g *Graph2d) Init() {
+func NewGraph2d() *Graph2d {
+	g := new(Graph2d)
 	g.plotter.configures = map[string]string{}
+	return g
 }
 
 func (g *Graph2d) Configure(key, val string) {
