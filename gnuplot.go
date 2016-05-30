@@ -149,17 +149,10 @@ func (c *Curve2d) GetData() [][2]float64 { // TODO: test
 }
 
 func (c *Curve2d) getGnuData() string {
-	fmt.Println("=== In getGnuData()")
-	fmt.Println(c)
 	var s string
-	fmt.Println("before of getData")
-	fmt.Println(c.GetData())
-	fmt.Println("after of getData")
 	for _, xs := range c.GetData() {
-		fmt.Println(xs)
 		s += fmt.Sprintf("%f %f\n", xs[0], xs[1])
 	}
-	fmt.Println("=== Out of getGnuData()")
 	return s
 }
 
@@ -205,7 +198,6 @@ func (g *Graph2d) AppendFunc(f Function2d) {
 }
 
 func (g *Graph2d) AppendCurve(c Curve2d) {
-	fmt.Println(c)
 	g.curves = append(g.curves, c)
 }
 
@@ -214,11 +206,9 @@ func (g Graph2d) writeIntoFile(data string, f *os.File) {
 }
 
 func (g *Graph2d) UpdatePlotter(plotter *Plotter) {
-	fmt.Println("before of Graph2d.UpdatePlotter")
 	for key, val := range plotter.configures {
 		g.plotter.Configure(key, val)
 	}
-	fmt.Println("after of Graph2d.UpdatePlotter")
 }
 
 func (g Graph2d) gnuplot(funcFilenames []string, curveFilenames []string) string {
@@ -240,10 +230,7 @@ func (g Graph2d) gnuplot(funcFilenames []string, curveFilenames []string) string
 	for j, _ := range g.functions {
 		s += g.functions[j].gnuplot(funcFilenames[j]) + ", "
 	}
-	fmt.Println("curveFilenames = ")
-	fmt.Println(curveFilenames)
 	for j, _ := range g.curves {
-		fmt.Println(j)
 		s += g.curves[j].gnuplot(curveFilenames[j])
 		if j != len(g.curves)-1 {
 			s += ", "
@@ -256,6 +243,7 @@ func (g Graph2d) gnuplot(funcFilenames []string, curveFilenames []string) string
 
 func (g *Graph2d) Run() {
 	tmpDir := os.TempDir() + "/gnuplot.go/"
+	// TODO: tmpDirがなければ作る
 	// execFilename := tmpDir + "exec.gnu"
 	execFilename := "exec.gnu"
 
@@ -263,15 +251,18 @@ func (g *Graph2d) Run() {
 	// また, それらのファイルの名前を func_filenames []string に格納する
 	var funcFilenames []string
 	for _, fun := range g.functions {
-		file, _ := ioutil.TempFile(tmpDir, "")
+		file, err := ioutil.TempFile(tmpDir, "")
 		defer func() {
 			file.Close()
 		}()
-		g.writeIntoFile(fun.getGnuData(), file)
-		funcFilenames = append(funcFilenames, file.Name())
+		if err != nil {
+			panic(fmt.Sprintf("%v", err))
+		} else {
+			g.writeIntoFile(fun.getGnuData(), file)
+			funcFilenames = append(funcFilenames, file.Name())
+		}
 	}
 
-	fmt.Println("Run.before of curves")
 	// それぞれのcurveのdataをtempファイルに書き込む
 	// また, それらのファイルの名前を curve_filenames []stringに格納する
 	var curveFilenames []string
@@ -280,11 +271,9 @@ func (g *Graph2d) Run() {
 		defer func() {
 			file.Close()
 		}()
-		fmt.Println(c)
 		g.writeIntoFile(c.getGnuData(), file)
 		curveFilenames = append(curveFilenames, file.Name())
 	}
-	fmt.Println("Run.after of curves")
 
 	// 実行するgnuplotの実行ファイルをtempファイルに書き込む
 	os.Remove(execFilename)
@@ -292,6 +281,5 @@ func (g *Graph2d) Run() {
 	defer func() {
 		execFile.Close()
 	}()
-	fmt.Println(funcFilenames)
 	execFile.WriteString(g.gnuplot(funcFilenames, curveFilenames))
 }
