@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	// "fmt"
 	"github.com/yassu/gnuplot.go"
 	"github.com/yassu/gnuplot.go/conf"
 )
