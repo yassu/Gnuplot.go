@@ -1,8 +1,8 @@
 package gnuplot
 
 import (
-	"./conf"
 	"fmt"
+	"github.com/yassu/gnuplot.go/conf"
 	"io/ioutil"
 	"os"
 	"strconv"
