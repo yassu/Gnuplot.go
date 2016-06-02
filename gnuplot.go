@@ -103,7 +103,7 @@ func (fun *Function2d) writeIntoGnufile(f os.File) {
 	f.WriteString(fun.getGnuData())
 }
 
-const DefaultCurve2dSplitNum int = 100
+const DefaultCurve2dSplitNum int = 1000
 
 type Curve2d struct {
 	plotter  Plotter

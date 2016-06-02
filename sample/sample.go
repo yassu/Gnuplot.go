@@ -25,10 +25,7 @@ func main() {
 	graph := gnuplot.NewGraph2d()
 	graph.Configures(map[string]string{
 		"xrange": "[-100:100]",
-		"yrange": "[-100:100]",
-		"key":    "false",
-		"tics":   "false",
-		"border": "false"})
+		"yrange": "[-100:100]"})
 	graph.AppendFunc(*fun)
 	graph.AppendCurve(*c)
 	graph.Run()
