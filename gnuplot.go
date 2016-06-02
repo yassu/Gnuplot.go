@@ -141,8 +141,7 @@ func (c *Curve2d) GetData() [][2]float64 { // TODO: test
 
 	var a [][2]float64
 	for j := 0; j < c.splitNum; j++ {
-		var t float64 = tMin + float64(j)*sep
-		cs := c.c(tMin + t*float64(j))
+		cs := c.c(tMin + float64(j)*sep)
 		a = append(a, [2]float64{cs[0], cs[1]})
 	}
 	return a
