@@ -50,20 +50,19 @@ type Function2d struct {
 func NewFunction2d() *Function2d {
 	fun := new(Function2d)
 	fun.splitNum = DefaultFunction2dSplitNum
-	fun.plotter.configures = []*conf.Configure{}
-	// fun.plotter.configures = map[string]string{
-	// 	"_xMin": "-10.0",
-	// 	"_xMax": "10.0"}
+	fun.setConfigure()
 	return fun
 }
 
 // この関数は将来的にprivateにしたい
-func (fun *Function2d) SetConfigure(conf *conf.Configure) {
-	fun.plotter.Configure(conf)
+func (fun *Function2d) setConfigure() {
+	for _, conf := range conf.Function2dConfs() {
+		fun.plotter.Configure(conf)
+	}
 }
 
 // この関数は将来的にprivateにしたい
-func (fun *Function2d) SetConfigures(confs []*conf.Configure) {
+func (fun *Function2d) setConfigures(confs []*conf.Configure) {
 	for _, conf := range confs {
 		fun.plotter.Configure(conf)
 	}

@@ -75,3 +75,7 @@ func GoXMinConf() *Configure {
 func GoXMaxConf() *Configure {
 	return NewConfigure("_xMax", "10.0", isNum)
 }
+
+func Function2dConfs() []*Configure {
+	return []*Configure{WithConf(), GoXMinConf(), GoXMaxConf()}
+}
