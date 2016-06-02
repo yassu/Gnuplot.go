@@ -50,13 +50,6 @@ func (conf *Configure) GetVal() string {
 	return conf.val
 }
 
-// Graph options
-func AnglesConf() *Configure {
-	return NewConfigure("angles", "radians", func(val string) bool {
-		return inStr(val, []string{"degrees", "radians", "true", "false"})
-	})
-}
-
 // Function2d or Curve2d options
 func WithConf() *Configure {
 	return NewConfigure("with", "lines", func(val string) bool {
@@ -67,7 +60,6 @@ func WithConf() *Configure {
 	})
 }
 
-// for gnuplot.go options
 func GoXMinConf() *Configure {
 	return NewConfigure("_xMin", "-10.0", isNum)
 }
@@ -78,4 +70,15 @@ func GoXMaxConf() *Configure {
 
 func Function2dConfs() []*Configure {
 	return []*Configure{WithConf(), GoXMinConf(), GoXMaxConf()}
+}
+
+// Graph options
+func AnglesConf() *Configure {
+	return NewConfigure("angles", "radians", func(val string) bool {
+		return inStr(val, []string{"degrees", "radians", "true", "false"})
+	})
+}
+
+func GraphConfs() []*Configure {
+	return []*Configure{AnglesConf()}
 }
