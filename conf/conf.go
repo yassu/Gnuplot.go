@@ -42,6 +42,14 @@ func (conf *Configure) SetVal(val string) {
 	}
 }
 
+func (conf *Configure) GetKey() string {
+	return conf.key
+}
+
+func (conf *Configure) GetVal() string {
+	return conf.val
+}
+
 // Graph options
 func AnglesConf() *Configure {
 	return NewConfigure("angles", "radians", func(val string) bool {
