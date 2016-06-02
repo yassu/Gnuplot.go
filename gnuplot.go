@@ -54,16 +54,8 @@ func NewFunction2d() *Function2d {
 	return fun
 }
 
-// この関数は将来的にprivateにしたい
 func (fun *Function2d) setConfigure() {
 	for _, conf := range conf.Function2dConfs() {
-		fun.plotter.Configure(conf)
-	}
-}
-
-// この関数は将来的にprivateにしたい
-func (fun *Function2d) setConfigures(confs []*conf.Configure) {
-	for _, conf := range confs {
 		fun.plotter.Configure(conf)
 	}
 }
@@ -124,6 +116,7 @@ func (fun *Function2d) writeIntoGnufile(f os.File) {
 	f.WriteString(fun.getGnuData())
 }
 
+// Curve2d
 const DefaultCurve2dSplitNum int = 1000
 
 type Curve2d struct {
@@ -135,20 +128,33 @@ type Curve2d struct {
 func NewCurve2d() *Curve2d {
 	c := new(Curve2d)
 	c.splitNum = DefaultCurve2dSplitNum
-	c.plotter.configures = []*conf.Configure{}
+	c.setConfigure()
+	// c.setConfigure()
 	// c.plotter.configures = map[string]string{
 	// 	"_tMin": "-10.0",
 	// 	"_tMax": "10.0"}
 	return c
 }
 
-func (c *Curve2d) Configure(conf *conf.Configure) {
-	c.plotter.Configure(conf)
+func (c *Curve2d) setConfigure() {
+	for _, conf := range conf.Curve2dConfs() {
+		c.plotter.Configure(conf)
+	}
 }
 
-func (c *Curve2d) Configures(confs []*conf.Configure) {
-	for _, conf := range confs {
-		c.plotter.Configure(conf)
+func (c *Curve2d) Configure(key, val string) {
+	for j, conf := range c.plotter.configures {
+		if conf.GetKey() == key {
+			c.plotter.configures[j].SetVal(val)
+			return
+		}
+	}
+	panic(fmt.Sprintf("%v is not a key.", key))
+}
+
+func (c *Curve2d) Configures(sconf map[string]string) {
+	for key, val := range sconf {
+		c.Configure(key, val)
 	}
 }
 
@@ -293,5 +299,7 @@ func (g *Graph2d) Run() {
 	defer func() {
 		execFile.Close()
 	}()
+	fmt.Println(funcFilenames)
+	fmt.Println(curveFilenames)
 	execFile.WriteString(g.gnuplot(funcFilenames, curveFilenames))
 }

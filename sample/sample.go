@@ -15,7 +15,15 @@ func main() {
 	fun.Configure("_xMax", "100")
 	fun.Configure("with", "dots")
 
+	c := gnuplot.NewCurve2d()
+	c.SetC(func(t float64) [2]float64 {
+		return [2]float64{t, -t * t}
+	})
+	c.Configure("_tMin", "-100")
+	c.Configure("_tMax", "100")
+
 	graph := gnuplot.NewGraph2d()
 	graph.AppendFunc(*fun)
+	graph.AppendCurve(*c)
 	graph.Run()
 }
