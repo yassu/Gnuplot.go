@@ -202,17 +202,29 @@ type Graph2d struct {
 
 func NewGraph2d() *Graph2d {
 	g := new(Graph2d)
-	g.plotter.configures = []*conf.Configure{}
+	g.setConfigure()
 	return g
 }
 
-func (g *Graph2d) Configure(conf *conf.Configure) {
-	g.plotter.Configure(conf)
+func (g *Graph2d) setConfigure() {
+	for _, conf := range conf.Graph2dConfs() {
+		g.plotter.Configure(conf)
+	}
 }
 
-func (g *Graph2d) Configures(confs []*conf.Configure) {
-	for _, conf := range confs {
-		g.plotter.Configure(conf)
+func (g *Graph2d) Configure(key, val string) {
+	for j, conf := range g.plotter.configures {
+		if conf.GetKey() == key {
+			g.plotter.configures[j].SetVal(val)
+			return
+		}
+	}
+	panic(fmt.Sprintf("%v is not a key.", key))
+}
+
+func (g *Graph2d) Configures(sconf map[string]string) {
+	for key, val := range sconf {
+		g.Configure(key, val)
 	}
 }
 

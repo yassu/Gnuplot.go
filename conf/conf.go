@@ -91,6 +91,6 @@ func AnglesConf() *Configure {
 	})
 }
 
-func GraphConfs() []*Configure {
+func Graph2dConfs() []*Configure {
 	return []*Configure{AnglesConf()}
 }

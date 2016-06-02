@@ -23,6 +23,7 @@ func main() {
 	c.Configure("_tMax", "100")
 
 	graph := gnuplot.NewGraph2d()
+	graph.Configure("angles", "degrees")
 	graph.AppendFunc(*fun)
 	graph.AppendCurve(*c)
 	graph.Run()
