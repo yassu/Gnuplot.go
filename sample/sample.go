@@ -17,7 +17,7 @@ func main() {
 		conf.WithConf()})
 	fun.Configure("_xMin", "-100")
 	fun.Configure("_xMax", "100")
-	fmt.Println(fun)
+	fun.Configure("with", "dots")
 
 	graph := gnuplot.NewGraph2d()
 	graph.AppendFunc(*fun)
