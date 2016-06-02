@@ -298,7 +298,5 @@ func (g *Graph2d) Run() {
 	defer func() {
 		execFile.Close()
 	}()
-	fmt.Println(funcFilenames)
-	fmt.Println(curveFilenames)
 	execFile.WriteString(g.gnuplot(funcFilenames, curveFilenames))
 }
