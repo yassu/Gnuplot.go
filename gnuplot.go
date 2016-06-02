@@ -76,6 +76,7 @@ func (fun *Function2d) Configure(key, val string) {
 			return
 		}
 	}
+	panic(fmt.Sprintf("%v is not a key.", key))
 }
 
 func (fun *Function2d) Configures(sconf map[string]string) {
