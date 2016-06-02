@@ -19,13 +19,14 @@ func NewPlotter() *Plotter {
 	return plotter
 }
 
-func (p *Plotter) Configure(key, val string) {
+func (p *Plotter) Configure(conf *conf.Configure) {
 	for j := range p.configures {
-		if p.configures[j].GetKey() == key {
-			p.configures[j].SetVal(val)
+		if p.configures[j].GetKey() == conf.GetKey() {
+			p.configures[j].SetVal(conf.GetVal())
 			return
 		}
 	}
+	p.configures = append(p.configures, conf)
 }
 
 func (p *Plotter) GetC(key string) string {
@@ -56,19 +57,36 @@ func NewFunction2d() *Function2d {
 	return fun
 }
 
-func (fun *Function2d) Configure(key, val string) {
-	fun.plotter.Configure(key, val)
+// この関数は将来的にprivateにしたい
+func (fun *Function2d) SetConfigure(conf *conf.Configure) {
+	fun.plotter.Configure(conf)
 }
 
-func (fun *Function2d) Configures(confs []*conf.Configure) {
+// この関数は将来的にprivateにしたい
+func (fun *Function2d) SetConfigures(confs []*conf.Configure) {
 	for _, conf := range confs {
-		fun.plotter.Configure(conf.GetKey(), conf.GetVal())
+		fun.plotter.Configure(conf)
+	}
+}
+
+func (fun *Function2d) Configure(key, val string) {
+	for j, conf := range fun.plotter.configures {
+		if conf.GetKey() == key {
+			fun.plotter.configures[j].SetVal(val)
+			return
+		}
+	}
+}
+
+func (fun *Function2d) Configures(sconf map[string]string) {
+	for key, val := range sconf {
+		fun.Configure(key, val)
 	}
 }
 
 func (fun *Function2d) UpdatePlotter(plotter *Plotter) {
 	for _, conf := range plotter.configures {
-		fun.plotter.Configure(conf.GetKey(), conf.GetVal())
+		fun.plotter.Configure(conf)
 	}
 }
 
@@ -130,19 +148,19 @@ func NewCurve2d() *Curve2d {
 	return c
 }
 
-func (c *Curve2d) Configure(key, val string) {
-	c.plotter.Configure(key, val)
+func (c *Curve2d) Configure(conf *conf.Configure) {
+	c.plotter.Configure(conf)
 }
 
 func (c *Curve2d) Configures(confs []*conf.Configure) {
 	for _, conf := range confs {
-		c.plotter.Configure(conf.GetKey(), conf.GetVal())
+		c.plotter.Configure(conf)
 	}
 }
 
 func (c *Curve2d) UpdatePlotter(plotter *Plotter) {
 	for _, conf := range plotter.configures {
-		c.plotter.Configure(conf.GetKey(), conf.GetVal())
+		c.plotter.Configure(conf)
 	}
 }
 
@@ -195,13 +213,13 @@ func NewGraph2d() *Graph2d {
 	return g
 }
 
-func (g *Graph2d) Configure(key, val string) {
-	g.plotter.Configure(key, val)
+func (g *Graph2d) Configure(conf *conf.Configure) {
+	g.plotter.Configure(conf)
 }
 
 func (g *Graph2d) Configures(confs []*conf.Configure) {
 	for _, conf := range confs {
-		g.plotter.Configure(conf.GetKey(), conf.GetVal())
+		g.plotter.Configure(conf)
 	}
 }
 
@@ -219,7 +237,7 @@ func (g Graph2d) writeIntoFile(data string, f *os.File) {
 
 func (g *Graph2d) UpdatePlotter(plotter *Plotter) {
 	for _, conf := range plotter.configures {
-		g.plotter.Configure(conf.GetKey(), conf.GetVal())
+		g.plotter.Configure(conf)
 	}
 }
 
