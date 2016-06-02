@@ -85,12 +85,6 @@ func (fun *Function2d) Configures(sconf map[string]string) {
 	}
 }
 
-func (fun *Function2d) UpdatePlotter(plotter *Plotter) {
-	for _, conf := range plotter.configures {
-		fun.plotter.Configure(conf)
-	}
-}
-
 func (fun *Function2d) GetData() [][2]float64 { // TODO: テスト書く
 	xMin, _ := strconv.ParseFloat(fun.plotter.GetC("_xMin"), 32)
 	xMax, _ := strconv.ParseFloat(fun.plotter.GetC("_xMax"), 32)
@@ -155,12 +149,6 @@ func (c *Curve2d) Configure(conf *conf.Configure) {
 
 func (c *Curve2d) Configures(confs []*conf.Configure) {
 	for _, conf := range confs {
-		c.plotter.Configure(conf)
-	}
-}
-
-func (c *Curve2d) UpdatePlotter(plotter *Plotter) {
-	for _, conf := range plotter.configures {
 		c.plotter.Configure(conf)
 	}
 }
@@ -234,12 +222,6 @@ func (g *Graph2d) AppendCurve(c Curve2d) {
 
 func (g Graph2d) writeIntoFile(data string, f *os.File) {
 	f.WriteString(data)
-}
-
-func (g *Graph2d) UpdatePlotter(plotter *Plotter) {
-	for _, conf := range plotter.configures {
-		g.plotter.Configure(conf)
-	}
 }
 
 func (g Graph2d) gnuplot(funcFilenames []string, curveFilenames []string) string {
