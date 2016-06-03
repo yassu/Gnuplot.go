@@ -108,7 +108,7 @@ func (fun Function2d) gnuplot(filename string) string {
 		if !strings.HasPrefix(conf.GetKey(), "_") {
 			s += fmt.Sprintf(" %v ", conf.GetKey())
 			for _, val := range conf.GetVals() {
-				s += fmt.Sprintf(" %v", conf.GetKey(), val)
+				s += fmt.Sprintf(" %v", val)
 			}
 		}
 	}
@@ -188,7 +188,7 @@ func (c Curve2d) gnuplot(fileName string) string {
 		if !strings.HasPrefix(conf.GetKey(), "_") {
 			s += fmt.Sprintf(" %v ", conf.GetKey())
 			for _, val := range conf.GetVals() {
-				s += fmt.Sprintf(" %v", conf.GetKey(), val)
+				s += fmt.Sprintf(" %v", val)
 			}
 		}
 	}
@@ -247,28 +247,35 @@ func (g Graph2d) gnuplot(funcFilenames []string, curveFilenames []string) string
 
 	for _, conf := range g.plotter.configures {
 		if !strings.HasPrefix(conf.GetKey(), "_") {
-			if conf.GetVal() == "true" {
-				s += fmt.Sprintf("set %v;\n", conf.GetKey())
-			} else if conf.GetVal() == "false" {
-				s += fmt.Sprintf("set no%v;\n", conf.GetKey())
-			} else {
-				s += fmt.Sprintf("set %v %v;\n", conf.GetKey(), conf.GetVal())
+			vals := conf.GetVals()
+			s += "set "
+			if vals[len(vals)-1] == "true" {
+				vals = vals[:len(vals)-1]
+			} else if vals[len(vals)-1] == "false" {
+				vals = vals[:len(vals)-1]
+				s += "no"
 			}
-		}
-	}
+			s += conf.GetKey()
+			for _, val := range vals {
+				s += fmt.Sprintf(" %v ", val)
+			}
+			s += ";\n"
 
-	s += "plot "
-	for j, _ := range g.functions {
-		s += g.functions[j].gnuplot(funcFilenames[j]) + ", "
-	}
-	for j, _ := range g.curves {
-		s += g.curves[j].gnuplot(curveFilenames[j])
-		if j != len(g.curves)-1 {
-			s += ", "
+			s += "plot "
+			for j, _ := range g.functions {
+				s += g.functions[j].gnuplot(funcFilenames[j]) + ", "
+			}
+			for j, _ := range g.curves {
+				s += g.curves[j].gnuplot(curveFilenames[j])
+				if j != len(g.curves)-1 {
+					s += ", "
+				}
+			}
+			s += ";\n"
+
+			s += "pause -1;\n"
 		}
 	}
-	s += ";\n"
-	s += "pause -1;\n"
 	return s
 }
 
