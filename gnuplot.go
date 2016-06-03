@@ -3,6 +3,7 @@ package gnuplot
 import (
 	"fmt"
 	"github.com/yassu/gnuplot.go/conf"
+	"github.com/yassu/gnuplot.go/utils"
 	"io/ioutil"
 	"os"
 	"strconv"
@@ -62,7 +63,7 @@ func (fun *Function2d) setConfigure() {
 
 func (fun *Function2d) Configure(key string, vals []string) {
 	for j, conf := range fun.plotter.configures {
-		if conf.GetKey() == key {
+		if utils.InStr(key, conf.AliasedKeys()) {
 			fun.plotter.configures[j].SetVals(vals)
 			return
 		}
@@ -143,7 +144,7 @@ func (c *Curve2d) setConfigure() {
 
 func (c *Curve2d) Configure(key string, vals []string) {
 	for j, conf := range c.plotter.configures {
-		if conf.GetKey() == key {
+		if utils.InStr(key, conf.AliasedKeys()) {
 			c.plotter.configures[j].SetVals(vals)
 			return
 		}

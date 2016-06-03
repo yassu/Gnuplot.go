@@ -44,13 +44,13 @@ func (conf *Configure) GetVals() []string {
 	return conf.vals
 }
 
-func (conf *Configure) AliasedKeys(s string) bool {
-	return utils.InStr(s, conf.aliasKeys)
+func (conf *Configure) AliasedKeys() []string {
+	return conf.aliasKeys
 }
 
 // Function2d or Curve2d options
 func WithConf() *Configure {
-	return NewConfigure([]string{"with"}, []string{"lines"}, func(vals []string) bool {
+	return NewConfigure([]string{"with", "w"}, []string{"lines"}, func(vals []string) bool {
 		return len(vals) == 1 && utils.InStr(vals[0], []string{
 			"lines", "dots", "steps", "errorbars", "xerrorbar",
 			"xyerrorlines", "points", "impulses", "fsteps", "errorlines", "xerrorlines",

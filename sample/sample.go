@@ -13,7 +13,7 @@ func main() {
 	})
 	fun.Configure("_xMin", []string{"-100"})
 	fun.Configure("_xMax", []string{"100"})
-	fun.Configure("with", []string{"dots"})
+	fun.Configure("w", []string{"dots"})
 
 	c := gnuplot.NewCurve2d()
 	c.SetC(func(t float64) [2]float64 {
