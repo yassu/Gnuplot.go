@@ -22,23 +22,23 @@ func isNum(s string) bool {
 // Configures
 type Configure struct {
 	key               string
-	val               string
-	requiredCondition func(val string) bool
+	vals              []string
+	requiredCondition func(vals []string) bool
 }
 
-func NewConfigure(key, defaultVal string, requiredCondition func(val string) bool) *Configure {
+func NewConfigure(key string, defaultVals []string, requiredCondition func(vals []string) bool) *Configure {
 	conf := new(Configure)
 	conf.key = key
-	conf.val = defaultVal
+	conf.vals = defaultVals
 	conf.requiredCondition = requiredCondition
 	return conf
 }
 
-func (conf *Configure) SetVal(val string) {
-	if conf.requiredCondition(val) {
-		conf.val = val
+func (conf *Configure) SetVal(vals []string) {
+	if conf.requiredCondition(vals) {
+		conf.vals = vals
 	} else {
-		panic(fmt.Sprintf("%v is illegal value of %v.", val, conf.key))
+		panic(fmt.Sprintf("%v is illegal values of %v.", vals, conf.key))
 	}
 }
 
@@ -46,14 +46,14 @@ func (conf *Configure) GetKey() string {
 	return conf.key
 }
 
-func (conf *Configure) GetVal() string {
-	return conf.val
+func (conf *Configure) GetVals() []string {
+	return conf.vals
 }
 
 // Function2d or Curve2d options
 func WithConf() *Configure {
-	return NewConfigure("with", "lines", func(val string) bool {
-		return inStr(val, []string{
+	return NewConfigure("with", []string{"lines"}, func(vals []string) bool {
+		return len(vals) == 1 && inStr(vals[0], []string{
 			"lines", "dots", "steps", "errorbars", "xerrorbar",
 			"xyerrorlines", "points", "impulses", "fsteps", "errorlines", "xerrorlines",
 			"yerrorlines", "surface", "vectors", "parallelaxes"})
@@ -61,19 +61,27 @@ func WithConf() *Configure {
 }
 
 func GoXMinConf() *Configure {
-	return NewConfigure("_xMin", "-10.0", isNum)
+	return NewConfigure("_xMin", []string{"-10.0"}, func(vals []string) bool {
+		return len(vals) == 1 && isNum(vals[0])
+	})
 }
 
 func GoXMaxConf() *Configure {
-	return NewConfigure("_xMax", "10.0", isNum)
+	return NewConfigure("_xMax", []string{"10.0"}, func(vals []string) bool {
+		return len(vals) == 1 && isNum(vals[0])
+	})
 }
 
 func GoTMinConf() *Configure {
-	return NewConfigure("_tMin", "-10.0", isNum)
+	return NewConfigure("_tMin", []string{"-10.0"}, func(vals []string) bool {
+		return len(vals) == 1 && isNum(vals[0])
+	})
 }
 
 func GoTMaxConf() *Configure {
-	return NewConfigure("_tMax", "10.0", isNum)
+	return NewConfigure("_tMax", []string{"10.0"}, func(vals []string) bool {
+		return len(vals) == 1 && isNum(vals[0])
+	})
 }
 
 func Function2dConfs() []*Configure {
@@ -86,8 +94,8 @@ func Curve2dConfs() []*Configure {
 
 // Graph options
 func AnglesConf() *Configure {
-	return NewConfigure("angles", "radians", func(val string) bool {
-		return inStr(val, []string{"degrees", "radians", "true", "false"})
+	return NewConfigure("angles", []string{"radians"}, func(vals []string) bool {
+		return len(vals) == 1 && inStr(vals[0], []string{"degrees", "radians", "true", "false"})
 	})
 }
 
