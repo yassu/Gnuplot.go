@@ -129,10 +129,6 @@ func NewCurve2d() *Curve2d {
 	c := new(Curve2d)
 	c.splitNum = DefaultCurve2dSplitNum
 	c.setConfigure()
-	// c.setConfigure()
-	// c.plotter.configures = map[string]string{
-	// 	"_tMin": "-10.0",
-	// 	"_tMax": "10.0"}
 	return c
 }
 
