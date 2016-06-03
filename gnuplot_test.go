@@ -20,40 +20,24 @@ func TestConfigure2(t *testing.T) {
 	}
 }
 
-// // Function2d
-// func TestFunction2dSplitNum(t *testing.T) {
-// 	fun := new(Function2d)
-// 	fun.Init()
-// 	if fun.splitNum != 1000 {
-// 		t.Errorf("fails in TestFunction2dSplitNum")
-// 	}
-// }
-//
-// func TestFunction2dUpdatePlotter(t *testing.T) {
-// 	fun := new(Function2d)
-// 	fun.Init()
-//
-// 	p := new(Plotter)
-// 	p.Init()
-// 	p.Configure("xMin", "12345")
-// 	fun.UpdatePlotter(p)
-// 	if fun.plotter.GetC("xMin") != "12345" {
-// 		t.Errorf("fails in TestFunction2dUpdatePlotter")
-// 	}
-// }
-//
-// // func TestGetGnuData(t *testing.T){
-// //     // without panic
-// //     fun := new(Function2d)
-// //     fun.Init()
-// //
-// //     f := func(x float64) float64 {
-// //         return x * x
-// //     }
-// //     fun.SetF(f)
-// //     fmt.Println(fun.getGnuData())
-// // }
-//
+// Function2d
+func TestFunction2dSplitNum(t *testing.T) {
+	fun := NewFunction2d()
+	if fun.splitNum != 1000 {
+		t.Errorf("fails in TestFunction2dSplitNum")
+	}
+}
+
+func TestGetGnuData(t *testing.T) {
+	fun := NewFunction2d()
+
+	f := func(x float64) float64 {
+		return x * x
+	}
+	fun.SetF(f)
+	fun.getGnuData()
+}
+
 // // Curve2d
 // func TestCurve2dSplitNum(t *testing.T) {
 // 	c := new(Curve2d)
