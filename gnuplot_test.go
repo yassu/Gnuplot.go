@@ -38,24 +38,14 @@ func TestGetGnuData(t *testing.T) {
 	fun.getGnuData()
 }
 
-// // Curve2d
-// func TestCurve2dSplitNum(t *testing.T) {
-// 	c := new(Curve2d)
-// 	c.Init()
-// 	if c.splitNum != 100 {
-// 		t.Errorf("fails in TestFunction2dSplitNum")
-// 	}
-// }
-//
-// func TestCurve2dUpdatePlotter(t *testing.T) {
-// 	c := new(Curve2d)
-// 	c.Init()
-//
-// 	p := new(Plotter)
-// 	p.Init()
-// 	p.Configure("tMin", "12345")
-// 	c.UpdatePlotter(p)
-// 	if c.plotter.GetC("tMin") != "12345" {
-// 		t.Errorf("fails in TestCurve2dUpdatePlotter")
-// 	}
-// }
+// Curve2d
+func TestNewCurve2d(t *testing.T) {
+	NewCurve2d()
+}
+
+func TestCurve2dSplitNum(t *testing.T) {
+	c := NewCurve2d()
+	if c.splitNum != 1000 {
+		t.Errorf("fails in TestFunction2dSplitNum")
+	}
+}
