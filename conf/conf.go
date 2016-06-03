@@ -34,7 +34,7 @@ func NewConfigure(key string, defaultVals []string, requiredCondition func(vals 
 	return conf
 }
 
-func (conf *Configure) SetVal(vals []string) {
+func (conf *Configure) SetVals(vals []string) {
 	if conf.requiredCondition(vals) {
 		conf.vals = vals
 	} else {

@@ -22,20 +22,20 @@ func NewPlotter() *Plotter {
 func (p *Plotter) Configure(conf *conf.Configure) {
 	for j := range p.configures {
 		if p.configures[j].GetKey() == conf.GetKey() {
-			p.configures[j].SetVal(conf.GetVal())
+			p.configures[j].SetVals(conf.GetVals())
 			return
 		}
 	}
 	p.configures = append(p.configures, conf)
 }
 
-func (p *Plotter) GetC(key string) string {
+func (p *Plotter) GetC(key string) []string {
 	for j := range p.configures {
 		if p.configures[j].GetKey() == key {
-			return p.configures[j].GetVal()
+			return p.configures[j].GetVals()
 		}
 	}
-	return ""
+	return []string{}
 }
 
 // Function2d
@@ -60,25 +60,25 @@ func (fun *Function2d) setConfigure() {
 	}
 }
 
-func (fun *Function2d) Configure(key, val string) {
+func (fun *Function2d) Configure(key string, vals []string) {
 	for j, conf := range fun.plotter.configures {
 		if conf.GetKey() == key {
-			fun.plotter.configures[j].SetVal(val)
+			fun.plotter.configures[j].SetVals(vals)
 			return
 		}
 	}
 	panic(fmt.Sprintf("%v is not a key.", key))
 }
 
-func (fun *Function2d) Configures(sconf map[string]string) {
-	for key, val := range sconf {
-		fun.Configure(key, val)
+func (fun *Function2d) Configures(sconf map[string][]string) {
+	for key, vals := range sconf {
+		fun.Configure(key, vals)
 	}
 }
 
 func (fun *Function2d) GetData() [][2]float64 { // TODO: テスト書く
-	xMin, _ := strconv.ParseFloat(fun.plotter.GetC("_xMin"), 32)
-	xMax, _ := strconv.ParseFloat(fun.plotter.GetC("_xMax"), 32)
+	xMin, _ := strconv.ParseFloat(fun.plotter.GetC("_xMin")[0], 32)
+	xMax, _ := strconv.ParseFloat(fun.plotter.GetC("_xMax")[0], 32)
 	var sep = float64(xMax-xMin) / float64(fun.splitNum-1)
 
 	var a [][2]float64
@@ -106,7 +106,10 @@ func (fun Function2d) gnuplot(filename string) string {
 	var s = fmt.Sprintf("\"%v\"", filename)
 	for _, conf := range fun.plotter.configures {
 		if !strings.HasPrefix(conf.GetKey(), "_") {
-			s += fmt.Sprintf(" %v %v", conf.GetKey(), conf.GetVal())
+			s += fmt.Sprintf(" %v ", conf.GetKey())
+			for _, val := range conf.GetVals() {
+				s += fmt.Sprintf(" %v", conf.GetKey(), val)
+			}
 		}
 	}
 	return s
@@ -138,25 +141,25 @@ func (c *Curve2d) setConfigure() {
 	}
 }
 
-func (c *Curve2d) Configure(key, val string) {
+func (c *Curve2d) Configure(key string, vals []string) {
 	for j, conf := range c.plotter.configures {
 		if conf.GetKey() == key {
-			c.plotter.configures[j].SetVal(val)
+			c.plotter.configures[j].SetVals(vals)
 			return
 		}
 	}
 	panic(fmt.Sprintf("%v is not a key.", key))
 }
 
-func (c *Curve2d) Configures(sconf map[string]string) {
-	for key, val := range sconf {
-		c.Configure(key, val)
+func (c *Curve2d) Configures(sconf map[string][]string) {
+	for key, vals := range sconf {
+		c.Configure(key, vals)
 	}
 }
 
 func (c *Curve2d) GetData() [][2]float64 { // TODO: test
-	tMin, _ := strconv.ParseFloat(c.plotter.GetC("_tMin"), 32)
-	tMax, _ := strconv.ParseFloat(c.plotter.GetC("_tMax"), 32)
+	tMin, _ := strconv.ParseFloat(c.plotter.GetC("_tMin")[0], 32)
+	tMax, _ := strconv.ParseFloat(c.plotter.GetC("_tMax")[0], 32)
 	var sep = float64(tMax-tMin) / float64(c.splitNum-1)
 
 	var a [][2]float64
@@ -183,7 +186,10 @@ func (c Curve2d) gnuplot(fileName string) string {
 	var s = fmt.Sprintf("\"%v\" ", fileName)
 	for _, conf := range c.plotter.configures {
 		if !strings.HasPrefix(conf.GetKey(), "_") {
-			s += fmt.Sprintf(" %v %v", conf.GetKey(), conf.GetVal())
+			s += fmt.Sprintf(" %v ", conf.GetKey())
+			for _, val := range conf.GetVals() {
+				s += fmt.Sprintf(" %v", conf.GetKey(), val)
+			}
 		}
 	}
 	return s
@@ -208,19 +214,19 @@ func (g *Graph2d) setConfigure() {
 	}
 }
 
-func (g *Graph2d) Configure(key, val string) {
+func (g *Graph2d) Configure(key string, vals []string) {
 	for j, conf := range g.plotter.configures {
 		if conf.GetKey() == key {
-			g.plotter.configures[j].SetVal(val)
+			g.plotter.configures[j].SetVals(vals)
 			return
 		}
 	}
 	panic(fmt.Sprintf("%v is not a key.", key))
 }
 
-func (g *Graph2d) Configures(sconf map[string]string) {
-	for key, val := range sconf {
-		g.Configure(key, val)
+func (g *Graph2d) Configures(sconf map[string][]string) {
+	for key, vals := range sconf {
+		g.Configure(key, vals)
 	}
 }
 
