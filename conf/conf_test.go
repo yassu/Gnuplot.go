@@ -1,35 +1,36 @@
 package conf
 
 import (
+	"github.com/yassu/gnuplot.go/utils"
 	"testing"
 )
 
 func TestInStr0(t *testing.T) {
-	if inStr("a", []string{}) != false {
+	if utils.InStr("a", []string{}) != false {
 		t.Errorf("fals in TestInStr0")
 	}
 }
 
 func TestInStr1(t *testing.T) {
-	if inStr("a", []string{"a", "b", "c"}) != true {
+	if utils.InStr("a", []string{"a", "b", "c"}) != true {
 		t.Errorf("fals in TestInStr1")
 	}
 }
 
 func TestInStr2(t *testing.T) {
-	if inStr("c", []string{"a", "b", "c"}) != true {
+	if utils.InStr("c", []string{"a", "b", "c"}) != true {
 		t.Errorf("fals in TestInStr2")
 	}
 }
 
 func TestInStr3(t *testing.T) {
-	if inStr("b", []string{"a", "b", "c"}) != true {
+	if utils.InStr("b", []string{"a", "b", "c"}) != true {
 		t.Errorf("fals in TestInStr3")
 	}
 }
 
 func TestInStr4(t *testing.T) {
-	if inStr("d", []string{"a", "b", "c"}) != false {
+	if utils.InStr("d", []string{"a", "b", "c"}) != false {
 		t.Errorf("fals in TestInStr4")
 	}
 }
