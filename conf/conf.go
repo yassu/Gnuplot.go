@@ -23,7 +23,7 @@ func isSixHex(s string) bool {
 }
 
 func isEightHex(s string) bool {
-	r := regexp.MustCompile(`^[0-9a-f]{6}$`)
+	r := regexp.MustCompile(`^[0-9a-f]{8}$`)
 	return r.MatchString(s)
 }
 

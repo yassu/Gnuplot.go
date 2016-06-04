@@ -76,3 +76,63 @@ func TestIsNum7(t *testing.T) {
 		t.Errorf("falis in TestIsNum7")
 	}
 }
+
+func TestIsSixHex(t *testing.T) {
+	if isSixHex("0") != false {
+		t.Errorf("fails in TestIsSixHex")
+	}
+}
+
+func TestIsSixHex2(t *testing.T) {
+	if isSixHex("000000") != true {
+		t.Errorf("fails in TestIsSixHex2")
+	}
+}
+
+func TestIsSixHex3(t *testing.T) {
+	if isSixHex("00000") != false {
+		t.Errorf("fails in TestIsSixHex3")
+	}
+}
+
+func TestIsEightHex(t *testing.T) {
+	if isEightHex("0") != false {
+		t.Errorf("fails in TestIsEightHex")
+	}
+}
+
+func TestIsEightHex2(t *testing.T) {
+	if isEightHex("00000000") != true {
+		t.Errorf("fails in TestIsEightHex2")
+	}
+}
+
+func TestIsEightHex3(t *testing.T) {
+	if isEightHex("0000000") != false {
+		t.Errorf("fails in TestIsEightHex3")
+	}
+}
+
+func TestIsSmallFloat0(t *testing.T) {
+	if isSmallFloat("a") != false {
+		t.Errorf("fails in TestIsSmallFloat")
+	}
+}
+
+func TestIsSmallFloat(t *testing.T) {
+	if isSmallFloat("0") != true {
+		t.Errorf("fails in TestIsSmallFloat")
+	}
+}
+
+func TestIsSmallFloat2(t *testing.T) {
+	if isSmallFloat("1") != true {
+		t.Errorf("fails in TestIsSmallFloat2")
+	}
+}
+
+func TestIsSmallFloat3(t *testing.T) {
+	if isSmallFloat("0.3") != true {
+		t.Errorf("fails in TestIsSmallFloat3")
+	}
+}
