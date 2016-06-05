@@ -136,3 +136,23 @@ func TestIsSmallFloat3(t *testing.T) {
 		t.Errorf("fails in TestIsSmallFloat3")
 	}
 }
+
+func NewConfigureTest(t *testing.T) {
+	conf := WithConf()
+
+	if conf.key != "with" {
+		t.Errorf("fails in key test of NewConfigureTest")
+	}
+
+	if len(conf.aliasKeys) != 2 || conf.aliasKeys[0] != "with" || conf.aliasKeys[1] != "w" {
+		t.Errorf("fails in aliasKeys test of NewConfigureTest")
+	}
+
+	if len(conf.vals) != 1 || conf.vals[0] != "lines" {
+		t.Errorf("fails in vals test of NewConfigureTest")
+	}
+
+	if conf.requiredCondition([]string{}) != false {
+		t.Errorf("fails in requiredCondition test of NewConfigureTest")
+	}
+}
