@@ -152,56 +152,6 @@ func LineColorConf() *Configure {
 	})
 }
 
-func ArrowConf() *Configure {
-	return NewConfigure([]string{"arrow"}, []string{}, func(vals []string) bool {
-		if len(vals) == 0 {
-			return true
-		}
-
-		// set arrow <tag> from <position> to <position>
-		if len(vals) == 4 && isNum(vals[0]) &&
-			vals[1] == "from" && vals[3] == "to" &&
-			utils.InStr(vals[2], POSITIONS) &&
-			utils.InStr(vals[4], POSITIONS) {
-			return true
-		}
-
-		// set arrow from <position> to <position>
-		if len(vals) == 3 &&
-			vals[0] == "from" && vals[2] == "to" &&
-			utils.InStr(vals[1], POSITIONS) &&
-			utils.InStr(vals[3], POSITIONS) {
-			return true
-		}
-
-		// set arrow <tag> from <position> rto <position>
-		if len(vals) == 4 && isNum(vals[0]) &&
-			vals[1] == "from" && vals[3] == "rto" &&
-			utils.InStr(vals[2], POSITIONS) &&
-			utils.InStr(vals[4], POSITIONS) {
-			return true
-		}
-
-		// set arrow from <position> rto <position>
-		if len(vals) == 3 &&
-			vals[0] == "from" && vals[2] == "rto" &&
-			utils.InStr(vals[1], POSITIONS) &&
-			utils.InStr(vals[3], POSITIONS) {
-			return true
-		}
-
-		// set arrow <tag> from <position> length <coord> angle <ang> (until)
-		if len(vals) == 7 &&
-			vals[1] == "from" && vals[3] == "length" && vals[5] == "angle" &&
-			isIntStr(vals[0]) {
-			return true
-		}
-		// TODO: until
-
-		return false
-	})
-}
-
 func GoXMinConf() *Configure {
 	return NewConfigure([]string{"_xMin"}, []string{"-10.0"}, func(vals []string) bool {
 		return len(vals) == 1 && isNum(vals[0])
@@ -235,9 +185,286 @@ func Curve2dConfs() []*Configure {
 }
 
 // Graph options
-func AnglesConf() *Configure {
+//     angles            arrow             autoscale         bars
+//     bmargin           border            boxwidth          cbdata
+//     cbdtics           cblabel           cbmtics           cbrange
+//     cbtics            clabel            clip              cntrlabel
+//     cntrparam         color             colorbox          colorsequence
+//     contour           dashtype          data              datafile
+//     date_specifiers   decimalsign       dgrid3d           dummy
+//     encoding          fit               fontpath          format
+//     function          grid              hidden3d          history
+//     historysize       isosamples        key               label
+//     linetype          link              lmargin           loadpath
+//     locale            log               logscale          macros
+//     mapping           margin            margins           missing
+//     monochrome        mouse             multiplot         mx2tics
+//     mxtics            my2tics           mytics            mztics
+//     object            offsets           origin            output
+//     palette           parametric        paxis             pm3d
+//     pointintervalbox  pointsize         polar             print
+//     psdir             raxis             rmargin           rrange
+//     rtics             samples           size              style
+//     surface           table             term              terminal
+//     termoption        tics              ticscale          ticslevel
+//     time_specifiers   timefmt           timestamp         title
+//     tmargin           trange            urange            view
+//     vrange            x2data            x2dtics           x2label
+//     x2mtics           x2range           x2tics            x2zeroaxis
+//     xdata             xdtics            xlabel            xmtics
+//     xrange            xtics             xyplane           xzeroaxis
+//     y2data            y2dtics           y2label           y2mtics
+//     y2range           y2tics            y2zeroaxis        ydata
+//     ydtics            ylabel            ymtics            yrange
+func Graph2dAnglesConf() *Configure {
 	return NewConfigure([]string{"angles"}, []string{"radians"}, func(vals []string) bool {
 		return len(vals) == 1 && utils.InStr(vals[0], []string{"degrees", "radians", "true", "false"})
+	})
+}
+
+func Graph2dArrowConf() *Configure {
+	return NewConfigure([]string{"arrow"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dAutoScaleConf() *Configure {
+	return NewConfigure([]string{"autoscale"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dBarsConf() *Configure {
+	return NewConfigure([]string{"bars"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dBmarginConf() *Configure {
+	return NewConfigure([]string{"bmargin"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dBorderConf() *Configure {
+	return NewConfigure([]string{"border"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dBoxwidthConf() *Configure {
+	return NewConfigure([]string{"boxwidth"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dCbdataConf() *Configure {
+	return NewConfigure([]string{"cbdata"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dCbdticsConf() *Configure {
+	return NewConfigure([]string{"cbdtics"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dCblabelConf() *Configure {
+	return NewConfigure([]string{"cblabel"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dCbmticsConf() *Configure {
+	return NewConfigure([]string{"cbmtics"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dCbrangeConf() *Configure {
+	return NewConfigure([]string{"cbrange"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dCbticsConf() *Configure {
+	return NewConfigure([]string{"cbtics"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dClabelConf() *Configure {
+	return NewConfigure([]string{"clabel"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dClipConf() *Configure {
+	return NewConfigure([]string{"clip"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dCntrlabelConf() *Configure {
+	return NewConfigure([]string{"cntrlabel"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dCntrparamConf() *Configure {
+	return NewConfigure([]string{"cntrparam"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dColorConf() *Configure {
+	return NewConfigure([]string{"color"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dColorboxConf() *Configure {
+	return NewConfigure([]string{"colorbox"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dColorsequenceConf() *Configure {
+	return NewConfigure([]string{"colorsequence"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dContourConf() *Configure {
+	return NewConfigure([]string{"contour"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dDashtypeConf() *Configure {
+	return NewConfigure([]string{"dashtype"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dDataConf() *Configure {
+	return NewConfigure([]string{"data"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dDatafileConf() *Configure {
+	return NewConfigure([]string{"datafile"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dDateSpecifiersConf() *Configure {
+	return NewConfigure([]string{"date_specifiers"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dDecimalsignConf() *Configure {
+	return NewConfigure([]string{"decimalsign"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dDgrid3dConf() *Configure {
+	return NewConfigure([]string{"dgrid3d"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dDummyConf() *Configure {
+	return NewConfigure([]string{"dummy"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dEncodingConf() *Configure {
+	return NewConfigure([]string{"encoding"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dFitConf() *Configure {
+	return NewConfigure([]string{"fit"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dFontPathConf() *Configure {
+	return NewConfigure([]string{"fontpath"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dFormatConf() *Configure {
+	return NewConfigure([]string{"format"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dFunctionConf() *Configure {
+	return NewConfigure([]string{"function"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dGridConf() *Configure {
+	return NewConfigure([]string{"grid"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dHidden3dConf() *Configure {
+	return NewConfigure([]string{"hidden3d"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dHistoryConf() *Configure {
+	return NewConfigure([]string{"history"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dHistorysizeConf() *Configure {
+	return NewConfigure([]string{"historysize"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dIsosamplesConf() *Configure {
+	return NewConfigure([]string{"isosamples"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dKeyConf() *Configure {
+	return NewConfigure([]string{"key"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dLabelConf() *Configure {
+	return NewConfigure([]string{"label"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dLinetypeConf() *Configure {
+	return NewConfigure([]string{"label"}, []string{""}, func(vals []string) bool {
+		return true
+	})
+}
+
+func Graph2dLinkConf() *Configure {
+	return NewConfigure([]string{"link"}, []string{""}, func(vals []string) bool {
+		return true
 	})
 }
 
