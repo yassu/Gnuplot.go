@@ -73,16 +73,6 @@ func (conf *Configure) AliasedKeys() []string {
 	return conf.aliasKeys
 }
 
-// Function2d or Curve2d options
-func WithConf() *Configure {
-	return NewConfigure([]string{"with", "w"}, []string{"lines"}, func(vals []string) bool {
-		return len(vals) == 1 && utils.InStr(vals[0], []string{
-			"lines", "dots", "steps", "errorbars", "xerrorbar",
-			"xyerrorlines", "points", "impulses", "fsteps", "errorlines", "xerrorlines",
-			"yerrorlines", "surface", "vectors", "parallelaxes"})
-	})
-}
-
 var COLOR_NAMES = []string{
 	"white", "black", "dark-grey", "red", "web-green", "web-blue",
 	"dark-magenta", "dark-cyan", "dark-orange", "dark-yellow", "royalblue",
@@ -106,6 +96,18 @@ var COLOR_NAMES = []string{
 	"dark-gray", "slategray",
 	"gray0", "gray10", "gray20", "gray30", "gray40", "gray50", "gray60",
 	"gray70", "gray80", "gray90", "gray100"}
+
+var POSITIONS = []string{"x", "y", "first", "second", "graph", "screen", "character"}
+
+// Function2d or Curve2d options
+func WithConf() *Configure {
+	return NewConfigure([]string{"with", "w"}, []string{"lines"}, func(vals []string) bool {
+		return len(vals) == 1 && utils.InStr(vals[0], []string{
+			"lines", "dots", "steps", "errorbars", "xerrorbar",
+			"xyerrorlines", "points", "impulses", "fsteps", "errorlines", "xerrorlines",
+			"yerrorlines", "surface", "vectors", "parallelaxes"})
+	})
+}
 
 func LineColorConf() *Configure {
 	return NewConfigure([]string{"linecolor", "lc"}, []string{"1"}, func(vals []string) bool {
@@ -146,6 +148,56 @@ func LineColorConf() *Configure {
 		if len(vals) == 2 && vals[0] == "rgbcolor" && isIntStr(vals[1]) {
 			return true
 		}
+		return false
+	})
+}
+
+func ArrowConf() *Configure {
+	return NewConfigure([]string{"arrow"}, []string{}, func(vals []string) bool {
+		if len(vals) == 0 {
+			return true
+		}
+
+		// set arrow <tag> from <position> to <position>
+		if len(vals) == 4 && isNum(vals[0]) &&
+			vals[1] == "from" && vals[3] == "to" &&
+			utils.InStr(vals[2], POSITIONS) &&
+			utils.InStr(vals[4], POSITIONS) {
+			return true
+		}
+
+		// set arrow from <position> to <position>
+		if len(vals) == 3 &&
+			vals[0] == "from" && vals[2] == "to" &&
+			utils.InStr(vals[1], POSITIONS) &&
+			utils.InStr(vals[3], POSITIONS) {
+			return true
+		}
+
+		// set arrow <tag> from <position> rto <position>
+		if len(vals) == 4 && isNum(vals[0]) &&
+			vals[1] == "from" && vals[3] == "rto" &&
+			utils.InStr(vals[2], POSITIONS) &&
+			utils.InStr(vals[4], POSITIONS) {
+			return true
+		}
+
+		// set arrow from <position> rto <position>
+		if len(vals) == 3 &&
+			vals[0] == "from" && vals[2] == "rto" &&
+			utils.InStr(vals[1], POSITIONS) &&
+			utils.InStr(vals[3], POSITIONS) {
+			return true
+		}
+
+		// set arrow <tag> from <position> length <coord> angle <ang> (until)
+		if len(vals) == 7 &&
+			vals[1] == "from" && vals[3] == "length" && vals[5] == "angle" &&
+			isIntStr(vals[0]) {
+			return true
+		}
+		// TODO: until
+
 		return false
 	})
 }
