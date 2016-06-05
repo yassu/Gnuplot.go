@@ -261,22 +261,22 @@ func (g Graph2d) gnuplot(funcFilenames []string, curveFilenames []string) string
 				s += fmt.Sprintf(" %v ", val)
 			}
 			s += ";\n"
-
-			s += "plot "
-			for j, _ := range g.functions {
-				s += g.functions[j].gnuplot(funcFilenames[j]) + ", "
-			}
-			for j, _ := range g.curves {
-				s += g.curves[j].gnuplot(curveFilenames[j])
-				if j != len(g.curves)-1 {
-					s += ", "
-				}
-			}
-			s += ";\n"
-
-			s += "pause -1;\n"
 		}
 	}
+
+	s += "plot "
+	for j, _ := range g.functions {
+		s += g.functions[j].gnuplot(funcFilenames[j]) + ", "
+	}
+	for j, _ := range g.curves {
+		s += g.curves[j].gnuplot(curveFilenames[j])
+		if j != len(g.curves)-1 {
+			s += ", "
+		}
+	}
+	s += ";\n"
+
+	s += "pause -1;\n"
 	return s
 }
 
