@@ -156,3 +156,23 @@ func NewConfigureTest(t *testing.T) {
 		t.Errorf("fails in requiredCondition test of NewConfigureTest")
 	}
 }
+
+func TestConfigureSetVals(t *testing.T) {
+	conf := NewConfigure([]string{"key1", "key2"}, []string{"val1", "val2"}, func(vals []string) bool {
+		return true
+	})
+	conf.SetVals([]string{"abc"})
+	vals := conf.vals
+	if len(vals) != 1 || vals[0] != "abc" {
+		t.Errorf("fails in TestConfigureSetVals")
+	}
+}
+
+func TestConfigureGetKey(t *testing.T) {
+	conf := NewConfigure([]string{"key1", "key2"}, []string{"val1", "val2"}, func(vals []string) bool {
+		return true
+	})
+	if conf.GetKey() != "key1" {
+		t.Errorf("fails in TestConfigureGetKey")
+	}
+}
