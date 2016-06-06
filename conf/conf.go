@@ -216,450 +216,874 @@ func Curve2dConfs() []*Configure {
 //     y2data            y2dtics           y2label           y2mtics
 //     y2range           y2tics            y2zeroaxis        ydata
 //     ydtics            ylabel            ymtics            yrange
-func Graph2dAnglesConf() *Configure {
+func GraphAnglesConf() *Configure {
 	return NewConfigure([]string{"angles"}, []string{"radians"}, func(vals []string) bool {
 		return len(vals) == 1 && utils.InStr(vals[0], []string{"degrees", "radians", "true", "false"})
 	})
 }
 
-func Graph2dArrowConf() *Configure {
-	return NewConfigure([]string{"arrow"}, []string{""}, func(vals []string) bool {
+func GraphArrowConf() *Configure {
+	return NewConfigure([]string{"arrow"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dAutoScaleConf() *Configure {
-	return NewConfigure([]string{"autoscale"}, []string{""}, func(vals []string) bool {
+func GraphAutoScaleConf() *Configure {
+	return NewConfigure([]string{"autoscale"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dBarsConf() *Configure {
-	return NewConfigure([]string{"bars"}, []string{""}, func(vals []string) bool {
+func GraphBarsConf() *Configure {
+	return NewConfigure([]string{"bars"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dBmarginConf() *Configure {
-	return NewConfigure([]string{"bmargin"}, []string{""}, func(vals []string) bool {
+func GraphBmarginConf() *Configure {
+	return NewConfigure([]string{"bmargin"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dBorderConf() *Configure {
-	return NewConfigure([]string{"border"}, []string{""}, func(vals []string) bool {
+func GraphBorderConf() *Configure {
+	return NewConfigure([]string{"border"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dBoxwidthConf() *Configure {
-	return NewConfigure([]string{"boxwidth"}, []string{""}, func(vals []string) bool {
+func GraphBoxwidthConf() *Configure {
+	return NewConfigure([]string{"boxwidth"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dCbdataConf() *Configure {
-	return NewConfigure([]string{"cbdata"}, []string{""}, func(vals []string) bool {
+func GraphCbdataConf() *Configure {
+	return NewConfigure([]string{"cbdata"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dCbdticsConf() *Configure {
-	return NewConfigure([]string{"cbdtics"}, []string{""}, func(vals []string) bool {
+func GraphCbdticsConf() *Configure {
+	return NewConfigure([]string{"cbdtics"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dCblabelConf() *Configure {
-	return NewConfigure([]string{"cblabel"}, []string{""}, func(vals []string) bool {
+func GraphCblabelConf() *Configure {
+	return NewConfigure([]string{"cblabel"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dCbmticsConf() *Configure {
-	return NewConfigure([]string{"cbmtics"}, []string{""}, func(vals []string) bool {
+func GraphCbmticsConf() *Configure {
+	return NewConfigure([]string{"cbmtics"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dCbrangeConf() *Configure {
-	return NewConfigure([]string{"cbrange"}, []string{""}, func(vals []string) bool {
+func GraphCbrangeConf() *Configure {
+	return NewConfigure([]string{"cbrange"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dCbticsConf() *Configure {
-	return NewConfigure([]string{"cbtics"}, []string{""}, func(vals []string) bool {
+func GraphCbticsConf() *Configure {
+	return NewConfigure([]string{"cbtics"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dClabelConf() *Configure {
-	return NewConfigure([]string{"clabel"}, []string{""}, func(vals []string) bool {
+func GraphClabelConf() *Configure {
+	return NewConfigure([]string{"clabel"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dClipConf() *Configure {
-	return NewConfigure([]string{"clip"}, []string{""}, func(vals []string) bool {
+func GraphClipConf() *Configure {
+	return NewConfigure([]string{"clip"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dCntrlabelConf() *Configure {
-	return NewConfigure([]string{"cntrlabel"}, []string{""}, func(vals []string) bool {
+func GraphCntrlabelConf() *Configure {
+	return NewConfigure([]string{"cntrlabel"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dCntrparamConf() *Configure {
-	return NewConfigure([]string{"cntrparam"}, []string{""}, func(vals []string) bool {
+func GraphCntrparamConf() *Configure {
+	return NewConfigure([]string{"cntrparam"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dColorConf() *Configure {
-	return NewConfigure([]string{"color"}, []string{""}, func(vals []string) bool {
+func GraphColorConf() *Configure {
+	return NewConfigure([]string{"color"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dColorboxConf() *Configure {
-	return NewConfigure([]string{"colorbox"}, []string{""}, func(vals []string) bool {
+func GraphColorboxConf() *Configure {
+	return NewConfigure([]string{"colorbox"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dColorsequenceConf() *Configure {
-	return NewConfigure([]string{"colorsequence"}, []string{""}, func(vals []string) bool {
+func GraphColorsequenceConf() *Configure {
+	return NewConfigure([]string{"colorsequence"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dContourConf() *Configure {
-	return NewConfigure([]string{"contour"}, []string{""}, func(vals []string) bool {
+func GraphContourConf() *Configure {
+	return NewConfigure([]string{"contour"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dDashtypeConf() *Configure {
-	return NewConfigure([]string{"dashtype"}, []string{""}, func(vals []string) bool {
+func GraphDashtypeConf() *Configure {
+	return NewConfigure([]string{"dashtype"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dDataConf() *Configure {
-	return NewConfigure([]string{"data"}, []string{""}, func(vals []string) bool {
+func GraphDataConf() *Configure {
+	return NewConfigure([]string{"data"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dDatafileConf() *Configure {
-	return NewConfigure([]string{"datafile"}, []string{""}, func(vals []string) bool {
+func GraphDatafileConf() *Configure {
+	return NewConfigure([]string{"datafile"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dDateSpecifiersConf() *Configure {
-	return NewConfigure([]string{"date_specifiers"}, []string{""}, func(vals []string) bool {
+func GraphDateSpecifiersConf() *Configure {
+	return NewConfigure([]string{"date_specifiers"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dDecimalsignConf() *Configure {
-	return NewConfigure([]string{"decimalsign"}, []string{""}, func(vals []string) bool {
+func GraphDecimalsignConf() *Configure {
+	return NewConfigure([]string{"decimalsign"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dDgrid3dConf() *Configure {
-	return NewConfigure([]string{"dgrid3d"}, []string{""}, func(vals []string) bool {
+func GraphDgrid3dConf() *Configure {
+	return NewConfigure([]string{"dgrid3d"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dDummyConf() *Configure {
-	return NewConfigure([]string{"dummy"}, []string{""}, func(vals []string) bool {
+func GraphDummyConf() *Configure {
+	return NewConfigure([]string{"dummy"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dEncodingConf() *Configure {
-	return NewConfigure([]string{"encoding"}, []string{""}, func(vals []string) bool {
+func GraphEncodingConf() *Configure {
+	return NewConfigure([]string{"encoding"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dFitConf() *Configure {
-	return NewConfigure([]string{"fit"}, []string{""}, func(vals []string) bool {
+func GraphFitConf() *Configure {
+	return NewConfigure([]string{"fit"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dFontPathConf() *Configure {
-	return NewConfigure([]string{"fontpath"}, []string{""}, func(vals []string) bool {
+func GraphFontPathConf() *Configure {
+	return NewConfigure([]string{"fontpath"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dFormatConf() *Configure {
-	return NewConfigure([]string{"format"}, []string{""}, func(vals []string) bool {
+func GraphFormatConf() *Configure {
+	return NewConfigure([]string{"format"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dFunctionConf() *Configure {
-	return NewConfigure([]string{"function"}, []string{""}, func(vals []string) bool {
+func GraphFunctionConf() *Configure {
+	return NewConfigure([]string{"function"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dGridConf() *Configure {
-	return NewConfigure([]string{"grid"}, []string{""}, func(vals []string) bool {
+func GraphGridConf() *Configure {
+	return NewConfigure([]string{"grid"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dHidden3dConf() *Configure {
-	return NewConfigure([]string{"hidden3d"}, []string{""}, func(vals []string) bool {
+func GraphHidden3dConf() *Configure {
+	return NewConfigure([]string{"hidden3d"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dHistoryConf() *Configure {
-	return NewConfigure([]string{"history"}, []string{""}, func(vals []string) bool {
+func GraphHistoryConf() *Configure {
+	return NewConfigure([]string{"history"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dHistorysizeConf() *Configure {
-	return NewConfigure([]string{"historysize"}, []string{""}, func(vals []string) bool {
+func GraphHistorysizeConf() *Configure {
+	return NewConfigure([]string{"historysize"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dIsosamplesConf() *Configure {
-	return NewConfigure([]string{"isosamples"}, []string{""}, func(vals []string) bool {
+func GraphIsosamplesConf() *Configure {
+	return NewConfigure([]string{"isosamples"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dKeyConf() *Configure {
-	return NewConfigure([]string{"key"}, []string{""}, func(vals []string) bool {
+func GraphKeyConf() *Configure {
+	return NewConfigure([]string{"key"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dLabelConf() *Configure {
-	return NewConfigure([]string{"label"}, []string{""}, func(vals []string) bool {
+func GraphLabelConf() *Configure {
+	return NewConfigure([]string{"label"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dLinetypeConf() *Configure {
-	return NewConfigure([]string{"label"}, []string{""}, func(vals []string) bool {
+func GraphLinetypeConf() *Configure {
+	return NewConfigure([]string{"label"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dLinkConf() *Configure {
-	return NewConfigure([]string{"link"}, []string{""}, func(vals []string) bool {
+func GraphLinkConf() *Configure {
+	return NewConfigure([]string{"link"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dLmarginConf() *Configure {
-	return NewConfigure([]string{"lmargin"}, []string{""}, func(vals []string) bool {
+func GraphLmarginConf() *Configure {
+	return NewConfigure([]string{"lmargin"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dLoadpathConf() *Configure {
-	return NewConfigure([]string{"loadpath"}, []string{""}, func(vals []string) bool {
+func GraphLoadpathConf() *Configure {
+	return NewConfigure([]string{"loadpath"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dLocaleConf() *Configure {
-	return NewConfigure([]string{"locale"}, []string{""}, func(vals []string) bool {
+func GraphLocaleConf() *Configure {
+	return NewConfigure([]string{"locale"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dLogConf() *Configure {
-	return NewConfigure([]string{"log"}, []string{""}, func(vals []string) bool {
+func GraphLogConf() *Configure {
+	return NewConfigure([]string{"log"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dLogscaleConf() *Configure {
-	return NewConfigure([]string{"logscale"}, []string{""}, func(vals []string) bool {
+func GraphLogscaleConf() *Configure {
+	return NewConfigure([]string{"logscale"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dMacrosConf() *Configure {
-	return NewConfigure([]string{"macros"}, []string{""}, func(vals []string) bool {
+func GraphMacrosConf() *Configure {
+	return NewConfigure([]string{"macros"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dMappingConf() *Configure {
-	return NewConfigure([]string{"mapping"}, []string{""}, func(vals []string) bool {
+func GraphMappingConf() *Configure {
+	return NewConfigure([]string{"mapping"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dMarginConf() *Configure {
-	return NewConfigure([]string{"margin"}, []string{""}, func(vals []string) bool {
+func GraphMarginConf() *Configure {
+	return NewConfigure([]string{"margin"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dMarginsConf() *Configure {
-	return NewConfigure([]string{"margins"}, []string{""}, func(vals []string) bool {
+func GraphMarginsConf() *Configure {
+	return NewConfigure([]string{"margins"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dMissingConf() *Configure {
-	return NewConfigure([]string{"missing"}, []string{""}, func(vals []string) bool {
+func GraphMissingConf() *Configure {
+	return NewConfigure([]string{"missing"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dMonochromeConf() *Configure {
-	return NewConfigure([]string{"monochrome"}, []string{""}, func(vals []string) bool {
+func GraphMonochromeConf() *Configure {
+	return NewConfigure([]string{"monochrome"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dMouseConf() *Configure {
-	return NewConfigure([]string{"mouse"}, []string{""}, func(vals []string) bool {
+func GraphMouseConf() *Configure {
+	return NewConfigure([]string{"mouse"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dMultiplotConf() *Configure {
-	return NewConfigure([]string{"multiplot"}, []string{""}, func(vals []string) bool {
+func GraphMultiplotConf() *Configure {
+	return NewConfigure([]string{"multiplot"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dMx2ticsConf() *Configure {
-	return NewConfigure([]string{"mx2tics"}, []string{""}, func(vals []string) bool {
+func GraphMx2ticsConf() *Configure {
+	return NewConfigure([]string{"mx2tics"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dMxticsConf() *Configure {
-	return NewConfigure([]string{"mxtics"}, []string{""}, func(vals []string) bool {
+func GraphMxticsConf() *Configure {
+	return NewConfigure([]string{"mxtics"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dMy2ticsConf() *Configure {
-	return NewConfigure([]string{"my2tics"}, []string{""}, func(vals []string) bool {
+func GraphMy2ticsConf() *Configure {
+	return NewConfigure([]string{"my2tics"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dMyticsConf() *Configure {
-	return NewConfigure([]string{"mytics"}, []string{""}, func(vals []string) bool {
+func GraphMyticsConf() *Configure {
+	return NewConfigure([]string{"mytics"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dMzticsConf() *Configure {
-	return NewConfigure([]string{"mztics"}, []string{""}, func(vals []string) bool {
+func GraphMzticsConf() *Configure {
+	return NewConfigure([]string{"mztics"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dObjectConf() *Configure {
-	return NewConfigure([]string{"object"}, []string{""}, func(vals []string) bool {
+func GraphObjectConf() *Configure {
+	return NewConfigure([]string{"object"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dOffsetsConf() *Configure {
-	return NewConfigure([]string{"offsets"}, []string{""}, func(vals []string) bool {
+func GraphOffsetsConf() *Configure {
+	return NewConfigure([]string{"offsets"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dOriginConf() *Configure {
-	return NewConfigure([]string{"origin"}, []string{""}, func(vals []string) bool {
+func GraphOriginConf() *Configure {
+	return NewConfigure([]string{"origin"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dOutputConf() *Configure {
-	return NewConfigure([]string{"output"}, []string{""}, func(vals []string) bool {
+func GraphOutputConf() *Configure {
+	return NewConfigure([]string{"output"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dPaletteConf() *Configure {
-	return NewConfigure([]string{"palette"}, []string{""}, func(vals []string) bool {
+func GraphPaletteConf() *Configure {
+	return NewConfigure([]string{"palette"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dParametricConf() *Configure {
-	return NewConfigure([]string{"parametric"}, []string{""}, func(vals []string) bool {
+func GraphParametricConf() *Configure {
+	return NewConfigure([]string{"parametric"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dPaxisConf() *Configure {
-	return NewConfigure([]string{"paxis"}, []string{""}, func(vals []string) bool {
+func GraphPaxisConf() *Configure {
+	return NewConfigure([]string{"paxis"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dPm3dConf() *Configure {
-	return NewConfigure([]string{"pm3d"}, []string{""}, func(vals []string) bool {
+func GraphPm3dConf() *Configure {
+	return NewConfigure([]string{"pm3d"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dPointintervalboxConf() *Configure {
-	return NewConfigure([]string{"pointintervalbox"}, []string{""}, func(vals []string) bool {
+func GraphPointintervalboxConf() *Configure {
+	return NewConfigure([]string{"pointintervalbox"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dPointsizeConf() *Configure {
-	return NewConfigure([]string{"pointsize"}, []string{""}, func(vals []string) bool {
+func GraphPointsizeConf() *Configure {
+	return NewConfigure([]string{"pointsize"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dPolarConf() *Configure {
-	return NewConfigure([]string{"polar"}, []string{""}, func(vals []string) bool {
+func GraphPolarConf() *Configure {
+	return NewConfigure([]string{"polar"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dPolarConf() *Configure {
-	return NewConfigure([]string{"print"}, []string{""}, func(vals []string) bool {
+func GraphPrintConf() *Configure {
+	return NewConfigure([]string{"print"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dPsdirConf() *Configure {
-	return NewConfigure([]string{"psdir"}, []string{""}, func(vals []string) bool {
+func GraphPsdirConf() *Configure {
+	return NewConfigure([]string{"psdir"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dRaxisConf() *Configure {
-	return NewConfigure([]string{"raxis"}, []string{""}, func(vals []string) bool {
+func GraphRaxisConf() *Configure {
+	return NewConfigure([]string{"raxis"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func Graph2dConfs() []*Configure {
-	return []*Configure{AnglesConf()}
+func GraphRmarginConf() *Configure {
+	return NewConfigure([]string{"rmargin"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphRrangeConf() *Configure {
+	return NewConfigure([]string{"rrangle"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphRticsConf() *Configure {
+	return NewConfigure([]string{"rtics"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphSamplesConf() *Configure {
+	return NewConfigure([]string{"samples"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphSizeConf() *Configure {
+	return NewConfigure([]string{"size"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphStyleConf() *Configure {
+	return NewConfigure([]string{"style"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphSurfaceConf() *Configure {
+	return NewConfigure([]string{"surface"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphTableConf() *Configure {
+	return NewConfigure([]string{"table"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphTermConf() *Configure {
+	return NewConfigure([]string{"term"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphTerminalConf() *Configure {
+	return NewConfigure([]string{"terminal"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphTermoptionConf() *Configure {
+	return NewConfigure([]string{"termoption"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphTicsConf() *Configure {
+	return NewConfigure([]string{"tics"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphTicscaleConf() *Configure {
+	return NewConfigure([]string{"ticscale"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphTicslevelcaleConf() *Configure {
+	return NewConfigure([]string{"ticslevel"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphTimeSpecifiersConf() *Configure {
+	return NewConfigure([]string{"time_specifiers"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphTimefmtConf() *Configure {
+	return NewConfigure([]string{"timefmt"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphTimestampConf() *Configure {
+	return NewConfigure([]string{"timestamp"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphTitleConf() *Configure {
+	return NewConfigure([]string{"title"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphTmarginConf() *Configure {
+	return NewConfigure([]string{"tmargin"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphTrangeConf() *Configure {
+	return NewConfigure([]string{"trange"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphUrangeConf() *Configure {
+	return NewConfigure([]string{"urange"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphViewConf() *Configure {
+	return NewConfigure([]string{"view"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphVrangeConf() *Configure {
+	return NewConfigure([]string{"vrange"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphX2dataConf() *Configure {
+	return NewConfigure([]string{"x2data"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphX2dticsConf() *Configure {
+	return NewConfigure([]string{"x2dtics"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphX2labelConf() *Configure {
+	return NewConfigure([]string{"x2label"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphX2mticsConf() *Configure {
+	return NewConfigure([]string{"x2mtics"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphX2rangeConf() *Configure {
+	return NewConfigure([]string{"x2range"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphX2ticsConf() *Configure {
+	return NewConfigure([]string{"x2tics"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphX2zeroaxisConf() *Configure {
+	return NewConfigure([]string{"x2zeroaxis"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphXdataConf() *Configure {
+	return NewConfigure([]string{"xdata"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphXdticsConf() *Configure {
+	return NewConfigure([]string{"xdtics"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphXlabelConf() *Configure {
+	return NewConfigure([]string{"label"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphXmticsConf() *Configure {
+	return NewConfigure([]string{"xmtics"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphXrangeConf() *Configure {
+	return NewConfigure([]string{"xrange"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphXticsConf() *Configure {
+	return NewConfigure([]string{"xtics"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphXyplaneConf() *Configure {
+	return NewConfigure([]string{"xyplane"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphXzeroaxisConf() *Configure {
+	return NewConfigure([]string{"xzeroaxis"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphY2dataConf() *Configure {
+	return NewConfigure([]string{"y2data"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphY2dticsConf() *Configure {
+	return NewConfigure([]string{"y2dtics"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphY2dlabelConf() *Configure {
+	return NewConfigure([]string{"y2label"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphY2mticsConf() *Configure {
+	return NewConfigure([]string{"y2mtics"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphY2rangeConf() *Configure {
+	return NewConfigure([]string{"y2range"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphY2ticsConf() *Configure {
+	return NewConfigure([]string{"y2tics"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphY2zeroaxisConf() *Configure {
+	return NewConfigure([]string{"y2zeroaxis"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphYdataConf() *Configure {
+	return NewConfigure([]string{"ydata"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphYdticsConf() *Configure {
+	return NewConfigure([]string{"ydtics"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphYlabelConf() *Configure {
+	return NewConfigure([]string{"ylabel"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphYmticsConf() *Configure {
+	return NewConfigure([]string{"ymtics"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphYrangeConf() *Configure {
+	return NewConfigure([]string{"yrange"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func GraphConfs() []*Configure {
+	return []*Configure{
+		GraphAnglesConf(),
+		GraphArrowConf(),
+		GraphAutoScaleConf(),
+		GraphBarsConf(),
+		GraphBmarginConf(),
+		GraphBorderConf(),
+		GraphBoxwidthConf(),
+		GraphCbdataConf(),
+		GraphCbdticsConf(),
+		GraphCblabelConf(),
+		GraphCbmticsConf(),
+		GraphCbrangeConf(),
+		GraphCbticsConf(),
+		GraphClabelConf(),
+		GraphClipConf(),
+		GraphCntrlabelConf(),
+		GraphCntrparamConf(),
+		GraphColorConf(),
+		GraphColorboxConf(),
+		GraphColorsequenceConf(),
+		GraphContourConf(),
+		GraphDashtypeConf(),
+		GraphDataConf(),
+		GraphDatafileConf(),
+		GraphDateSpecifiersConf(),
+		GraphDecimalsignConf(),
+		GraphDgrid3dConf(),
+		GraphDummyConf(),
+		GraphEncodingConf(),
+		GraphFitConf(),
+		GraphFontPathConf(),
+		GraphFormatConf(),
+		GraphFunctionConf(),
+		GraphGridConf(),
+		GraphHidden3dConf(),
+		GraphHistoryConf(),
+		GraphHistorysizeConf(),
+		GraphIsosamplesConf(),
+		GraphKeyConf(),
+		GraphLabelConf(),
+		GraphLinetypeConf(),
+		GraphLinkConf(),
+		GraphLmarginConf(),
+		GraphLoadpathConf(),
+		GraphLocaleConf(),
+		GraphLogConf(),
+		GraphLogscaleConf(),
+		GraphMacrosConf(),
+		GraphMappingConf(),
+		GraphMarginConf(),
+		GraphMarginsConf(),
+		GraphMissingConf(),
+		GraphMonochromeConf(),
+		GraphMouseConf(),
+		GraphMultiplotConf(),
+		GraphMx2ticsConf(),
+		GraphMxticsConf(),
+		GraphMy2ticsConf(),
+		GraphMyticsConf(),
+		GraphMzticsConf(),
+		GraphObjectConf(),
+		GraphOffsetsConf(),
+		GraphOriginConf(),
+		GraphOutputConf(),
+		GraphPaletteConf(),
+		GraphParametricConf(),
+		GraphPaxisConf(),
+		GraphPm3dConf(),
+		GraphPointintervalboxConf(),
+		GraphPointsizeConf(),
+		GraphPolarConf(),
+		GraphPolarConf(),
+		GraphPsdirConf(),
+		GraphRaxisConf(),
+		GraphRmarginConf(),
+		GraphRrangeConf(),
+		GraphRticsConf(),
+		GraphSamplesConf(),
+		GraphSizeConf(),
+		GraphStyleConf(),
+		GraphSurfaceConf(),
+		GraphTableConf(),
+		GraphTermConf(),
+		GraphTerminalConf(),
+		GraphTermoptionConf(),
+		GraphTicsConf(),
+		GraphTicscaleConf(),
+		GraphTicslevelcaleConf(),
+		GraphTimeSpecifiersConf(),
+		GraphTimefmtConf(),
+		GraphTimestampConf(),
+		GraphTitleConf(),
+		GraphTmarginConf(),
+		GraphTrangeConf(),
+		GraphUrangeConf(),
+		GraphViewConf(),
+		GraphVrangeConf(),
+		GraphX2dataConf(),
+		GraphX2dticsConf(),
+		GraphX2labelConf(),
+		GraphX2mticsConf(),
+		GraphX2rangeConf(),
+		GraphX2ticsConf(),
+		GraphX2zeroaxisConf(),
+		GraphXdataConf(),
+		GraphXdticsConf(),
+		GraphXlabelConf(),
+		GraphXmticsConf(),
+		GraphXrangeConf(),
+		GraphXticsConf(),
+		GraphXyplaneConf(),
+		GraphXzeroaxisConf(),
+		GraphY2dataConf(),
+		GraphY2dticsConf(),
+		GraphY2dlabelConf(),
+		GraphY2mticsConf(),
+		GraphY2rangeConf(),
+		GraphY2ticsConf(),
+		GraphY2zeroaxisConf(),
+		GraphYdataConf(),
+		GraphYdticsConf(),
+		GraphYlabelConf(),
+		GraphYmticsConf(),
+		GraphYrangeConf()}
 }
