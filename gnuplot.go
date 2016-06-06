@@ -196,6 +196,10 @@ func (c Curve2d) gnuplot(fileName string) string {
 	return s
 }
 
+func isDummyVal(vals []string) bool {
+	return len(vals) == 0
+}
+
 // Graph
 type Graph2d struct {
 	plotter   Plotter
@@ -210,7 +214,7 @@ func NewGraph2d() *Graph2d {
 }
 
 func (g *Graph2d) setConfigure() {
-	for _, conf := range conf.Graph2dConfs() {
+	for _, conf := range conf.GraphConfs() {
 		g.plotter.Configure(conf)
 	}
 }
@@ -247,7 +251,7 @@ func (g Graph2d) gnuplot(funcFilenames []string, curveFilenames []string) string
 	var s string
 
 	for _, conf := range g.plotter.configures {
-		if !strings.HasPrefix(conf.GetKey(), "_") {
+		if !strings.HasPrefix(conf.GetKey(), "_") && !isDummyVal(conf.GetVals()) {
 			vals := conf.GetVals()
 			s += "set "
 			if vals[len(vals)-1] == "true" {
