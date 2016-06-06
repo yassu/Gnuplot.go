@@ -100,8 +100,8 @@ var COLOR_NAMES = []string{
 var POSITIONS = []string{"x", "y", "first", "second", "graph", "screen", "character"}
 
 // Function2d or Curve2d options
-func WithConf() *Configure {
-	return NewConfigure([]string{"with", "w"}, []string{"lines"}, func(vals []string) bool {
+func PStyleWithConf() *Configure {
+	return NewConfigure([]string{"with", "w"}, []string{}, func(vals []string) bool {
 		return len(vals) == 1 && utils.InStr(vals[0], []string{
 			"lines", "dots", "steps", "errorbars", "xerrorbar",
 			"xyerrorlines", "points", "impulses", "fsteps", "errorlines", "xerrorlines",
@@ -109,8 +109,8 @@ func WithConf() *Configure {
 	})
 }
 
-func LineColorConf() *Configure {
-	return NewConfigure([]string{"linecolor", "lc"}, []string{"1"}, func(vals []string) bool {
+func PStyleLineColorConf() *Configure {
+	return NewConfigure([]string{"linecolor", "lc"}, []string{}, func(vals []string) bool {
 		if len(vals) == 0 {
 			return false
 		}
@@ -152,36 +152,117 @@ func LineColorConf() *Configure {
 	})
 }
 
-func GoXMinConf() *Configure {
+func PStylePointTypeConf() *Configure {
+	return NewConfigure([]string{"linetype", "lt"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func PStyleLineTypeConf() *Configure {
+	return NewConfigure([]string{"linetype", "lt"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func PStyleLineWidthConf() *Configure {
+	return NewConfigure([]string{"linewidth", "lw"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func PStylePointSizeConf() *Configure {
+	return NewConfigure([]string{"pointsize", "ps"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func PStyleFillConf() *Configure {
+	return NewConfigure([]string{"fill", "fs"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func PStyleNoHidden3dConf() *Configure {
+	return NewConfigure([]string{"nohidden3d"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func PStyleNoContoursConf() *Configure {
+	return NewConfigure([]string{"nocontours"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func PStyleNoSurfaceConf() *Configure {
+	return NewConfigure([]string{"nosurface"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func PStylePaletteConf() *Configure {
+	return NewConfigure([]string{"palette"}, []string{}, func(vals []string) bool {
+		return true
+	})
+}
+
+func PStyleGoXMinConf() *Configure {
 	return NewConfigure([]string{"_xMin"}, []string{"-10.0"}, func(vals []string) bool {
 		return len(vals) == 1 && isNum(vals[0])
 	})
 }
 
-func GoXMaxConf() *Configure {
+func PStyleGoXMaxConf() *Configure {
 	return NewConfigure([]string{"_xMax"}, []string{"10.0"}, func(vals []string) bool {
 		return len(vals) == 1 && isNum(vals[0])
 	})
 }
 
-func GoTMinConf() *Configure {
+func PStyleGoTMinConf() *Configure {
 	return NewConfigure([]string{"_tMin"}, []string{"-10.0"}, func(vals []string) bool {
 		return len(vals) == 1 && isNum(vals[0])
 	})
 }
 
-func GoTMaxConf() *Configure {
+func PStyleGoTMaxConf() *Configure {
 	return NewConfigure([]string{"_tMax"}, []string{"10.0"}, func(vals []string) bool {
 		return len(vals) == 1 && isNum(vals[0])
 	})
 }
 
 func Function2dConfs() []*Configure {
-	return []*Configure{WithConf(), GoXMinConf(), GoXMaxConf()}
+	return []*Configure{
+		PStyleWithConf(),
+		PStyleLineColorConf(),
+		PStyleLineTypeConf(),
+		PStyleLineWidthConf(),
+		PStylePointTypeConf(),
+		PStylePointSizeConf(),
+		PStyleFillConf(),
+		PStyleNoHidden3dConf(),
+		PStyleNoContoursConf(),
+		PStyleNoSurfaceConf(),
+		PStylePaletteConf(),
+		PStyleGoXMinConf(),
+		PStyleGoXMaxConf()}
 }
 
 func Curve2dConfs() []*Configure {
-	return []*Configure{WithConf(), GoTMinConf(), GoTMaxConf()}
+	return []*Configure{
+		PStyleWithConf(),
+		PStyleLineColorConf(),
+		PStylePointTypeConf(),
+		PStyleLineTypeConf(),
+		PStyleLineWidthConf(),
+		PStylePointTypeConf(),
+		PStylePointSizeConf(),
+		PStyleFillConf(),
+		PStyleNoHidden3dConf(),
+		PStyleNoContoursConf(),
+		PStyleNoSurfaceConf(),
+		PStylePaletteConf(),
+		PStyleGoTMinConf(),
+		PStyleGoTMaxConf()}
 }
 
 // Graph options

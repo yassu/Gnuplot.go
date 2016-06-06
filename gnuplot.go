@@ -106,7 +106,7 @@ func (fun *Function2d) SetF(_f func(float64) float64) {
 func (fun Function2d) gnuplot(filename string) string {
 	var s = fmt.Sprintf("\"%v\"", filename)
 	for _, conf := range fun.plotter.configures {
-		if !strings.HasPrefix(conf.GetKey(), "_") {
+		if !strings.HasPrefix(conf.GetKey(), "_") && !isDummyVal(conf.GetVals()) {
 			s += fmt.Sprintf(" %v ", conf.GetKey())
 			for _, val := range conf.GetVals() {
 				s += fmt.Sprintf(" %v", val)
@@ -186,7 +186,7 @@ func (c *Curve2d) SetC(_c func(float64) [2]float64) {
 func (c Curve2d) gnuplot(fileName string) string {
 	var s = fmt.Sprintf("\"%v\" ", fileName)
 	for _, conf := range c.plotter.configures {
-		if !strings.HasPrefix(conf.GetKey(), "_") {
+		if !strings.HasPrefix(conf.GetKey(), "_") && !isDummyVal(conf.GetVals()) {
 			s += fmt.Sprintf(" %v ", conf.GetKey())
 			for _, val := range conf.GetVals() {
 				s += fmt.Sprintf(" %v", val)
@@ -320,9 +320,15 @@ func (g *Graph2d) Run() {
 
 	// 実行するgnuplotの実行ファイルをtempファイルに書き込む
 	os.Remove(execFilename)
-	execFile, _ := os.OpenFile(execFilename, os.O_CREATE|os.O_WRONLY, 0666)
+	execFile, err := os.OpenFile(execFilename, os.O_CREATE|os.O_WRONLY, 0666)
 	defer func() {
 		execFile.Close()
 	}()
-	execFile.WriteString(g.gnuplot(funcFilenames, curveFilenames))
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		text := g.gnuplot(funcFilenames, curveFilenames)
+		fmt.Println(text)
+		execFile.WriteString(g.gnuplot(funcFilenames, curveFilenames))
+	}
 }
