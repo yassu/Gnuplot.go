@@ -328,7 +328,6 @@ func (g *Graph2d) Run() {
 		fmt.Println(err)
 	} else {
 		text := g.gnuplot(funcFilenames, curveFilenames)
-		fmt.Println(text)
 		execFile.WriteString(g.gnuplot(funcFilenames, curveFilenames))
 	}
 }
