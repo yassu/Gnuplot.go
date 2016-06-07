@@ -1,9 +1,7 @@
 package main
 
 import (
-	// "fmt"
 	"github.com/yassu/gnuplot.go"
-	// "github.com/yassu/gnuplot.go/conf"
 )
 
 func main() {
@@ -20,8 +18,9 @@ func main() {
 	c.SetC(func(t float64) [2]float64 {
 		return [2]float64{t, -t * t}
 	})
-	c.Configure("_tMin", []string{"-100"})
-	c.Configure("_tMax", []string{"100"})
+	c.Configures(map[string][]string{
+		"_tMin": []string{"-100"},
+		"_tMax": []string{"100"}})
 
 	graph := gnuplot.NewGraph2d()
 	graph.Configure("angles", []string{"degrees"})
