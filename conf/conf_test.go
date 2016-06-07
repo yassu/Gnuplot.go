@@ -204,3 +204,59 @@ func TestPStyleWithConfValidation4(t *testing.T) {
 		t.Errorf("fails in TestPStyleWithConfValidation4")
 	}
 }
+
+func TestPStyleLineColorConfValidation(t *testing.T) {
+	conf := PStyleLineColorConf()
+	if conf.requiredCondition([]string{"blue"}) != true {
+		t.Errorf("fails in TestPStyleLineColorConfValidation")
+	}
+}
+
+func TestPStyleLineColorConfValidation2(t *testing.T) {
+	conf := PStyleLineColorConf()
+	if conf.requiredCondition([]string{"dummy"}) != false {
+		t.Errorf("fails in TestPStyleLineColorConfValidation2")
+	}
+}
+
+func TestPStyleLineColorConfValidation3(t *testing.T) {
+	conf := PStyleLineColorConf()
+	if conf.requiredCondition([]string{"rgbcolor", "0x000000"}) != true {
+		t.Errorf("fails in TestPStyleLineColorConfValidation3")
+	}
+}
+
+func TestPStyleLineColorConfValidation4(t *testing.T) {
+	conf := PStyleLineColorConf()
+	if conf.requiredCondition([]string{"rgbcolor", "0x00000000"}) != true {
+		t.Errorf("fails in TestPStyleLineColorConfValidation4")
+	}
+}
+
+func TestPStyleLineColorConfValidation5(t *testing.T) {
+	conf := PStyleLineColorConf()
+	if conf.requiredCondition([]string{"rgbcolor", "#000000"}) != true {
+		t.Errorf("fails in TestPStyleLineColorConfValidation5")
+	}
+}
+
+func TestPStyleLineColorConfValidation6(t *testing.T) {
+	conf := PStyleLineColorConf()
+	if conf.requiredCondition([]string{"rgbcolor", "#00000000"}) != true {
+		t.Errorf("fails in TestPStyleLineColorConfValidation6")
+	}
+}
+
+func TestPStyleLineColorConfValidation7(t *testing.T) {
+	conf := PStyleLineColorConf()
+	if conf.requiredCondition([]string{"rgbcolor", "0"}) != true {
+		t.Errorf("fails in TestPStyleLineColorConfValidation7")
+	}
+}
+
+func TestPStyleLineColorConfValidation8(t *testing.T) {
+	conf := PStyleLineColorConf()
+	if conf.requiredCondition([]string{"rgbcolor", ""}) != false {
+		t.Errorf("fails in TestPStyleLineColorConfValidation8")
+	}
+}

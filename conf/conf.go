@@ -140,21 +140,26 @@ func PStyleLineColorConf() *Configure {
 		if len(vals) == 2 && vals[0] == "rgbcolor" && utils.InStr(vals[1], COLOR_NAMES) {
 			return true
 		}
-		if len(vals) == 2 && vals[0] == "rgbcolor" && vals[1][0:2] == "0x" && isSixHex(vals[1][2:]) {
+		if len(vals) == 2 && len(vals[1]) >= 2 &&
+			vals[0] == "rgbcolor" && vals[1][0:2] == "0x" && isSixHex(vals[1][2:]) {
 			return true
 		}
-		if len(vals) == 2 && vals[0] == "rgbcolor" && vals[1][0:2] == "0x" && isEightHex(vals[1][2:]) {
+		if len(vals) == 2 && len(vals[1]) >= 2 &&
+			vals[0] == "rgbcolor" && vals[1][0:2] == "0x" && isEightHex(vals[1][2:]) {
 			return true
 		}
-		if len(vals) == 2 && vals[0] == "rgbcolor" && vals[1][0] == '#' && isSixHex(vals[1][1:]) {
+		if len(vals) == 2 && len(vals[1]) >= 1 &&
+			vals[0] == "rgbcolor" && vals[1][0] == '#' && isSixHex(vals[1][1:]) {
 			return true
 		}
-		if len(vals) == 2 && vals[0] == "rgbcolor" && vals[1][0] == '#' && isEightHex(vals[1][1:]) {
+		if len(vals) == 2 && len(vals[1]) >= 1 &&
+			vals[0] == "rgbcolor" && vals[1][0] == '#' && isEightHex(vals[1][1:]) {
 			return true
 		}
 		if len(vals) == 2 && vals[0] == "rgbcolor" && isIntStr(vals[1]) {
 			return true
 		}
+		// TODO: add some rule
 		return false
 	})
 }
