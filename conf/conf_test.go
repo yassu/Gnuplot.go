@@ -138,7 +138,7 @@ func TestIsSmallFloat3(t *testing.T) {
 }
 
 func NewConfigureTest(t *testing.T) {
-	conf := WithConf()
+	conf := PStyleWithConf()
 
 	if conf.key != "with" {
 		t.Errorf("fails in key test of NewConfigureTest")
@@ -174,5 +174,33 @@ func TestConfigureGetKey(t *testing.T) {
 	})
 	if conf.GetKey() != "key1" {
 		t.Errorf("fails in TestConfigureGetKey")
+	}
+}
+
+func TestPStyleWithConfValidation(t *testing.T) {
+	conf := PStyleWithConf()
+	if conf.requiredCondition([]string{"dots"}) != true {
+		t.Errorf("fails in TestPStyleWithConfValidation")
+	}
+}
+
+func TestPStyleWithConfValidation2(t *testing.T) {
+	conf := PStyleWithConf()
+	if conf.requiredCondition([]string{"dot"}) != false {
+		t.Errorf("fails in TestPStyleWithConfValidation2")
+	}
+}
+
+func TestPStyleWithConfValidation3(t *testing.T) {
+	conf := PStyleWithConf()
+	if conf.requiredCondition([]string{""}) != false {
+		t.Errorf("fails in TestPStyleWithConfValidation3")
+	}
+}
+
+func TestPStyleWithConfValidation4(t *testing.T) {
+	conf := PStyleWithConf()
+	if conf.requiredCondition([]string{"dot", "lines"}) != false {
+		t.Errorf("fails in TestPStyleWithConfValidation4")
 	}
 }
