@@ -104,7 +104,12 @@ func (fun *Function2d) SetF(_f func(float64) float64) {
 }
 
 func (fun Function2d) gnuplot(filename string) string {
+	title := fun.plotter.GetC("_title")
 	var s = fmt.Sprintf("\"%v\"", filename)
+	if !isDummyVal(title) {
+		s += fmt.Sprintf(" title \"%v\"", title[0])
+	}
+
 	for _, conf := range fun.plotter.configures {
 		if !strings.HasPrefix(conf.GetKey(), "_") && !isDummyVal(conf.GetVals()) {
 			s += fmt.Sprintf(" %v ", conf.GetKey())
@@ -327,7 +332,6 @@ func (g *Graph2d) Run() {
 	if err != nil {
 		fmt.Println(err)
 	} else {
-		text := g.gnuplot(funcFilenames, curveFilenames)
 		execFile.WriteString(g.gnuplot(funcFilenames, curveFilenames))
 	}
 }

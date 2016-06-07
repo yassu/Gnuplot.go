@@ -100,6 +100,13 @@ var COLOR_NAMES = []string{
 var POSITIONS = []string{"x", "y", "first", "second", "graph", "screen", "character"}
 
 // Function2d or Curve2d options
+func PStyleTitleConf() *Configure {
+	return NewConfigure([]string{"_title"}, []string{}, func(vals []string) bool {
+		return len(vals) == 1 &&
+			len(vals[0]) >= 1
+	})
+}
+
 func PStyleWithConf() *Configure {
 	return NewConfigure([]string{"with", "w"}, []string{}, func(vals []string) bool {
 		return len(vals) == 1 && utils.InStr(vals[0], []string{
@@ -232,6 +239,7 @@ func PStyleGoTMaxConf() *Configure {
 
 func Function2dConfs() []*Configure {
 	return []*Configure{
+		PStyleTitleConf(),
 		PStyleWithConf(),
 		PStyleLineColorConf(),
 		PStyleLineTypeConf(),

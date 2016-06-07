@@ -13,6 +13,7 @@ func main() {
 	})
 	fun.Configure("_xMin", []string{"-100"})
 	fun.Configure("_xMax", []string{"100"})
+	fun.Configure("_title", []string{"title1"})
 	fun.Configure("w", []string{"dots"})
 
 	c := gnuplot.NewCurve2d()
@@ -24,6 +25,7 @@ func main() {
 
 	graph := gnuplot.NewGraph2d()
 	graph.Configure("angles", []string{"degrees"})
+	graph.Configure("key", []string{"false"})
 	graph.AppendFunc(*fun)
 	graph.AppendCurve(*c)
 	graph.Run()
