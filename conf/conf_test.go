@@ -5,6 +5,7 @@ import (
 	"testing"
 )
 
+// utils
 func TestInStr0(t *testing.T) {
 	if utils.InStr("a", []string{}) != false {
 		t.Errorf("fals in TestInStr0")
@@ -137,6 +138,7 @@ func TestIsSmallFloat3(t *testing.T) {
 	}
 }
 
+// Configure Class
 func NewConfigureTest(t *testing.T) {
 	conf := PStyleWithConf()
 
@@ -177,6 +179,9 @@ func TestConfigureGetKey(t *testing.T) {
 	}
 }
 
+// Validation of Configurations
+
+// for Plot Element
 func TestPStyleWithConfValidation(t *testing.T) {
 	conf := PStyleWithConf()
 	if conf.requiredCondition([]string{"dots"}) != true {
@@ -261,6 +266,7 @@ func TestPStyleLineColorConfValidation8(t *testing.T) {
 	}
 }
 
+// for Graph Element
 func TestGraphTermConf(t *testing.T) {
 	conf := GraphTermConf()
 	if conf.requiredCondition([]string{"pngs"}) != false {
