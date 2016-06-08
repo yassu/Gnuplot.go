@@ -122,18 +122,17 @@ func PStyleLineColorConf() *Configure {
 			return false
 		}
 		// in case of linecolor "colorname"
-		val := vals[0]
-		if utils.InStr(val, COLOR_NAMES) {
+		if len(vals) == 1 && utils.InStr(vals[0], COLOR_NAMES) {
 			return true
 		}
 
 		// in case of linecolor <n>
-		if isIntStr(val) {
+		if len(vals) == 1 && isIntStr(vals[0]) {
 			return true
 		}
 
 		// in case of linecolor <colorspec> and len(vals) == 1
-		if utils.InStr(val, []string{"variable", "bgnd", "black"}) {
+		if len(vals) == 1 && utils.InStr(vals[0], []string{"variable", "bgnd", "black"}) {
 			return true
 		}
 
@@ -159,7 +158,20 @@ func PStyleLineColorConf() *Configure {
 		if len(vals) == 2 && vals[0] == "rgbcolor" && isIntStr(vals[1]) {
 			return true
 		}
-		// TODO: add some rule
+		if len(vals) == 2 && vals[0] == "rgbcolor" && vals[1] == "variable" {
+			return true
+		}
+		if len(vals) == 3 && vals[0] == "palette" && vals[1] == "frac" &&
+			isSmallFloat(vals[2]) {
+			return true
+		}
+		if len(vals) == 3 && vals[0] == "palette" && vals[1] == "cb" &&
+			isNum(vals[2]) {
+			return true
+		}
+		if len(vals) == 2 && vals[0] == "palette" && vals[1] == "z" {
+			return true
+		}
 		return false
 	})
 }

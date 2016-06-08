@@ -266,6 +266,83 @@ func TestPStyleLineColorConfValidation8(t *testing.T) {
 	}
 }
 
+func TestPStyleLineColorConfValidation9(t *testing.T) {
+	conf := PStyleLineColorConf()
+	if conf.requiredCondition([]string{"rgbcolor", "variable"}) != true {
+		t.Errorf("fails in TestPStyleLineColorConfValidation9")
+	}
+}
+
+func TestPStyleLineColorConfValidation10(t *testing.T) {
+	conf := PStyleLineColorConf()
+	if conf.requiredCondition([]string{"rgbcolor", "variable", ""}) != false {
+		t.Errorf("fails in TestPStyleLineColorConfValidation10")
+	}
+}
+
+func TestPStyleLineColorConfValidation11(t *testing.T) {
+	conf := PStyleLineColorConf()
+	if conf.requiredCondition([]string{"palette", "frac", "0.0"}) != true {
+		t.Errorf("fails in TestPStyleLineColorConfValidation11")
+	}
+}
+
+func TestPStyleLineColorConfValidation12(t *testing.T) {
+	conf := PStyleLineColorConf()
+	if conf.requiredCondition([]string{"palette", "frac", "1.0"}) != true {
+		t.Errorf("fails in TestPStyleLineColorConfValidation12")
+	}
+}
+
+func TestPStyleLineColorConfValidation13(t *testing.T) {
+	conf := PStyleLineColorConf()
+	if conf.requiredCondition([]string{"palette", "frac", "3.0"}) != false {
+		t.Errorf("fails in TestPStyleLineColorConfValidation13")
+	}
+}
+
+func TestPStyleLineColorConfValidation14(t *testing.T) {
+	conf := PStyleLineColorConf()
+	if conf.requiredCondition([]string{"palette", "cb", "-5.3"}) != true {
+		t.Errorf("fails in TestPStyleLineColorConfValidation14")
+	}
+}
+
+func TestPStyleLineColorConfValidation15(t *testing.T) {
+	conf := PStyleLineColorConf()
+	if conf.requiredCondition([]string{"palette", "cb", "-5.3", ""}) != false {
+		t.Errorf("fails in TestPStyleLineColorConfValidation15")
+	}
+}
+
+func TestPStyleLineColorConfValidation16(t *testing.T) {
+	conf := PStyleLineColorConf()
+	if conf.requiredCondition([]string{"palette", "z"}) != true {
+		t.Errorf("fails in TestPStyleLineColorConfValidation16")
+	}
+}
+
+func TestPStyleLineColorConfValidation17(t *testing.T) {
+	conf := PStyleLineColorConf()
+	if conf.requiredCondition([]string{"palette", "z", ""}) != false {
+		t.Errorf("fails in TestPStyleLineColorConfValidation17")
+	}
+}
+
+func TestPStyleLineColorConfValidation18(t *testing.T) {
+	conf := PStyleLineColorConf()
+	if conf.requiredCondition([]string{"variable"}) != true {
+		t.Errorf("fails in TestPStyleLineColorConfValidation18")
+	}
+}
+
+func TestPStyleLineColorConfValidation19(t *testing.T) {
+	conf := PStyleLineColorConf()
+	if conf.requiredCondition([]string{"variable", "z"}) != false {
+		t.Errorf("fails in TestPStyleLineColorConfValidation19")
+	}
+}
+
 // for Graph Element
 func TestGraphTermConf(t *testing.T) {
 	conf := GraphTermConf()
