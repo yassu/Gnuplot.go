@@ -260,3 +260,24 @@ func TestPStyleLineColorConfValidation8(t *testing.T) {
 		t.Errorf("fails in TestPStyleLineColorConfValidation8")
 	}
 }
+
+func TestGraphTermConf(t *testing.T) {
+	conf := GraphTermConf()
+	if conf.requiredCondition([]string{"pngs"}) != false {
+		t.Errorf("fails in TestGraphTermConf")
+	}
+}
+
+func TestGraphTermConf2(t *testing.T) {
+	conf := GraphTermConf()
+	if conf.requiredCondition([]string{"png", "eps"}) != false {
+		t.Errorf("fails in TestGraphTermConf2")
+	}
+}
+
+func TestGraphTermConf3(t *testing.T) {
+	conf := GraphTermConf()
+	if conf.requiredCondition([]string{"png"}) != true {
+		t.Errorf("fails in TestGraphTermConf3")
+	}
+}

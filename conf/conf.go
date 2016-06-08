@@ -804,8 +804,22 @@ func GraphTableConf() *Configure {
 
 func GraphTermConf() *Configure {
 	return NewConfigure([]string{"term"}, []string{}, func(vals []string) bool {
-		return true
+		return len(vals) == 1 &&
+			utils.InStr(vals[0], []string{
+				"cairolatex", "canvas", "cgm", "context",
+				"corel", "dump", "dxf", "eepic",
+				"emf", "emtex", "epscairo", "epslatex",
+				"fig", "gif", "hpgl", "jpeg",
+				"latex", "lua", "mf", "mp",
+				"pcl5", "pdfcairo", "png", "pngcairo",
+				"pop", "postscript", "pslatex", "pstex",
+				"pstricks", "push", "qms", "qt",
+				"svg", "tek40xx", "tek410x", "texdraw",
+				"tgif", "tikz", "tkcanvas", "tpic",
+				"vttek", "wxt", "xt11", "xlib",
+				"xterm"})
 	})
+	// TODO: in case of len(vals) >= 2
 }
 
 func GraphTerminalConf() *Configure {
