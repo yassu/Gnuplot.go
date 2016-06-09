@@ -208,13 +208,13 @@ func PStyleFillConf() *Configure {
 
 func PStyleNoHidden3dConf() *Configure {
 	return NewConfigure([]string{"nohidden3d"}, []string{}, func(vals []string) bool {
-		return len(vals) == 1 && utils.InStr(vals[0], []string{"true", "false"})
+		return len(vals) == 1 && utils.InStr(vals[0], []string{"true"})
 	})
 }
 
 func PStyleNoContoursConf() *Configure {
 	return NewConfigure([]string{"nocontours"}, []string{}, func(vals []string) bool {
-		return len(vals) == 1 && utils.InStr(vals[0], []string{"true", "false"})
+		return len(vals) == 1 && vals[0] == "true"
 	})
 }
 

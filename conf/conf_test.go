@@ -436,7 +436,7 @@ func TestPStyleNoContoursConf2(t *testing.T) {
 
 func TestPStyleNoContoursConf3(t *testing.T) {
 	conf := PStyleNoContoursConf()
-	if conf.requiredCondition([]string{"true", "false"}) != false {
+	if conf.requiredCondition([]string{"true", "true"}) != false {
 		t.Errorf("fails in TestPStyleNoContoursConf3")
 	}
 }
