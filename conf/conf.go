@@ -190,7 +190,7 @@ func PStyleLineTypeConf() *Configure {
 
 func PStyleLineWidthConf() *Configure {
 	return NewConfigure([]string{"linewidth", "lw"}, []string{}, func(vals []string) bool {
-		return true
+		return len(vals) == 1 && isNum(vals[0])
 	})
 }
 

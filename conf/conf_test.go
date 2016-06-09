@@ -371,6 +371,20 @@ func TestPStylePointTypeConf2(t *testing.T) {
 	}
 }
 
+func TestPStyleLineWidthConf(t *testing.T) {
+	conf := PStyleLineWidthConf()
+	if conf.requiredCondition([]string{"2.3"}) != true {
+		t.Errorf("fails in TestPStyleLineWidthConf")
+	}
+}
+
+func TestPStylePointWidthConf2(t *testing.T) {
+	conf := PStyleLineWidthConf()
+	if conf.requiredCondition([]string{"2.3", ""}) != false {
+		t.Errorf("fails in TestPStylePointWidthConf2")
+	}
+}
+
 // for Graph Element
 func TestGraphTermConf(t *testing.T) {
 	conf := GraphTermConf()
