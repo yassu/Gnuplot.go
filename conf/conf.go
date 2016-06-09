@@ -214,7 +214,7 @@ func PStyleNoHidden3dConf() *Configure {
 
 func PStyleNoContoursConf() *Configure {
 	return NewConfigure([]string{"nocontours"}, []string{}, func(vals []string) bool {
-		return true
+		return len(vals) == 1 && utils.InStr(vals[0], []string{"true", "false"})
 	})
 }
 

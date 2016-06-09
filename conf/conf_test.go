@@ -420,6 +420,27 @@ func TestPStyleNoHidden3dConf3(t *testing.T) {
 	}
 }
 
+func TestPStyleNoContoursConf(t *testing.T) {
+	conf := PStyleNoContoursConf()
+	if conf.requiredCondition([]string{"true"}) != true {
+		t.Errorf("fails in TestPStyleNoContoursConf")
+	}
+}
+
+func TestPStyleNoContoursConf2(t *testing.T) {
+	conf := PStyleNoContoursConf()
+	if conf.requiredCondition([]string{"abc"}) != false {
+		t.Errorf("fails in TestPStyleNoContoursConf2")
+	}
+}
+
+func TestPStyleNoContoursConf3(t *testing.T) {
+	conf := PStyleNoContoursConf()
+	if conf.requiredCondition([]string{"true", "false"}) != false {
+		t.Errorf("fails in TestPStyleNoContoursConf3")
+	}
+}
+
 // for Graph Element
 func TestGraphTermConf(t *testing.T) {
 	conf := GraphTermConf()
