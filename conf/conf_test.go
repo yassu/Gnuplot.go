@@ -394,7 +394,7 @@ func TestPStylePointSizeConf(t *testing.T) {
 
 func TestPStylePointSizeConf2(t *testing.T) {
 	conf := PStylePointSizeConf()
-	if conf.requiredCondition([]string{"2.3", ""}) != true {
+	if conf.requiredCondition([]string{"2.3", ""}) != false {
 		t.Errorf("fails in TestPStylePointSizeConf2")
 	}
 }

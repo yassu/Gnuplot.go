@@ -196,7 +196,7 @@ func PStyleLineWidthConf() *Configure {
 
 func PStylePointSizeConf() *Configure {
 	return NewConfigure([]string{"pointsize", "ps"}, []string{}, func(vals []string) bool {
-		return true
+		return len(vals) == 1 && isNum(vals[0])
 	})
 }
 
