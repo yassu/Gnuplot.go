@@ -441,6 +441,48 @@ func TestPStyleNoContoursConf3(t *testing.T) {
 	}
 }
 
+func TestPStyleNoSurfaceConf(t *testing.T) {
+	conf := PStyleNoSurfaceConf()
+	if conf.requiredCondition([]string{"true"}) != true {
+		t.Errorf("fails in TestPStyleNoSurfaceConf")
+	}
+}
+
+func TestPStyleNoSurfaceConf2(t *testing.T) {
+	conf := PStyleNoSurfaceConf()
+	if conf.requiredCondition([]string{"abc"}) != false {
+		t.Errorf("fails in TestPStyleNoSurfaceConf2")
+	}
+}
+
+func TestPStyleNoSurfaceConf3(t *testing.T) {
+	conf := PStyleNoSurfaceConf()
+	if conf.requiredCondition([]string{"true", "true"}) != false {
+		t.Errorf("fails in TestPStyleNoSurfaceConf3")
+	}
+}
+
+func TestPStylePaletteConf(t *testing.T) {
+	conf := PStylePaletteConf()
+	if conf.requiredCondition([]string{"true"}) != true {
+		t.Errorf("fails in TestPStylePaletteConf")
+	}
+}
+
+func TestPStylePaletteConf2(t *testing.T) {
+	conf := PStylePaletteConf()
+	if conf.requiredCondition([]string{"abc"}) != false {
+		t.Errorf("fails in TestPStyleNoSurfaceConf2")
+	}
+}
+
+func TestPStylePaletteConf3(t *testing.T) {
+	conf := PStylePaletteConf()
+	if conf.requiredCondition([]string{"true", "true"}) != false {
+		t.Errorf("fails in TestPStylePaletteConf3")
+	}
+}
+
 // for Graph Element
 func TestGraphTermConf(t *testing.T) {
 	conf := GraphTermConf()

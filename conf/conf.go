@@ -220,13 +220,13 @@ func PStyleNoContoursConf() *Configure {
 
 func PStyleNoSurfaceConf() *Configure {
 	return NewConfigure([]string{"nosurface"}, []string{}, func(vals []string) bool {
-		return true
+		return len(vals) == 1 && vals[0] == "true"
 	})
 }
 
 func PStylePaletteConf() *Configure {
 	return NewConfigure([]string{"palette"}, []string{}, func(vals []string) bool {
-		return true
+		return len(vals) == 1 && vals[0] == "true"
 	})
 }
 
