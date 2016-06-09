@@ -177,7 +177,7 @@ func PStyleLineColorConf() *Configure {
 }
 
 func PStylePointTypeConf() *Configure {
-	return NewConfigure([]string{"linetype", "lt"}, []string{}, func(vals []string) bool {
+	return NewConfigure([]string{"pointtype", "pt"}, []string{}, func(vals []string) bool {
 		return len(vals) == 1 && isIntStr(vals[0])
 	})
 }
