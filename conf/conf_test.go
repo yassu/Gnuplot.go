@@ -343,6 +343,20 @@ func TestPStyleLineColorConfValidation19(t *testing.T) {
 	}
 }
 
+func TestPStylePointTypeConf(t *testing.T) {
+	conf := PStylePointTypeConf()
+	if conf.requiredCondition([]string{"1"}) != true {
+		t.Errorf("fails in TestPStylePointTypeConf")
+	}
+}
+
+func TestPStylePointTypeConf2(t *testing.T) {
+	conf := PStylePointTypeConf()
+	if conf.requiredCondition([]string{"1", ""}) != false {
+		t.Errorf("fails in TestPStylePointTypeConf2")
+	}
+}
+
 // for Graph Element
 func TestGraphTermConf(t *testing.T) {
 	conf := GraphTermConf()
