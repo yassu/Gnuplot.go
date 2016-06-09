@@ -350,6 +350,20 @@ func TestPStylePointTypeConf(t *testing.T) {
 	}
 }
 
+func TestPStyleLineTypeConf2(t *testing.T) {
+	conf := PStylePointTypeConf()
+	if conf.requiredCondition([]string{"1", ""}) != false {
+		t.Errorf("fails in TestPLinePointTypeConf2")
+	}
+}
+
+func TestPStyleLineTypeConf(t *testing.T) {
+	conf := PStylePointTypeConf()
+	if conf.requiredCondition([]string{"1"}) != true {
+		t.Errorf("fails in TestPStyleLineTypeConf")
+	}
+}
+
 func TestPStylePointTypeConf2(t *testing.T) {
 	conf := PStylePointTypeConf()
 	if conf.requiredCondition([]string{"1", ""}) != false {

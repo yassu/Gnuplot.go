@@ -184,7 +184,7 @@ func PStylePointTypeConf() *Configure {
 
 func PStyleLineTypeConf() *Configure {
 	return NewConfigure([]string{"linetype", "lt"}, []string{}, func(vals []string) bool {
-		return true
+		return len(vals) == 1 && isNum(vals[0])
 	})
 }
 
