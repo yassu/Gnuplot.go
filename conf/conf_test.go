@@ -399,6 +399,27 @@ func TestPStylePointSizeConf2(t *testing.T) {
 	}
 }
 
+func TestPStyleNoHidden3dConf(t *testing.T) {
+	conf := PStyleNoHidden3dConf()
+	if conf.requiredCondition([]string{"true"}) != true {
+		t.Errorf("fails in TestPStyleNoHidden3dConf")
+	}
+}
+
+func TestPStyleNoHidden3dConf2(t *testing.T) {
+	conf := PStyleNoHidden3dConf()
+	if conf.requiredCondition([]string{"abc"}) != false {
+		t.Errorf("fails in TestPStyleNoHidden3dConf2")
+	}
+}
+
+func TestPStyleNoHidden3dConf3(t *testing.T) {
+	conf := PStyleNoHidden3dConf()
+	if conf.requiredCondition([]string{"true", "false"}) != false {
+		t.Errorf("fails in TestPStyleNoHidden3dConf3")
+	}
+}
+
 // for Graph Element
 func TestGraphTermConf(t *testing.T) {
 	conf := GraphTermConf()

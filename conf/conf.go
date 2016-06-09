@@ -208,7 +208,7 @@ func PStyleFillConf() *Configure {
 
 func PStyleNoHidden3dConf() *Configure {
 	return NewConfigure([]string{"nohidden3d"}, []string{}, func(vals []string) bool {
-		return true
+		return len(vals) == 1 && utils.InStr(vals[0], []string{"true", "false"})
 	})
 }
 
