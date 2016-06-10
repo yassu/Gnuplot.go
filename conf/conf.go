@@ -219,7 +219,7 @@ func PStyleNoContoursConf() *Configure {
 }
 
 func PStyleNoTitleConf() *Configure {
-	return NewConfigure([]string{"title"}, []string{}, func(vals []string) bool {
+	return NewConfigure([]string{"notitle"}, []string{}, func(vals []string) bool {
 		return len(vals) == 1 && vals[0] == "true"
 	})
 }
@@ -272,6 +272,7 @@ func Function2dConfs() []*Configure {
 		PStyleFillConf(),
 		PStyleNoHidden3dConf(),
 		PStyleNoContoursConf(),
+		PStyleNoTitleConf(),
 		PStyleNoSurfaceConf(),
 		PStylePaletteConf(),
 		PStyleGoXMinConf(),
