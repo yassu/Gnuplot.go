@@ -483,6 +483,27 @@ func TestPStylePaletteConf3(t *testing.T) {
 	}
 }
 
+func TestPStyleGoXMinConf(t *testing.T) {
+	conf := PStyleGoXMaxConf()
+	if conf.requiredCondition([]string{"-3.2"}) != true {
+		t.Errorf("fails in PStyleGoXMaxConf")
+	}
+}
+
+func TestPStyleGoXMinConf2(t *testing.T) {
+	conf := PStyleGoXMaxConf()
+	if conf.requiredCondition([]string{"+3.2.3"}) != false {
+		t.Errorf("fails in PStyleGoXMaxConf2")
+	}
+}
+
+func TestPStyleGoXMinConf3(t *testing.T) {
+	conf := PStyleGoXMaxConf()
+	if conf.requiredCondition([]string{"3.2", "3"}) != false {
+		t.Errorf("fails in PStyleGoXMaxConf3")
+	}
+}
+
 // for Graph Element
 func TestGraphTermConf(t *testing.T) {
 	conf := GraphTermConf()
