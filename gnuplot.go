@@ -114,10 +114,7 @@ func (fun Function2d) gnuplot(filename string) string {
 		if !strings.HasPrefix(conf.GetKey(), "_") && !isDummyVal(conf.GetVals()) {
 			vals := conf.GetVals()
 			s += fmt.Sprintf(" %v ", conf.GetKey())
-			fmt.Println("conf = ", conf)
-			print(vals[len(vals)-1])
 			if vals[len(vals)-1] == "true" {
-				print("true case")
 				vals = vals[:len(vals)-1]
 			} else if vals[len(vals)-1] == "false" {
 				vals = vals[:len(vals)-1]
@@ -202,8 +199,15 @@ func (c Curve2d) gnuplot(fileName string) string {
 	var s = fmt.Sprintf("\"%v\" ", fileName)
 	for _, conf := range c.plotter.configures {
 		if !strings.HasPrefix(conf.GetKey(), "_") && !isDummyVal(conf.GetVals()) {
+			vals := conf.GetVals()
 			s += fmt.Sprintf(" %v ", conf.GetKey())
-			for _, val := range conf.GetVals() {
+			if vals[len(vals)-1] == "true" {
+				vals = vals[:len(vals)-1]
+			} else if vals[len(vals)-1] == "false" {
+				vals = vals[:len(vals)-1]
+				s += "no"
+			}
+			for _, val := range vals {
 				s += fmt.Sprintf(" %v", val)
 			}
 		}
