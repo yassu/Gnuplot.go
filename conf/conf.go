@@ -218,6 +218,12 @@ func PStyleNoContoursConf() *Configure {
 	})
 }
 
+func PStyleNoTitleConf() *Configure {
+	return NewConfigure([]string{"title"}, []string{}, func(vals []string) bool {
+		return len(vals) == 1 && vals[0] == "true"
+	})
+}
+
 func PStyleNoSurfaceConf() *Configure {
 	return NewConfigure([]string{"nosurface"}, []string{}, func(vals []string) bool {
 		return len(vals) == 1 && vals[0] == "true"

@@ -441,6 +441,27 @@ func TestPStyleNoContoursConf3(t *testing.T) {
 	}
 }
 
+func TestPStyleNoTitleConf(t *testing.T) {
+	conf := PStyleNoTitleConf()
+	if conf.requiredCondition([]string{"true"}) != true {
+		t.Errorf("fails in TestPStyleNoTitleConf")
+	}
+}
+
+func TestPStyleNoTitleConf2(t *testing.T) {
+	conf := PStyleNoTitleConf()
+	if conf.requiredCondition([]string{"abc"}) != false {
+		t.Errorf("fails in TestPStyleNoTitleConf2")
+	}
+}
+
+func TestPStyleNoTitleConf3(t *testing.T) {
+	conf := PStyleNoTitleConf()
+	if conf.requiredCondition([]string{"true", "true"}) != false {
+		t.Errorf("fails in TestPStyleNoTitleConf3")
+	}
+}
+
 func TestPStyleNoSurfaceConf(t *testing.T) {
 	conf := PStyleNoSurfaceConf()
 	if conf.requiredCondition([]string{"true"}) != true {
