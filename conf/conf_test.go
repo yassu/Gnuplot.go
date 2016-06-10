@@ -568,6 +568,34 @@ func TestPStyleGoTMaxConf3(t *testing.T) {
 }
 
 // for Graph Element
+func TestGraphAnglesConf(t *testing.T) {
+	conf := GraphAnglesConf()
+	if conf.requiredCondition([]string{"true"}) != true {
+		t.Errorf("fails in TestGraphAnglesConf")
+	}
+}
+
+func TestGraphAnglesConf2(t *testing.T) {
+	conf := GraphAnglesConf()
+	if conf.requiredCondition([]string{"degrees"}) != true {
+		t.Errorf("fails in TestGraphAnglesConf2")
+	}
+}
+
+func TestGraphAnglesConf3(t *testing.T) {
+	conf := GraphAnglesConf()
+	if conf.requiredCondition([]string{"false"}) != false {
+		t.Errorf("fails in TestGraphAnglesConf3")
+	}
+}
+
+func TestGraphAnglesConf4(t *testing.T) {
+	conf := GraphAnglesConf()
+	if conf.requiredCondition([]string{"false", "3"}) != false {
+		t.Errorf("fails in TestGraphAnglesConf4")
+	}
+}
+
 func TestGraphTermConf(t *testing.T) {
 	conf := GraphTermConf()
 	if conf.requiredCondition([]string{"pngs"}) != false {
