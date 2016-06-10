@@ -120,7 +120,6 @@ func Function2dConfs() []*Configure {
 func GraphConfs() []*Configure {
 	return []*Configure{
 		GraphAnglesConf(),
-		GraphArrowConf(),
 		GraphAutoScaleConf(),
 		GraphBarsConf(),
 		GraphBmarginConf(),
@@ -454,12 +453,6 @@ func GraphAnglesConf() *Configure {
 	return NewConfigure([]string{"angles"}, []string{"radians"}, func(vals []string) bool {
 		fmt.Println(len(vals) == 1)
 		return len(vals) == 1 && utils.InStr(vals[0], []string{"degrees", "radians", "true"})
-	})
-}
-
-func GraphArrowConf() *Configure {
-	return NewConfigure([]string{"arrow"}, []string{}, func(vals []string) bool {
-		return true
 	})
 }
 
