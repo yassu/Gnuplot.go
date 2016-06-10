@@ -323,7 +323,7 @@ func Curve2dConfs() []*Configure {
 //     y2range           y2tics            y2zeroaxis        ydata
 //     ydtics            ylabel            ymtics            yrange
 func GraphAnglesConf() *Configure {
-	return NewConfigure([]string{"angles"}, []string{"radians"}, func(vals []string) bool {
+	return NewConfigure([]string{"angles"}, []string{}, func(vals []string) bool {
 		return len(vals) == 1 && utils.InStr(vals[0], []string{"degrees", "radians", "true", "false"})
 	})
 }
