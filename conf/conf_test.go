@@ -528,21 +528,42 @@ func TestPStyleGoXMaxConf3(t *testing.T) {
 func TestPStyleGoTMinConf(t *testing.T) {
 	conf := PStyleGoTMinConf()
 	if conf.requiredCondition([]string{"-3.2"}) != true {
-		t.Errorf("TestPStyleGoTMinConf")
+		t.Errorf("fails in TTestPStyleGoTMinConf")
 	}
 }
 
 func TestPStyleGoTMinConf2(t *testing.T) {
 	conf := PStyleGoTMinConf()
 	if conf.requiredCondition([]string{"3.2.3"}) != false {
-		t.Errorf("TestPStyleGoTMinConf2")
+		t.Errorf("fails in TestPStyleGoTMinConf2")
 	}
 }
 
 func TestPStyleGoTMinConf3(t *testing.T) {
 	conf := PStyleGoTMinConf()
 	if conf.requiredCondition([]string{"3.2", "3"}) != false {
-		t.Errorf("TestPStyleGoTMinConf3")
+		t.Errorf("fails in TestPStyleGoTMinConf3")
+	}
+}
+
+func TestPStyleGoTMaxConf(t *testing.T) {
+	conf := PStyleGoTMaxConf()
+	if conf.requiredCondition([]string{"-3.2"}) != true {
+		t.Errorf("fails in TestPStyleGoTMaxConf")
+	}
+}
+
+func TestPStyleGoTMaxConf2(t *testing.T) {
+	conf := PStyleGoTMaxConf()
+	if conf.requiredCondition([]string{"-3.2.3"}) != false {
+		t.Errorf("fails in TestPStyleGoTMaxConf2")
+	}
+}
+
+func TestPStyleGoTMaxConf3(t *testing.T) {
+	conf := PStyleGoTMaxConf()
+	if conf.requiredCondition([]string{"-3.2", "3"}) != false {
+		t.Errorf("fails in TestPStyleGoTMaxConf3")
 	}
 }
 
