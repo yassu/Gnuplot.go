@@ -425,6 +425,89 @@ func (fun Function3d) gnuplot(filename string) string {
 	return s
 }
 
+// Curve3d
+const DefaultCurve3dSplitNum int = 1000
+
+type Curve3d struct {
+	plotter  Plotter
+	splitNum int
+	c        func(float64) [3]float64
+}
+
+func NewCurve3d() *Curve3d {
+	c := new(Curve3d)
+	c.splitNum = DefaultCurve3dSplitNum
+	c.setConfigure()
+	return c
+}
+
+func (c *Curve3d) setConfigure() {
+	for _, conf := range conf.Curve3dConfs() {
+		c.plotter.Configure(conf)
+	}
+}
+
+func (c *Curve3d) Configure(key string, vals []string) {
+	for j, conf := range c.plotter.configures {
+		if utils.InStr(key, conf.AliasedKeys()) {
+			c.plotter.configures[j].SetVals(vals)
+			return
+		}
+	}
+	panic(fmt.Sprintf("%v is not a key.", key))
+}
+
+func (c *Curve3d) Configures(sconf map[string][]string) {
+	for key, vals := range sconf {
+		c.Configure(key, vals)
+	}
+}
+
+func (c Curve3d) GetData() [][3]float64 { // TODO: test
+	tMin, _ := strconv.ParseFloat(c.plotter.GetC("_tMin")[0], 32)
+	tMax, _ := strconv.ParseFloat(c.plotter.GetC("_tMax")[0], 32)
+	var sep = float64(tMax-tMin) / float64(c.splitNum-1)
+
+	var a [][3]float64
+	for j := 0; j < c.splitNum; j++ {
+		cs := c.c(tMin + float64(j)*sep)
+		a = append(a, [3]float64{cs[0], cs[1], cs[2]})
+	}
+	return a
+}
+
+func (c Curve3d) getGnuData() string {
+	var s string
+	for _, xs := range c.GetData() {
+		s += fmt.Sprintf("%f %f %f\n", xs[0], xs[1], xs[2])
+	}
+	return s
+}
+
+func (c *Curve3d) SetC(_c func(float64) [3]float64) {
+	c.c = _c
+}
+
+func (c Curve3d) gnuplot(fileName string) string {
+	var s = fmt.Sprintf("\"%v\" ", fileName)
+	for _, conf := range c.plotter.configures {
+		if !strings.HasPrefix(conf.GetKey(), "_") && !isDummyVal(conf.GetVals()) {
+			vals := conf.GetVals()
+			s += fmt.Sprintf(" %v ", conf.GetKey())
+			if vals[len(vals)-1] == "true" {
+				vals = vals[:len(vals)-1]
+			} else if vals[len(vals)-1] == "false" {
+				vals = vals[:len(vals)-1]
+				s += "no"
+			}
+			for _, val := range vals {
+				s += fmt.Sprintf(" %v", val)
+			}
+		}
+	}
+	return s
+}
+
 // Graph3d
 type Graph3d struct {
 	plotter Plotter
