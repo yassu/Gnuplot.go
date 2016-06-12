@@ -570,7 +570,37 @@ func GraphAnglesConf() *Configure {
 
 func GraphAutoScaleConf() *Configure {
 	return NewConfigure([]string{"autoscale"}, []string{}, func(vals []string) bool {
-		return true
+		if len(vals) != 1 {
+			return false
+		}
+		val := vals[0]
+
+		axes := []string{"x", "y", "z", "cb", "x2", "y2", "xy"}
+		for _, axe := range axes {
+			if axe+"min" == val {
+				return false
+			}
+			if axe+"max" == val {
+				return false
+			}
+			if axe+"fixmin" == val {
+				return false
+			}
+			if axe+"fixmax" == val {
+				return false
+			}
+			if axe+"fix" == val {
+				return false
+			}
+		}
+
+		if inStr(vals[0], []string{"fix", "keepfix"}) {
+			return true
+		}
+		if vals[0] == "noextend" {
+			return true
+		}
+		return false
 	})
 }
 

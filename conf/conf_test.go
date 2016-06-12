@@ -603,17 +603,24 @@ func TestGraphAnglesConf2(t *testing.T) {
 	}
 }
 
-func TestGraphAnglesConf3(t *testing.T) {
-	conf := GraphAnglesConf()
-	if conf.requiredCondition([]string{"false"}) != false {
-		t.Errorf("fails in TestGraphAnglesConf3")
-	}
-}
+// func TestGraphAnglesConf3(t *testing.T) {
+// 	conf := GraphAnglesConf()
+// 	if conf.requiredCondition([]string{"false"}) != false {
+// 		t.Errorf("fails in TestGraphAnglesConf3")
+// 	}
+// }
 
 func TestGraphAnglesConf4(t *testing.T) {
 	conf := GraphAnglesConf()
 	if conf.requiredCondition([]string{"false", "3"}) != false {
 		t.Errorf("fails in TestGraphAnglesConf4")
+	}
+}
+
+func TestGraphAutoScaleConf(t *testing.T) {
+	conf := GraphAutoScaleConf()
+	if conf.requiredCondition([]string{"noextend"}) != true {
+		t.Errorf("fails in TestGraphAutoScaleConf")
 	}
 }
 
