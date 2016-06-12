@@ -624,6 +624,27 @@ func TestGraphAutoScaleConf(t *testing.T) {
 	}
 }
 
+func TestGraphAutoScaleConf2(t *testing.T) {
+	conf := GraphAutoScaleConf()
+	if conf.requiredCondition([]string{"fix"}) != true {
+		t.Errorf("fails in TestGraphAutoScaleConf2")
+	}
+}
+
+func TestGraphAutoScaleConf3(t *testing.T) {
+	conf := GraphAutoScaleConf()
+	if conf.requiredCondition([]string{"keepfix"}) != true {
+		t.Errorf("fails in TestGraphAutoScaleConf3")
+	}
+}
+
+func TestGraphAutoScaleConf4(t *testing.T) {
+	conf := GraphAutoScaleConf()
+	if conf.requiredCondition([]string{"x2fixmin"}) != true {
+		t.Errorf("fails in TestGraphAutoScaleConf4")
+	}
+}
+
 func TestGraphBarsConf(t *testing.T) {
 	conf := GraphBarsConf()
 	if conf.requiredCondition([]string{"small"}) != true {

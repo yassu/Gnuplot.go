@@ -583,19 +583,19 @@ func GraphAutoScaleConf() *Configure {
 		axes := []string{"x", "y", "z", "cb", "x2", "y2", "xy"}
 		for _, axe := range axes {
 			if axe+"min" == val {
-				return false
+				return true
 			}
 			if axe+"max" == val {
-				return false
+				return true
 			}
 			if axe+"fixmin" == val {
-				return false
+				return true
 			}
 			if axe+"fixmax" == val {
-				return false
+				return true
 			}
 			if axe+"fix" == val {
-				return false
+				return true
 			}
 		}
 
