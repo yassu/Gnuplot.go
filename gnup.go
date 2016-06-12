@@ -39,6 +39,12 @@ func (p *Plotter) GetC(key string) []string {
 	return []string{}
 }
 
+type PlotElement interface {
+	GetData() [][2]float64
+	getGnuData() string
+	gnuplot(filename string) string
+}
+
 // Function2d
 const DefaultFunction2dSplitNum int = 1000
 
@@ -77,7 +83,7 @@ func (fun *Function2d) Configures(sconf map[string][]string) {
 	}
 }
 
-func (fun *Function2d) GetData() [][2]float64 { // TODO: テスト書く
+func (fun Function2d) GetData() [][2]float64 { // TODO: テスト書く
 	xMin, _ := strconv.ParseFloat(fun.plotter.GetC("_xMin")[0], 32)
 	xMax, _ := strconv.ParseFloat(fun.plotter.GetC("_xMax")[0], 32)
 	var sep = float64(xMax-xMin) / float64(fun.splitNum-1)
@@ -91,7 +97,7 @@ func (fun *Function2d) GetData() [][2]float64 { // TODO: テスト書く
 	return a
 }
 
-func (fun *Function2d) getGnuData() string {
+func (fun Function2d) getGnuData() string {
 	var s string
 	for _, xs := range fun.GetData() {
 		s += fmt.Sprintf("%f %f\n", xs[0], xs[1])
@@ -170,7 +176,7 @@ func (c *Curve2d) Configures(sconf map[string][]string) {
 	}
 }
 
-func (c *Curve2d) GetData() [][2]float64 { // TODO: test
+func (c Curve2d) GetData() [][2]float64 { // TODO: test
 	tMin, _ := strconv.ParseFloat(c.plotter.GetC("_tMin")[0], 32)
 	tMax, _ := strconv.ParseFloat(c.plotter.GetC("_tMax")[0], 32)
 	var sep = float64(tMax-tMin) / float64(c.splitNum-1)
@@ -183,7 +189,7 @@ func (c *Curve2d) GetData() [][2]float64 { // TODO: test
 	return a
 }
 
-func (c *Curve2d) getGnuData() string {
+func (c Curve2d) getGnuData() string {
 	var s string
 	for _, xs := range c.GetData() {
 		s += fmt.Sprintf("%f %f\n", xs[0], xs[1])
@@ -221,9 +227,8 @@ func isDummyVal(vals []string) bool {
 
 // Graph
 type Graph2d struct {
-	plotter   Plotter
-	functions []Function2d
-	curves    []Curve2d
+	plotter Plotter
+	pElems  []PlotElement
 }
 
 func NewGraph2d() *Graph2d {
@@ -254,19 +259,15 @@ func (g *Graph2d) Configures(sconf map[string][]string) {
 	}
 }
 
-func (g *Graph2d) AppendFunc(f Function2d) {
-	g.functions = append(g.functions, f)
-}
-
-func (g *Graph2d) AppendCurve(c Curve2d) {
-	g.curves = append(g.curves, c)
+func (g *Graph2d) AppendPElem(p PlotElement) {
+	g.pElems = append(g.pElems, p)
 }
 
 func (g Graph2d) writeIntoFile(data string, f *os.File) {
 	f.WriteString(data)
 }
 
-func (g Graph2d) gnuplot(funcFilenames []string, curveFilenames []string) string {
+func (g Graph2d) gnuplot(elemFilenames []string) string {
 	var s string
 
 	for _, conf := range g.plotter.configures {
@@ -288,12 +289,9 @@ func (g Graph2d) gnuplot(funcFilenames []string, curveFilenames []string) string
 	}
 
 	s += "plot "
-	for j, _ := range g.functions {
-		s += g.functions[j].gnuplot(funcFilenames[j]) + ", "
-	}
-	for j, _ := range g.curves {
-		s += g.curves[j].gnuplot(curveFilenames[j])
-		if j != len(g.curves)-1 {
+	for j, _ := range g.pElems {
+		s += g.pElems[j].gnuplot(elemFilenames[j])
+		if j != len(g.pElems)-1 {
 			s += ", "
 		}
 	}
@@ -309,32 +307,16 @@ func (g *Graph2d) Run() {
 	// execFilename := tmpDir + "exec.gnu"
 	execFilename := "exec.gnu"
 
-	// それぞれのfunctionのdataをtempファイルに書き込む
-	// また, それらのファイルの名前を func_filenames []string に格納する
-	var funcFilenames []string
-	for _, fun := range g.functions {
-		file, err := ioutil.TempFile(tmpDir, "")
-		defer func() {
-			file.Close()
-		}()
-		if err != nil {
-			panic(fmt.Sprintf("%v", err))
-		} else {
-			g.writeIntoFile(fun.getGnuData(), file)
-			funcFilenames = append(funcFilenames, file.Name())
-		}
-	}
-
 	// それぞれのcurveのdataをtempファイルに書き込む
 	// また, それらのファイルの名前を curve_filenames []stringに格納する
-	var curveFilenames []string
-	for _, c := range g.curves {
+	var plotElemFilenames []string
+	for _, p := range g.pElems {
 		file, _ := ioutil.TempFile(tmpDir, "")
 		defer func() {
 			file.Close()
 		}()
-		g.writeIntoFile(c.getGnuData(), file)
-		curveFilenames = append(curveFilenames, file.Name())
+		g.writeIntoFile(p.getGnuData(), file)
+		plotElemFilenames = append(plotElemFilenames, file.Name())
 	}
 
 	// 実行するgnuplotの実行ファイルをtempファイルに書き込む
@@ -346,6 +328,6 @@ func (g *Graph2d) Run() {
 	if err != nil {
 		fmt.Println(err)
 	} else {
-		execFile.WriteString(g.gnuplot(funcFilenames, curveFilenames))
+		execFile.WriteString(g.gnuplot(plotElemFilenames))
 	}
 }

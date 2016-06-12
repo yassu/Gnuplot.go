@@ -117,6 +117,23 @@ func Function2dConfs() []*Configure {
 		PStyleGoXMaxConf()}
 }
 
+func Curve2dConfs() []*Configure {
+	return []*Configure{
+		PStyleWithConf(),
+		PStyleLineColorConf(),
+		PStylePointTypeConf(),
+		PStyleLineTypeConf(),
+		PStyleLineWidthConf(),
+		PStylePointSizeConf(),
+		PStyleFillConf(),
+		PStyleNoHidden3dConf(),
+		PStyleNoContoursConf(),
+		PStyleNoSurfaceConf(),
+		PStylePaletteConf(),
+		PStyleGoTMinConf(),
+		PStyleGoTMaxConf()}
+}
+
 func GraphConfs() []*Configure {
 	return []*Configure{
 		GraphAnglesConf(),
