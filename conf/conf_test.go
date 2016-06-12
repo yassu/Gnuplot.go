@@ -1,7 +1,7 @@
 package conf
 
 import (
-	"github.com/yassu/gnuplot.go/utils"
+	"github.com/yassu/gnup/utils"
 	"testing"
 )
 

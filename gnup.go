@@ -2,8 +2,8 @@ package gnuplot
 
 import (
 	"fmt"
-	"github.com/yassu/gnuplot.go/conf"
-	"github.com/yassu/gnuplot.go/utils"
+	"github.com/yassu/gnup/conf"
+	"github.com/yassu/gnup/utils"
 	"io/ioutil"
 	"os"
 	"strconv"
@@ -304,7 +304,7 @@ func (g Graph2d) gnuplot(funcFilenames []string, curveFilenames []string) string
 }
 
 func (g *Graph2d) Run() {
-	tmpDir := os.TempDir() + "/gnuplot.go/"
+	tmpDir := os.TempDir() + "/gnup/"
 	// TODO: tmpDirがなければ作る
 	// execFilename := tmpDir + "exec.gnu"
 	execFilename := "exec.gnu"

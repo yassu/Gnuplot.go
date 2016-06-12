@@ -2,7 +2,7 @@ package conf
 
 import (
 	"fmt"
-	"github.com/yassu/gnuplot.go/utils"
+	"github.com/yassu/gnup/utils"
 	"regexp"
 	"strconv"
 )
