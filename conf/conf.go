@@ -171,6 +171,25 @@ func Curve3dConfs() []*Configure {
 		PStyleGoTMaxConf()}
 }
 
+func Surface3dConfs() []*Configure {
+	return []*Configure{
+		PStyleWithConf(),
+		PStyleLineColorConf(),
+		PStylePointTypeConf(),
+		PStyleLineTypeConf(),
+		PStyleLineWidthConf(),
+		PStylePointSizeConf(),
+		PStyleFillConf(),
+		PStyleNoHidden3dConf(),
+		PStyleNoContoursConf(),
+		PStyleNoSurfaceConf(),
+		PStylePaletteConf(),
+		PStyleGoUMinConf(),
+		PStyleGoUMaxConf(),
+		PStyleGoVMinConf(),
+		PStyleGoVMaxConf()}
+}
+
 func GraphConfs() []*Configure {
 	return []*Configure{
 		GraphAnglesConf(),
@@ -467,6 +486,30 @@ func PStyleGoTMinConf() *Configure {
 
 func PStyleGoTMaxConf() *Configure {
 	return NewConfigure([]string{"_tMax"}, []string{"10.0"}, func(vals []string) bool {
+		return len(vals) == 1 && isNum(vals[0])
+	})
+}
+
+func PStyleGoUMinConf() *Configure {
+	return NewConfigure([]string{"_uMin"}, []string{"-10.0"}, func(vals []string) bool {
+		return len(vals) == 1 && isNum(vals[0])
+	})
+}
+
+func PStyleGoUMaxConf() *Configure {
+	return NewConfigure([]string{"_uMax"}, []string{"10.0"}, func(vals []string) bool {
+		return len(vals) == 1 && isNum(vals[0])
+	})
+}
+
+func PStyleGoVMinConf() *Configure {
+	return NewConfigure([]string{"_vMin"}, []string{"-10.0"}, func(vals []string) bool {
+		return len(vals) == 1 && isNum(vals[0])
+	})
+}
+
+func PStyleGoVMaxConf() *Configure {
+	return NewConfigure([]string{"_vMax"}, []string{"10.0"}, func(vals []string) bool {
 		return len(vals) == 1 && isNum(vals[0])
 	})
 }

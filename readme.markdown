@@ -67,7 +67,7 @@ Tasks
 - [ ] write all of validations of configures of Function2d or Curve2d
 - [x] support of Function3d
 - [x] support of Curve3d
-- [ ] support of Surface3d
+- [x] support of Surface3d
 
 LICENSE
 ---------

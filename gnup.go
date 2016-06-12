@@ -508,6 +508,94 @@ func (c Curve3d) gnuplot(fileName string) string {
 	return s
 }
 
+// Surface3d
+const DefaultSurfaceSplitNum int = 60
+
+type Surface3d struct {
+	plotter  Plotter
+	splitNum int
+	f        func(float64, float64) [3]float64
+}
+
+func NewSurface3d() *Surface3d {
+	s := new(Surface3d)
+	s.splitNum = DefaultSurfaceSplitNum
+	s.setConfigure()
+	return s
+}
+
+func (s *Surface3d) setConfigure() {
+	for _, conf := range conf.Curve3dConfs() {
+		s.plotter.Configure(conf)
+	}
+}
+
+func (s *Surface3d) Configure(key string, vals []string) {
+	for j, conf := range s.plotter.configures {
+		if utils.InStr(key, conf.AliasedKeys()) {
+			s.plotter.configures[j].SetVals(vals)
+			return
+		}
+	}
+	panic(fmt.Sprintf("%v is not a key.", key))
+}
+
+func (s *Surface3d) Configures(sconf map[string][]string) {
+	for key, vals := range sconf {
+		s.Configure(key, vals)
+	}
+}
+
+func (s Surface3d) GetData() [][3]float64 { // TODO: test
+	uMin := -10.0 // strconv.ParseFloat(s.plotter.GetC("_uMin")[0], 32)
+	uMax := 10.0  //strconv.ParseFloat(s.plotter.GetC("_uMax")[0], 32)
+	vMin := -10.0 // strconv.ParseFloat(s.plotter.GetC("_vMin")[0], 32)
+	vMax := 10.0  // strconv.ParseFloat(s.plotter.GetC("_vMax")[0], 32)
+	var sepU = float64(uMax-uMin) / float64(s.splitNum-1)
+	var sepV = float64(vMax-vMin) / float64(s.splitNum-1)
+
+	var a [][3]float64
+	for jU := 0; jU < s.splitNum; jU++ {
+		for jV := 0; jV < s.splitNum; jV++ {
+			cs := s.f(uMin+float64(jU)*sepU, vMin+float64(jV)*sepV)
+			a = append(a, [3]float64{cs[0], cs[1], cs[2]})
+		}
+	}
+	return a
+}
+
+func (s Surface3d) getGnuData() string {
+	var text string
+	for _, xs := range s.GetData() {
+		text += fmt.Sprintf("%f %f %f\n", xs[0], xs[1], xs[2])
+	}
+	return text
+}
+
+func (s *Surface3d) SetS(f func(float64, float64) [3]float64) {
+	s.f = f
+}
+
+func (s Surface3d) gnuplot(fileName string) string {
+	var text = fmt.Sprintf("\"%v\" ", fileName)
+	for _, conf := range s.plotter.configures {
+		if !strings.HasPrefix(conf.GetKey(), "_") && !isDummyVal(conf.GetVals()) {
+			vals := conf.GetVals()
+			text += fmt.Sprintf(" %v ", conf.GetKey())
+			if vals[len(vals)-1] == "true" {
+				vals = vals[:len(vals)-1]
+			} else if vals[len(vals)-1] == "false" {
+				vals = vals[:len(vals)-1]
+				text += "no"
+			}
+			for _, val := range vals {
+				text += fmt.Sprintf(" %v", val)
+			}
+		}
+	}
+	return text
+}
+
 // Graph3d
 type Graph3d struct {
 	plotter Plotter
@@ -590,7 +678,7 @@ func (g *Graph3d) Run() {
 	// execFilename := tmpDir + "exec.gnu"
 	execFilename := "exec.gnu"
 
-	// それぞれのcurveのdataをtempファイルに書き込む
+	// それぞれのpElementのdataをtempファイルに書き込む
 	// また, それらのファイルの名前を curve_filenames []stringに格納する
 	var plotElemFilenames []string
 	for _, p := range g.pElems {

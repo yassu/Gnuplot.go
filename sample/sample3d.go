@@ -5,22 +5,29 @@ import (
 )
 
 func main() {
-	fun := gnuplot.NewFunction3d()
-	fun.SetF(func(x, y float64) float64 {
-		return x*x + y*y
-	})
-	fun.Configure("w", []string{"lines"})
+	// fun := gnuplot.NewFunction3d()
+	// fun.SetF(func(x, y float64) float64 {
+	// 	return x*x + y*y
+	// })
+	// fun.Configure("w", []string{"lines"})
 
-	c := gnuplot.NewCurve3d()
-	c.SetC(func(t float64) [3]float64 {
-		return [3]float64{t, t * t, 0}
+	// c := gnuplot.NewCurve3d()
+	// c.SetC(func(t float64) [3]float64 {
+	// 	return [3]float64{t, t * t, 0}
+	// })
+	// c.Configure("w", []string{"lines"})
+
+	s := gnuplot.NewSurface3d()
+	s.SetS(func(u, v float64) [3]float64 {
+		return [3]float64{u, v, u * v}
 	})
-	c.Configure("w", []string{"lines"})
+	s.Configure("w", []string{"lines"})
 
 	graph := gnuplot.NewGraph3d()
 	graph.Configure("angles", []string{"degrees"})
 	graph.Configure("key", []string{"false"})
-	graph.AppendPElem(*fun)
-	graph.AppendPElem(*c)
+	// graph.AppendPElem(*fun)
+	// graph.AppendPElem(*c)
+	graph.AppendPElem(*s)
 	graph.Run()
 }
