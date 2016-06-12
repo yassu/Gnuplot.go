@@ -1,7 +1,7 @@
 package conf
 
 import (
-	"github.com/yassu/gnuplot.go/utils"
+	"github.com/yassu/gnup/utils"
 	"testing"
 )
 
@@ -438,6 +438,27 @@ func TestPStyleNoContoursConf3(t *testing.T) {
 	conf := PStyleNoContoursConf()
 	if conf.requiredCondition([]string{"true", "true"}) != false {
 		t.Errorf("fails in TestPStyleNoContoursConf3")
+	}
+}
+
+func TestPStyleNoTitleConf(t *testing.T) {
+	conf := PStyleNoTitleConf()
+	if conf.requiredCondition([]string{"true"}) != true {
+		t.Errorf("fails in TestPStyleNoTitleConf")
+	}
+}
+
+func TestPStyleNoTitleConf2(t *testing.T) {
+	conf := PStyleNoTitleConf()
+	if conf.requiredCondition([]string{"abc"}) != false {
+		t.Errorf("fails in TestPStyleNoTitleConf2")
+	}
+}
+
+func TestPStyleNoTitleConf3(t *testing.T) {
+	conf := PStyleNoTitleConf()
+	if conf.requiredCondition([]string{"true", "true"}) != false {
+		t.Errorf("fails in TestPStyleNoTitleConf3")
 	}
 }
 

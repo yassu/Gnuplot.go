@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/yassu/gnuplot.go"
+	"github.com/yassu/gnup"
 )
 
 func main() {

@@ -2,7 +2,7 @@ package conf
 
 import (
 	"fmt"
-	"github.com/yassu/gnuplot.go/utils"
+	"github.com/yassu/gnup/utils"
 	"regexp"
 	"strconv"
 )
@@ -363,6 +363,12 @@ func PStyleNoContoursConf() *Configure {
 	})
 }
 
+func PStyleNoTitleConf() *Configure {
+	return NewConfigure([]string{"notitle"}, []string{}, func(vals []string) bool {
+		return len(vals) == 1 && vals[0] == "true"
+	})
+}
+
 func PStyleNoSurfaceConf() *Configure {
 	return NewConfigure([]string{"nosurface"}, []string{}, func(vals []string) bool {
 		return len(vals) == 1 && vals[0] == "true"
@@ -399,24 +405,6 @@ func PStyleGoTMaxConf() *Configure {
 	})
 }
 
-func Curve2dConfs() []*Configure {
-	return []*Configure{
-		PStyleWithConf(),
-		PStyleLineColorConf(),
-		PStylePointTypeConf(),
-		PStyleLineTypeConf(),
-		PStyleLineWidthConf(),
-		PStylePointTypeConf(),
-		PStylePointSizeConf(),
-		PStyleFillConf(),
-		PStyleNoHidden3dConf(),
-		PStyleNoContoursConf(),
-		PStyleNoSurfaceConf(),
-		PStylePaletteConf(),
-		PStyleGoTMinConf(),
-		PStyleGoTMaxConf()}
-}
-
 // Graph options
 //     angles            arrow             autoscale         bars
 //     bmargin           border            boxwidth          cbdata
@@ -450,9 +438,8 @@ func Curve2dConfs() []*Configure {
 //     y2range           y2tics            y2zeroaxis        ydata
 //     ydtics            ylabel            ymtics            yrange
 func GraphAnglesConf() *Configure {
-	return NewConfigure([]string{"angles"}, []string{"radians"}, func(vals []string) bool {
-		fmt.Println(len(vals) == 1)
-		return len(vals) == 1 && utils.InStr(vals[0], []string{"degrees", "radians", "true"})
+	return NewConfigure([]string{"angles"}, []string{}, func(vals []string) bool {
+		return len(vals) == 1 && utils.InStr(vals[0], []string{"degrees", "radians", "true", "false"})
 	})
 }
 

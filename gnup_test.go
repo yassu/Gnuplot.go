@@ -1,7 +1,7 @@
 package gnuplot
 
 import (
-	"github.com/yassu/gnuplot.go/conf"
+	"github.com/yassu/gnup/conf"
 	"testing"
 	// "fmt"
 	// "math"

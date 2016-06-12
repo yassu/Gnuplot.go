@@ -2,8 +2,8 @@ package gnuplot
 
 import (
 	"fmt"
-	"github.com/yassu/gnuplot.go/conf"
-	"github.com/yassu/gnuplot.go/utils"
+	"github.com/yassu/gnup/conf"
+	"github.com/yassu/gnup/utils"
 	"io/ioutil"
 	"os"
 	"strconv"
@@ -112,8 +112,15 @@ func (fun Function2d) gnuplot(filename string) string {
 
 	for _, conf := range fun.plotter.configures {
 		if !strings.HasPrefix(conf.GetKey(), "_") && !isDummyVal(conf.GetVals()) {
+			vals := conf.GetVals()
 			s += fmt.Sprintf(" %v ", conf.GetKey())
-			for _, val := range conf.GetVals() {
+			if vals[len(vals)-1] == "true" {
+				vals = vals[:len(vals)-1]
+			} else if vals[len(vals)-1] == "false" {
+				vals = vals[:len(vals)-1]
+				s += "no"
+			}
+			for _, val := range vals {
 				s += fmt.Sprintf(" %v", val)
 			}
 		}
@@ -192,8 +199,15 @@ func (c Curve2d) gnuplot(fileName string) string {
 	var s = fmt.Sprintf("\"%v\" ", fileName)
 	for _, conf := range c.plotter.configures {
 		if !strings.HasPrefix(conf.GetKey(), "_") && !isDummyVal(conf.GetVals()) {
+			vals := conf.GetVals()
 			s += fmt.Sprintf(" %v ", conf.GetKey())
-			for _, val := range conf.GetVals() {
+			if vals[len(vals)-1] == "true" {
+				vals = vals[:len(vals)-1]
+			} else if vals[len(vals)-1] == "false" {
+				vals = vals[:len(vals)-1]
+				s += "no"
+			}
+			for _, val := range vals {
 				s += fmt.Sprintf(" %v", val)
 			}
 		}
@@ -290,7 +304,7 @@ func (g Graph2d) gnuplot(funcFilenames []string, curveFilenames []string) string
 }
 
 func (g *Graph2d) Run() {
-	tmpDir := os.TempDir() + "/gnuplot.go/"
+	tmpDir := os.TempDir() + "/gnup/"
 	// TODO: tmpDirがなければ作る
 	// execFilename := tmpDir + "exec.gnu"
 	execFilename := "exec.gnu"
