@@ -34,6 +34,6 @@ func main() {
 	graph.Configure("angles", []string{"degrees"})
 	graph.Configure("yrange", []string{"[0:1000]"})
 	graph.Configure("key", []string{"false"})
-	graph.AppendFunc(*fun)
+	graph.AppendPElem(*fun)
 	graph.Run()
 }

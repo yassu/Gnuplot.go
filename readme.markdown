@@ -50,8 +50,8 @@ func main() {
 	graph := gnup.NewGraph2d()
 	graph.Configure("angles", []string{"degrees"})
 	graph.Configure("key", []string{"false"})
-	graph.AppendFunc(*fun)
-	graph.AppendCurve(*c)
+	graph.AppendPElem(*fun)
+	graph.AppendPElem(*c)
 	graph.Run()
 }
 ```
