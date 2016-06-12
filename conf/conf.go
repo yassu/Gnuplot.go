@@ -286,7 +286,6 @@ func Curve2dConfs() []*Configure {
 		PStylePointTypeConf(),
 		PStyleLineTypeConf(),
 		PStyleLineWidthConf(),
-		PStylePointTypeConf(),
 		PStylePointSizeConf(),
 		PStyleFillConf(),
 		PStyleNoHidden3dConf(),

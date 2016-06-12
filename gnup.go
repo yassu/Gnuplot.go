@@ -39,6 +39,12 @@ func (p *Plotter) GetC(key string) []string {
 	return []string{}
 }
 
+type PlotElemnt interface {
+	GetData() [][2]float64
+	getGnuData() string
+	gnuplot(filename string) string
+}
+
 // Function2d
 const DefaultFunction2dSplitNum int = 1000
 
@@ -77,7 +83,7 @@ func (fun *Function2d) Configures(sconf map[string][]string) {
 	}
 }
 
-func (fun *Function2d) GetData() [][2]float64 { // TODO: テスト書く
+func (fun Function2d) GetData() [][2]float64 { // TODO: テスト書く
 	xMin, _ := strconv.ParseFloat(fun.plotter.GetC("_xMin")[0], 32)
 	xMax, _ := strconv.ParseFloat(fun.plotter.GetC("_xMax")[0], 32)
 	var sep = float64(xMax-xMin) / float64(fun.splitNum-1)
@@ -91,7 +97,7 @@ func (fun *Function2d) GetData() [][2]float64 { // TODO: テスト書く
 	return a
 }
 
-func (fun *Function2d) getGnuData() string {
+func (fun Function2d) getGnuData() string {
 	var s string
 	for _, xs := range fun.GetData() {
 		s += fmt.Sprintf("%f %f\n", xs[0], xs[1])
@@ -183,7 +189,7 @@ func (c *Curve2d) GetData() [][2]float64 { // TODO: test
 	return a
 }
 
-func (c *Curve2d) getGnuData() string {
+func (c Curve2d) getGnuData() string {
 	var s string
 	for _, xs := range c.GetData() {
 		s += fmt.Sprintf("%f %f\n", xs[0], xs[1])
