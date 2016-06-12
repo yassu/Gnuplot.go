@@ -687,24 +687,54 @@ func TestGraphBarsConf6(t *testing.T) {
 	}
 }
 
-func TestGraphBmarginConfConf(t *testing.T) {
+func TestGraphBmarginConf(t *testing.T) {
 	conf := GraphBmarginConf()
 	if conf.requiredCondition([]string{"3.2"}) != true {
 		t.Errorf("fails in TestGraphBmarginConfConf")
 	}
 }
 
-func TestGraphBmarginConfConf2(t *testing.T) {
+func TestGraphBmarginConf2(t *testing.T) {
 	conf := GraphBmarginConf()
 	if conf.requiredCondition([]string{"-3.2"}) != false {
 		t.Errorf("fails in TestGraphBmarginConfConf2")
 	}
 }
 
-func TestGraphBmarginConfConf3(t *testing.T) {
+func TestGraphBmarginConf3(t *testing.T) {
 	conf := GraphBmarginConf()
 	if conf.requiredCondition([]string{"3.2", ""}) != false {
 		t.Errorf("fails in TestGraphBmarginConfConf3")
+	}
+}
+
+// TODO: borderconf
+
+func TestGraphBoxwidthConfTest(t *testing.T) {
+	conf := GraphBoxwidthConf()
+	if conf.requiredCondition([]string{"3.2"}) != true {
+		t.Errorf("fails in TestGraphBoxwidthConfTest")
+	}
+}
+
+func TestGraphBoxwidthConf2(t *testing.T) {
+	conf := GraphBoxwidthConf()
+	if conf.requiredCondition([]string{"absolute"}) != true {
+		t.Errorf("fails in TestGraphBoxwidthConfTest2")
+	}
+}
+
+func TestGraphBoxwidthConf3(t *testing.T) {
+	conf := GraphBoxwidthConf()
+	if conf.requiredCondition([]string{"3.2", "absolute"}) != true {
+		t.Errorf("fails in TestGraphBoxwidthConfTest3")
+	}
+}
+
+func TestGraphBoxwidthConf4(t *testing.T) {
+	conf := GraphBoxwidthConf()
+	if conf.requiredCondition([]string{"-3.2", "absolute"}) != false {
+		t.Errorf("fails in TestGraphBoxwidthConfTest4")
 	}
 }
 

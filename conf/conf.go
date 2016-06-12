@@ -638,7 +638,14 @@ func GraphBorderConf() *Configure {
 
 func GraphBoxwidthConf() *Configure {
 	return NewConfigure([]string{"boxwidth"}, []string{}, func(vals []string) bool {
-		return true
+		if len(vals) == 1 {
+			return utils.InStr(vals[0], []string{"absolute", "relative"}) ||
+				isPosNum(vals[0])
+		} else if len(vals) == 2 {
+			return isPosNum(vals[0]) && utils.InStr(vals[1], []string{"absolute", "relative"})
+		} else {
+			return false
+		}
 	})
 }
 
