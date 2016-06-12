@@ -687,6 +687,27 @@ func TestGraphBarsConf6(t *testing.T) {
 	}
 }
 
+func TestGraphBmarginConfConf(t *testing.T) {
+	conf := GraphBmarginConf()
+	if conf.requiredCondition([]string{"3.2"}) != true {
+		t.Errorf("fails in TestGraphBmarginConfConf")
+	}
+}
+
+func TestGraphBmarginConfConf2(t *testing.T) {
+	conf := GraphBmarginConf()
+	if conf.requiredCondition([]string{"-3.2"}) != false {
+		t.Errorf("fails in TestGraphBmarginConfConf2")
+	}
+}
+
+func TestGraphBmarginConfConf3(t *testing.T) {
+	conf := GraphBmarginConf()
+	if conf.requiredCondition([]string{"3.2", ""}) != false {
+		t.Errorf("fails in TestGraphBmarginConfConf3")
+	}
+}
+
 func TestGraphTermConf(t *testing.T) {
 	conf := GraphTermConf()
 	if conf.requiredCondition([]string{"pngs"}) != false {

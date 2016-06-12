@@ -626,7 +626,7 @@ func GraphBarsConf() *Configure {
 
 func GraphBmarginConf() *Configure {
 	return NewConfigure([]string{"bmargin"}, []string{}, func(vals []string) bool {
-		return true
+		return len(vals) == 1 && isPosNum(vals[0])
 	})
 }
 
