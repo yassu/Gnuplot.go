@@ -65,7 +65,7 @@ Tasks
 -------
 - [ ] write samples by Using wiki
 - [ ] write all of validations of configures of Function2d or Curve2d
-- [ ] support of Function3d
+- [x] support of Function3d
 - [ ] support of Curve3d
 
 LICENSE
