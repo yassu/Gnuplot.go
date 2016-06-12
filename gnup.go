@@ -332,7 +332,7 @@ func (g *Graph2d) Run() {
 	}
 }
 
-const DefaultFunction3dSplitNum = 1000
+const DefaultFunction3dSplitNum = 100
 
 type PlotElement3d interface {
 	GetData() [][3]float64
@@ -372,16 +372,18 @@ func (fun *Function3d) Configure(key string, vals []string) {
 func (fun Function3d) GetData() [][3]float64 { // TODO: テスト書く
 	xMin, _ := strconv.ParseFloat(fun.plotter.GetC("_xMin")[0], 32)
 	xMax, _ := strconv.ParseFloat(fun.plotter.GetC("_xMax")[0], 32)
-	yMin := -10.0 //TODO: yMin configure
-	yMax := 10.0  // TODO: yMax configure
+	yMin, _ := strconv.ParseFloat(fun.plotter.GetC("_yMin")[0], 32)
+	yMax, _ := strconv.ParseFloat(fun.plotter.GetC("_yMax")[0], 32)
 	var sepX = float64(xMax-xMin) / float64(fun.splitNum-1)
 	var sepY = float64(yMax-yMin) / float64(fun.splitNum-1)
 
 	var a [][3]float64
-	for j := 0; j < fun.splitNum; j++ {
-		x := xMin + float64(j)*sepX
-		y := yMin + float64(j)*sepY
-		a = append(a, [3]float64{x, y, fun.f(x, y)})
+	for jX := 0; jX < fun.splitNum; jX++ {
+		for jY := 0; jY < fun.splitNum; jY++ {
+			x := xMin + float64(jX)*sepX
+			y := yMin + float64(jY)*sepY
+			a = append(a, [3]float64{x, y, fun.f(x, y)})
+		}
 	}
 	return a
 }
@@ -389,7 +391,7 @@ func (fun Function3d) GetData() [][3]float64 { // TODO: テスト書く
 func (fun Function3d) getGnuData() string {
 	var s string
 	for _, xs := range fun.GetData() {
-		s += fmt.Sprintf("%f %f\n", xs[0], xs[1], xs[2])
+		s += fmt.Sprintf("%f %f %f\n", xs[0], xs[1], xs[2])
 	}
 	return s
 }
@@ -486,7 +488,7 @@ func (g Graph3d) gnuplot(elemFilenames []string) string {
 		}
 	}
 
-	s += "plot "
+	s += "splot "
 	for j, _ := range g.pElems {
 		s += g.pElems[j].gnuplot(elemFilenames[j])
 		if j != len(g.pElems)-1 {

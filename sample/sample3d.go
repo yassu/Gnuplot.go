@@ -10,7 +10,7 @@ func main() {
 		return x*x + y*y
 	})
 	fun.Configure("_title", []string{"title1"})
-	fun.Configure("w", []string{"dots"})
+	fun.Configure("w", []string{"lines"})
 
 	graph := gnuplot.NewGraph3d()
 	graph.Configure("angles", []string{"degrees"})
