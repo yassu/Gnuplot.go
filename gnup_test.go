@@ -14,7 +14,7 @@ func TestNewPlotter(t *testing.T) {
 
 func TestConfigure2(t *testing.T) {
 	p := NewPlotter()
-	p.Configure(conf.WithConf())
+	p.Configure(conf.PStyleWithConf())
 	if len(p.configures) != 1 {
 		t.Errorf("fails in TestConfigure2")
 	}
