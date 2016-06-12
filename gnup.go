@@ -331,3 +331,201 @@ func (g *Graph2d) Run() {
 		execFile.WriteString(g.gnuplot(plotElemFilenames))
 	}
 }
+
+const DefaultFunction3dSplitNum = 1000
+
+type PlotElement3d interface {
+	GetData() [][3]float64
+	getGnuData() string
+	gnuplot(filename string) string
+}
+
+type Function3d struct {
+	plotter  Plotter
+	splitNum int
+	f        func(float64, float64) float64
+}
+
+func NewFunction3d() *Function3d {
+	fun := new(Function3d)
+	fun.splitNum = DefaultFunction3dSplitNum
+	fun.setConfigure()
+	return fun
+}
+
+func (fun *Function3d) setConfigure() {
+	for _, conf := range conf.Function2dConfs() {
+		fun.plotter.Configure(conf)
+	}
+}
+
+func (fun *Function3d) Configure(key string, vals []string) {
+	for j, conf := range fun.plotter.configures {
+		if utils.InStr(key, conf.AliasedKeys()) {
+			fun.plotter.configures[j].SetVals(vals)
+			return
+		}
+	}
+	panic(fmt.Sprintf("%v is not a key.", key))
+}
+
+func (fun Function3d) GetData() [][3]float64 { // TODO: テスト書く
+	xMin, _ := strconv.ParseFloat(fun.plotter.GetC("_xMin")[0], 32)
+	xMax, _ := strconv.ParseFloat(fun.plotter.GetC("_xMax")[0], 32)
+	yMin := -10.0 //TODO: yMin configure
+	yMax := 10.0  // TODO: yMax configure
+	var sepX = float64(xMax-xMin) / float64(fun.splitNum-1)
+	var sepY = float64(yMax-yMin) / float64(fun.splitNum-1)
+
+	var a [][3]float64
+	for j := 0; j < fun.splitNum; j++ {
+		x := xMin + float64(j)*sepX
+		y := yMin + float64(j)*sepY
+		a = append(a, [3]float64{x, y, fun.f(x, y)})
+	}
+	return a
+}
+
+func (fun Function3d) getGnuData() string {
+	var s string
+	for _, xs := range fun.GetData() {
+		s += fmt.Sprintf("%f %f\n", xs[0], xs[1], xs[2])
+	}
+	return s
+}
+
+func (fun *Function3d) SetF(_f func(float64, float64) float64) {
+	fun.f = _f
+}
+
+func (fun Function3d) gnuplot(filename string) string {
+	title := fun.plotter.GetC("_title")
+	var s = fmt.Sprintf("\"%v\"", filename)
+	if !isDummyVal(title) {
+		s += fmt.Sprintf(" title \"%v\"", title[0])
+	}
+
+	for _, conf := range fun.plotter.configures {
+		if !strings.HasPrefix(conf.GetKey(), "_") && !isDummyVal(conf.GetVals()) {
+			vals := conf.GetVals()
+			s += fmt.Sprintf(" %v ", conf.GetKey())
+			if vals[len(vals)-1] == "true" {
+				vals = vals[:len(vals)-1]
+			} else if vals[len(vals)-1] == "false" {
+				vals = vals[:len(vals)-1]
+				s += "no"
+			}
+			for _, val := range vals {
+				s += fmt.Sprintf(" %v", val)
+			}
+		}
+	}
+	return s
+}
+
+// Graph3d
+type Graph3d struct {
+	plotter Plotter
+	pElems  []PlotElement3d
+}
+
+func NewGraph3d() *Graph3d {
+	g := new(Graph3d)
+	g.setConfigure()
+	return g
+}
+
+func (g *Graph3d) setConfigure() {
+	for _, conf := range conf.GraphConfs() {
+		g.plotter.Configure(conf)
+	}
+}
+
+func (g *Graph3d) Configure(key string, vals []string) {
+	for j, conf := range g.plotter.configures {
+		if conf.GetKey() == key {
+			g.plotter.configures[j].SetVals(vals)
+			return
+		}
+	}
+	panic(fmt.Sprintf("%v is not a key.", key))
+}
+
+func (g *Graph3d) Configures(sconf map[string][]string) {
+	for key, vals := range sconf {
+		g.Configure(key, vals)
+	}
+}
+
+func (g *Graph3d) AppendPElem(p PlotElement3d) {
+	g.pElems = append(g.pElems, p)
+}
+
+func (g Graph3d) writeIntoFile(data string, f *os.File) {
+	f.WriteString(data)
+}
+
+func (g Graph3d) gnuplot(elemFilenames []string) string {
+	var s string
+
+	for _, conf := range g.plotter.configures {
+		if !strings.HasPrefix(conf.GetKey(), "_") && !isDummyVal(conf.GetVals()) {
+			vals := conf.GetVals()
+			s += "set "
+			if vals[len(vals)-1] == "true" {
+				vals = vals[:len(vals)-1]
+			} else if vals[len(vals)-1] == "false" {
+				vals = vals[:len(vals)-1]
+				s += "no"
+			}
+			s += conf.GetKey()
+			for _, val := range vals {
+				s += fmt.Sprintf(" %v ", val)
+			}
+			s += ";\n"
+		}
+	}
+
+	s += "plot "
+	for j, _ := range g.pElems {
+		s += g.pElems[j].gnuplot(elemFilenames[j])
+		if j != len(g.pElems)-1 {
+			s += ", "
+		}
+	}
+	s += ";\n"
+
+	s += "pause -1;\n"
+	return s
+}
+
+func (g *Graph3d) Run() {
+	tmpDir := os.TempDir() + "/gnup/"
+	// TODO: tmpDirがなければ作る
+	// execFilename := tmpDir + "exec.gnu"
+	execFilename := "exec.gnu"
+
+	// それぞれのcurveのdataをtempファイルに書き込む
+	// また, それらのファイルの名前を curve_filenames []stringに格納する
+	var plotElemFilenames []string
+	for _, p := range g.pElems {
+		file, _ := ioutil.TempFile(tmpDir, "")
+		defer func() {
+			file.Close()
+		}()
+		g.writeIntoFile(p.getGnuData(), file)
+		plotElemFilenames = append(plotElemFilenames, file.Name())
+	}
+
+	// 実行するgnuplotの実行ファイルをtempファイルに書き込む
+	os.Remove(execFilename)
+	execFile, err := os.OpenFile(execFilename, os.O_CREATE|os.O_WRONLY, 0666)
+	defer func() {
+		execFile.Close()
+	}()
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		execFile.WriteString(g.gnuplot(plotElemFilenames))
+	}
+}
