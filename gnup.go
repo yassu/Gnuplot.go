@@ -83,13 +83,22 @@ func (fun *Function2d) Configures(sconf map[string][]string) {
 	}
 }
 
+func (fun *Function2d) SplitNum() int {
+	if len(fun.plotter.GetC("_splitNum")) == 0 {
+		return DefaultFunction2dSplitNum
+	} else {
+		i, _ := strconv.Atoi(fun.plotter.GetC("_splitNum")[0])
+		return i
+	}
+}
+
 func (fun Function2d) GetData() [][2]float64 { // TODO: テスト書く
 	xMin, _ := strconv.ParseFloat(fun.plotter.GetC("_xMin")[0], 32)
 	xMax, _ := strconv.ParseFloat(fun.plotter.GetC("_xMax")[0], 32)
-	var sep = float64(xMax-xMin) / float64(fun.splitNum-1)
+	var sep = float64(xMax-xMin) / float64(fun.SplitNum()-1)
 
 	var a [][2]float64
-	for j := 0; j < fun.splitNum; j++ {
+	for j := 0; j < fun.SplitNum(); j++ {
 		t := xMin + float64(j)*sep
 		y := fun.f(t)
 		a = append(a, [2]float64{t, y})

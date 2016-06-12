@@ -17,6 +17,11 @@ func isIntStr(s string) bool {
 	return r.MatchString(s)
 }
 
+func isNaturalStr(s string) bool {
+	r := regexp.MustCompile(`^[+]?[0-9]+$`)
+	return r.MatchString(s)
+}
+
 func isSixHex(s string) bool {
 	r := regexp.MustCompile(`^[0-9a-f]{6}$`)
 	return r.MatchString(s)
@@ -113,6 +118,7 @@ func Function2dConfs() []*Configure {
 		PStyleNoContoursConf(),
 		PStyleNoSurfaceConf(),
 		PStylePaletteConf(),
+		PStyleSplitNumConf(),
 		PStyleGoXMinConf(),
 		PStyleGoXMaxConf()}
 }
@@ -131,6 +137,7 @@ func Function3dConfs() []*Configure {
 		PStyleNoContoursConf(),
 		PStyleNoSurfaceConf(),
 		PStylePaletteConf(),
+		PStyleSplitNumConf(),
 		PStyleGoXMinConf(),
 		PStyleGoXMaxConf(),
 		PStyleGoYMinConf(),
@@ -150,6 +157,7 @@ func Curve2dConfs() []*Configure {
 		PStyleNoContoursConf(),
 		PStyleNoSurfaceConf(),
 		PStylePaletteConf(),
+		PStyleSplitNumConf(),
 		PStyleGoTMinConf(),
 		PStyleGoTMaxConf()}
 }
@@ -167,6 +175,7 @@ func Curve3dConfs() []*Configure {
 		PStyleNoContoursConf(),
 		PStyleNoSurfaceConf(),
 		PStylePaletteConf(),
+		PStyleSplitNumConf(),
 		PStyleGoTMinConf(),
 		PStyleGoTMaxConf()}
 }
@@ -184,6 +193,7 @@ func Surface3dConfs() []*Configure {
 		PStyleNoContoursConf(),
 		PStyleNoSurfaceConf(),
 		PStylePaletteConf(),
+		PStyleSplitNumConf(),
 		PStyleGoUMinConf(),
 		PStyleGoUMaxConf(),
 		PStyleGoVMinConf(),
@@ -451,6 +461,12 @@ func PStyleNoSurfaceConf() *Configure {
 func PStylePaletteConf() *Configure {
 	return NewConfigure([]string{"palette"}, []string{}, func(vals []string) bool {
 		return len(vals) == 1 && vals[0] == "true"
+	})
+}
+
+func PStyleSplitNumConf() *Configure {
+	return NewConfigure([]string{"_splitNum"}, []string{}, func(vals []string) bool {
+		return len(vals) == 1 && isNaturalStr(vals[0])
 	})
 }
 
