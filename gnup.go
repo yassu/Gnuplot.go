@@ -39,7 +39,7 @@ func (p *Plotter) GetC(key string) []string {
 	return []string{}
 }
 
-type PlotElement interface {
+type PlotElement2d interface {
 	GetData() [][2]float64
 	getGnuData() string
 	gnuplot(filename string) string
@@ -228,7 +228,7 @@ func isDummyVal(vals []string) bool {
 // Graph
 type Graph2d struct {
 	plotter Plotter
-	pElems  []PlotElement
+	pElems  []PlotElement2d
 }
 
 func NewGraph2d() *Graph2d {
@@ -259,7 +259,7 @@ func (g *Graph2d) Configures(sconf map[string][]string) {
 	}
 }
 
-func (g *Graph2d) AppendPElem(p PlotElement) {
+func (g *Graph2d) AppendPElem(p PlotElement2d) {
 	g.pElems = append(g.pElems, p)
 }
 
