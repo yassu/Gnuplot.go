@@ -624,6 +624,48 @@ func TestGraphAutoScaleConf(t *testing.T) {
 	}
 }
 
+func TestGraphBarsConf(t *testing.T) {
+	conf := GraphBarsConf()
+	if conf.requiredCondition([]string{"small"}) != true {
+		t.Errorf("fails in TestGraphBarsConf")
+	}
+}
+
+func TestGraphBarsConf2(t *testing.T) {
+	conf := GraphBarsConf()
+	if conf.requiredCondition([]string{"3.2"}) != true {
+		t.Errorf("fails in TestGraphBarsConf2")
+	}
+}
+
+func TestGraphBarsConf3(t *testing.T) {
+	conf := GraphBarsConf()
+	if conf.requiredCondition([]string{"-3.2"}) != false {
+		t.Errorf("fails in TestGraphBarsConf3")
+	}
+}
+
+func TestGraphBarsConf4(t *testing.T) {
+	conf := GraphBarsConf()
+	if conf.requiredCondition([]string{"front"}) != true {
+		t.Errorf("fails in TestGraphBarsConf4")
+	}
+}
+
+func TestGraphBarsConf5(t *testing.T) {
+	conf := GraphBarsConf()
+	if conf.requiredCondition([]string{"small", "front"}) != true {
+		t.Errorf("fails in TestGraphBarsConf5")
+	}
+}
+
+func TestGraphBarsConf6(t *testing.T) {
+	conf := GraphBarsConf()
+	if conf.requiredCondition([]string{"3.2", "front"}) != true {
+		t.Errorf("fails in TestGraphBarsConf6")
+	}
+}
+
 func TestGraphTermConf(t *testing.T) {
 	conf := GraphTermConf()
 	if conf.requiredCondition([]string{"pngs"}) != false {

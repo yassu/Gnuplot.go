@@ -17,6 +17,11 @@ func isIntStr(s string) bool {
 	return r.MatchString(s)
 }
 
+func isPosNum(s string) bool {
+	r := regexp.MustCompile(`^[+]?[0-9]+[\.]?[0-9]+$`)
+	return r.MatchString(s)
+}
+
 func isNaturalStr(s string) bool {
 	r := regexp.MustCompile(`^[+]?[0-9]+$`)
 	return r.MatchString(s)
@@ -594,7 +599,7 @@ func GraphAutoScaleConf() *Configure {
 			}
 		}
 
-		if inStr(vals[0], []string{"fix", "keepfix"}) {
+		if utils.InStr(vals[0], []string{"fix", "keepfix"}) {
 			return true
 		}
 		if vals[0] == "noextend" {
@@ -606,7 +611,16 @@ func GraphAutoScaleConf() *Configure {
 
 func GraphBarsConf() *Configure {
 	return NewConfigure([]string{"bars"}, []string{}, func(vals []string) bool {
-		return true
+		if len(vals) == 1 {
+			val := vals[0]
+			return utils.InStr(val, []string{"small", "large", "fullwidth", "front", "back"}) ||
+				isPosNum(val)
+		} else if len(vals) == 2 {
+			return (utils.InStr(vals[0], []string{"small", "large", "fullwidth"}) || isPosNum(vals[0])) &&
+				utils.InStr(vals[1], []string{"front", "back"})
+		} else {
+			return false
+		}
 	})
 }
 
