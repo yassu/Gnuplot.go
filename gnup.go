@@ -85,7 +85,7 @@ func (fun *Function2d) Configures(sconf map[string][]string) {
 
 func (fun *Function2d) SplitNum() int {
 	if len(fun.plotter.GetC("_splitNum")) == 0 {
-		return DefaultFunction2dSplitNum
+		return fun.splitNum
 	} else {
 		i, _ := strconv.Atoi(fun.plotter.GetC("_splitNum")[0])
 		return i
@@ -185,13 +185,22 @@ func (c *Curve2d) Configures(sconf map[string][]string) {
 	}
 }
 
+func (c *Curve2d) SplitNum() int {
+	if len(c.plotter.GetC("_splitNum")) == 0 {
+		return c.splitNum
+	} else {
+		i, _ := strconv.Atoi(c.plotter.GetC("_splitNum")[0])
+		return i
+	}
+}
+
 func (c Curve2d) GetData() [][2]float64 { // TODO: test
 	tMin, _ := strconv.ParseFloat(c.plotter.GetC("_tMin")[0], 32)
 	tMax, _ := strconv.ParseFloat(c.plotter.GetC("_tMax")[0], 32)
-	var sep = float64(tMax-tMin) / float64(c.splitNum-1)
+	var sep = float64(tMax-tMin) / float64(c.SplitNum()-1)
 
 	var a [][2]float64
-	for j := 0; j < c.splitNum; j++ {
+	for j := 0; j < c.SplitNum(); j++ {
 		cs := c.c(tMin + float64(j)*sep)
 		a = append(a, [2]float64{cs[0], cs[1]})
 	}
@@ -378,17 +387,27 @@ func (fun *Function3d) Configure(key string, vals []string) {
 	panic(fmt.Sprintf("%v is not a key.", key))
 }
 
+func (fun *Function3d) SplitNum() int {
+	if len(fun.plotter.GetC("_splitNum")) == 0 {
+		return fun.splitNum
+	} else {
+		i, _ := strconv.Atoi(fun.plotter.GetC("_splitNum")[0])
+		return i
+	}
+}
+
 func (fun Function3d) GetData() [][3]float64 { // TODO: テスト書く
 	xMin, _ := strconv.ParseFloat(fun.plotter.GetC("_xMin")[0], 32)
 	xMax, _ := strconv.ParseFloat(fun.plotter.GetC("_xMax")[0], 32)
 	yMin, _ := strconv.ParseFloat(fun.plotter.GetC("_yMin")[0], 32)
 	yMax, _ := strconv.ParseFloat(fun.plotter.GetC("_yMax")[0], 32)
-	var sepX = float64(xMax-xMin) / float64(fun.splitNum-1)
-	var sepY = float64(yMax-yMin) / float64(fun.splitNum-1)
+	splitNum := fun.SplitNum()
+	var sepX = float64(xMax-xMin) / float64(splitNum-1)
+	var sepY = float64(yMax-yMin) / float64(splitNum-1)
 
 	var a [][3]float64
-	for jX := 0; jX < fun.splitNum; jX++ {
-		for jY := 0; jY < fun.splitNum; jY++ {
+	for jX := 0; jX < splitNum; jX++ {
+		for jY := 0; jY < splitNum; jY++ {
 			x := xMin + float64(jX)*sepX
 			y := yMin + float64(jY)*sepY
 			a = append(a, [3]float64{x, y, fun.f(x, y)})
@@ -472,13 +491,22 @@ func (c *Curve3d) Configures(sconf map[string][]string) {
 	}
 }
 
+func (c *Curve3d) SplitNum() int {
+	if len(c.plotter.GetC("_splitNum")) == 0 {
+		return c.splitNum
+	} else {
+		i, _ := strconv.Atoi(c.plotter.GetC("_splitNum")[0])
+		return i
+	}
+}
+
 func (c Curve3d) GetData() [][3]float64 { // TODO: test
 	tMin, _ := strconv.ParseFloat(c.plotter.GetC("_tMin")[0], 32)
 	tMax, _ := strconv.ParseFloat(c.plotter.GetC("_tMax")[0], 32)
-	var sep = float64(tMax-tMin) / float64(c.splitNum-1)
+	var sep = float64(tMax-tMin) / float64(c.SplitNum()-1)
 
 	var a [][3]float64
-	for j := 0; j < c.splitNum; j++ {
+	for j := 0; j < c.SplitNum(); j++ {
 		cs := c.c(tMin + float64(j)*sep)
 		a = append(a, [3]float64{cs[0], cs[1], cs[2]})
 	}
@@ -555,17 +583,26 @@ func (s *Surface3d) Configures(sconf map[string][]string) {
 	}
 }
 
+func (s *Surface3d) SplitNum() int {
+	if len(s.plotter.GetC("_splitNum")) == 0 {
+		return s.splitNum
+	} else {
+		i, _ := strconv.Atoi(s.plotter.GetC("_splitNum")[0])
+		return i
+	}
+}
+
 func (s Surface3d) GetData() [][3]float64 { // TODO: test
 	uMin := -10.0 // strconv.ParseFloat(s.plotter.GetC("_uMin")[0], 32)
 	uMax := 10.0  //strconv.ParseFloat(s.plotter.GetC("_uMax")[0], 32)
 	vMin := -10.0 // strconv.ParseFloat(s.plotter.GetC("_vMin")[0], 32)
 	vMax := 10.0  // strconv.ParseFloat(s.plotter.GetC("_vMax")[0], 32)
-	var sepU = float64(uMax-uMin) / float64(s.splitNum-1)
-	var sepV = float64(vMax-vMin) / float64(s.splitNum-1)
+	var sepU = float64(uMax-uMin) / float64(s.SplitNum()-1)
+	var sepV = float64(vMax-vMin) / float64(s.SplitNum()-1)
 
 	var a [][3]float64
-	for jU := 0; jU < s.splitNum; jU++ {
-		for jV := 0; jV < s.splitNum; jV++ {
+	for jU := 0; jU < s.SplitNum(); jU++ {
+		for jV := 0; jV < s.SplitNum(); jV++ {
 			cs := s.f(uMin+float64(jU)*sepU, vMin+float64(jV)*sepV)
 			a = append(a, [3]float64{cs[0], cs[1], cs[2]})
 		}
