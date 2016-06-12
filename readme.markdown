@@ -1,7 +1,7 @@
 gnup
 ==============
 
-*Version: 0.0.1, Development Status: Beta*
+*Version: 0.0.3, Development Status: Beta*
 
 Caller from golang to gnuplot
 
@@ -16,9 +16,8 @@ Introduction
 --------------
 
 Feature of `gnup` is a wrapper of gnuplot for golang.
-However, now this is supported only 1 variable functions or curves in a plane.
-
-This project will suport 2 variable functions or surfaces in 3 dimension space.
+However, now this is supported functions, curves or surfaces in a plane
+  or 3d space.
 
 Structure of the source of this project is very simple like as
 
@@ -63,7 +62,7 @@ Then, when you enter `gnuplot exec.gnu`, you obtain output.
 
 Tasks
 -------
-- [ ] write samples by Using wiki
+- [ ] write samples by Using gitBook
 - [ ] write all of validations of configures of Function2d or Curve2d
 - [x] support of Function3d
 - [x] support of Curve3d
