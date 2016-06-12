@@ -117,6 +117,26 @@ func Function2dConfs() []*Configure {
 		PStyleGoXMaxConf()}
 }
 
+func Function3dConfs() []*Configure {
+	return []*Configure{
+		PStyleTitleConf(),
+		PStyleWithConf(),
+		PStyleLineColorConf(),
+		PStyleLineTypeConf(),
+		PStyleLineWidthConf(),
+		PStylePointTypeConf(),
+		PStylePointSizeConf(),
+		PStyleFillConf(),
+		PStyleNoHidden3dConf(),
+		PStyleNoContoursConf(),
+		PStyleNoSurfaceConf(),
+		PStylePaletteConf(),
+		PStyleGoXMinConf(),
+		PStyleGoXMaxConf(),
+		PStyleGoYMinConf(),
+		PStyleGoYMaxConf()}
+}
+
 func Curve2dConfs() []*Configure {
 	return []*Configure{
 		PStyleWithConf(),
@@ -406,6 +426,18 @@ func PStyleGoXMinConf() *Configure {
 
 func PStyleGoXMaxConf() *Configure {
 	return NewConfigure([]string{"_xMax"}, []string{"10.0"}, func(vals []string) bool {
+		return len(vals) == 1 && isNum(vals[0])
+	})
+}
+
+func PStyleGoYMinConf() *Configure {
+	return NewConfigure([]string{"_yMin"}, []string{"-10.0"}, func(vals []string) bool {
+		return len(vals) == 1 && isNum(vals[0])
+	})
+}
+
+func PStyleGoYMaxConf() *Configure {
+	return NewConfigure([]string{"_yMax"}, []string{"10.0"}, func(vals []string) bool {
 		return len(vals) == 1 && isNum(vals[0])
 	})
 }

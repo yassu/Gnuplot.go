@@ -354,7 +354,7 @@ func NewFunction3d() *Function3d {
 }
 
 func (fun *Function3d) setConfigure() {
-	for _, conf := range conf.Function2dConfs() {
+	for _, conf := range conf.Function3dConfs() {
 		fun.plotter.Configure(conf)
 	}
 }
