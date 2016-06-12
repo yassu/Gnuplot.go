@@ -225,7 +225,7 @@ func isDummyVal(vals []string) bool {
 	return len(vals) == 0
 }
 
-// Graph
+// Graph2d
 type Graph2d struct {
 	plotter Plotter
 	pElems  []PlotElement2d
