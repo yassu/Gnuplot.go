@@ -562,7 +562,7 @@ func NewSurface3d() *Surface3d {
 }
 
 func (s *Surface3d) setConfigure() {
-	for _, conf := range conf.Curve3dConfs() {
+	for _, conf := range conf.Surface3dConfs() {
 		s.plotter.Configure(conf)
 	}
 }
