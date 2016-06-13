@@ -738,6 +738,20 @@ func TestGraphBoxwidthConf4(t *testing.T) {
 	}
 }
 
+func TestGraphClipConf(t *testing.T) {
+	conf := GraphClipConf()
+	if conf.requiredCondition([]string{"points"}) != true {
+		t.Errorf("fails in TestGraphClipConf")
+	}
+}
+
+func TestGraphClipConf2(t *testing.T) {
+	conf := GraphClipConf()
+	if conf.requiredCondition([]string{"points", "one"}) != false {
+		t.Errorf("fails in TestGraphClipConf2")
+	}
+}
+
 func TestGraphTermConf(t *testing.T) {
 	conf := GraphTermConf()
 	if conf.requiredCondition([]string{"pngs"}) != false {

@@ -693,7 +693,7 @@ func GraphClabelConf() *Configure {
 
 func GraphClipConf() *Configure {
 	return NewConfigure([]string{"clip"}, []string{}, func(vals []string) bool {
-		return true
+		return len(vals) == 1 && utils.InStr(vals[0], []string{"points", "one", "two"})
 	})
 }
 
