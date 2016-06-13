@@ -787,6 +787,20 @@ func TestGraphContourConf3(t *testing.T) {
 	}
 }
 
+func TestGraphEncodingConf(t *testing.T) {
+	conf := GraphEncodingConf()
+	if conf.requiredCondition([]string{"true"}) != true {
+		t.Errorf("fails in TestGraphEncodingConf")
+	}
+}
+
+func TestGraphEncodingConf2(t *testing.T) {
+	conf := GraphEncodingConf()
+	if conf.requiredCondition([]string{"iso_8859_1"}) != true {
+		t.Errorf("fails in TestGraphEncodingConf2")
+	}
+}
+
 func TestGraphTermConf(t *testing.T) {
 	conf := GraphTermConf()
 	if conf.requiredCondition([]string{"pngs"}) != false {

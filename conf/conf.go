@@ -771,7 +771,12 @@ func GraphDummyConf() *Configure {
 
 func GraphEncodingConf() *Configure {
 	return NewConfigure([]string{"encoding"}, []string{}, func(vals []string) bool {
-		return true
+		return len(vals) == 1 && utils.InStr(vals[0], []string{
+			"true",
+			"locale",
+			"default", "iso_8859_1", "iso_8859_15", "iso_8859_2", "iso_8859_9",
+			"koi8r", "koi8u", "cp437", "cp850", "cp852", "cp950", "cp1250",
+			"cp1251", "cp1252", "cp1254", "sjis", "utf8"})
 	})
 }
 
