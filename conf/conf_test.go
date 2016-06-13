@@ -801,6 +801,27 @@ func TestGraphEncodingConf2(t *testing.T) {
 	}
 }
 
+func TestGraphHidden3dConf(t *testing.T) {
+	conf := GraphHidden3dConf()
+	if conf.requiredCondition([]string{"defaults"}) != true {
+		t.Errorf("fails in TestGraphHidden3dConf")
+	}
+}
+
+func TestGraphHidden3dConf2(t *testing.T) {
+	conf := GraphHidden3dConf()
+	if conf.requiredCondition([]string{"front"}) != true {
+		t.Errorf("fails in TestGraphHidden3dConf2")
+	}
+}
+
+func TestGraphHidden3dConf3(t *testing.T) {
+	conf := GraphHidden3dConf()
+	if conf.requiredCondition([]string{"defaults", "front"}) != true {
+		t.Errorf("fails in TestGraphHidden3dConf3")
+	}
+}
+
 func TestGraphTermConf(t *testing.T) {
 	conf := GraphTermConf()
 	if conf.requiredCondition([]string{"pngs"}) != false {

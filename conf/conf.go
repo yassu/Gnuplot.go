@@ -812,9 +812,35 @@ func GraphGridConf() *Configure {
 
 func GraphHidden3dConf() *Configure {
 	return NewConfigure([]string{"hidden3d"}, []string{}, func(vals []string) bool {
-		return true
+		vals = vals[:]
+		if len(vals) >= 1 && vals[0] == "defaults" {
+			vals = vals[1:]
+		}
+		if len(vals) >= 1 && utils.InStr(vals[0], []string{"front", "back"}) {
+			vals = vals[1:]
+		}
+		if len(vals) >= 2 && vals[0] == "offset" && isIntStr(vals[1]) {
+			vals = vals[2:]
+		} else if len(vals) >= 1 && vals[0] == "nooffset" {
+			vals = vals[1:]
+		}
+		// TODO: until
+
+		if len(vals) == 0 {
+			return true
+		} else {
+			return false
+		}
 	})
 }
+
+// set hidden3d {defaults} |
+//              { {front|back}
+//                {{offset <offset>} | {nooffset}}
+//                {trianglepattern <bitpattern>}
+//                {{undefined <level>} | {noundefined}}
+//                {{no}altdiagonal}
+//                {{no}bentover} }
 
 func GraphHistoryConf() *Configure {
 	return NewConfigure([]string{"history"}, []string{}, func(vals []string) bool {
