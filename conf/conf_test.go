@@ -766,6 +766,27 @@ func TestGraphColorsequenceConf2(t *testing.T) {
 	}
 }
 
+func TestGraphContourConf(t *testing.T) {
+	conf := GraphContourConf()
+	if conf.requiredCondition([]string{"true"}) != true {
+		t.Errorf("fails in TestGraphContourConf")
+	}
+}
+
+func TestGraphContourConf2(t *testing.T) {
+	conf := GraphContourConf()
+	if conf.requiredCondition([]string{"surface"}) != true {
+		t.Errorf("fails in TestGraphContourConf2")
+	}
+}
+
+func TestGraphContourConf3(t *testing.T) {
+	conf := GraphContourConf()
+	if conf.requiredCondition([]string{"surface", "true"}) != false {
+		t.Errorf("fails in TestGraphContourConf3")
+	}
+}
+
 func TestGraphTermConf(t *testing.T) {
 	conf := GraphTermConf()
 	if conf.requiredCondition([]string{"pngs"}) != false {

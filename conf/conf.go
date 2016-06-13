@@ -722,7 +722,8 @@ func GraphColorsequenceConf() *Configure {
 
 func GraphContourConf() *Configure {
 	return NewConfigure([]string{"contour"}, []string{}, func(vals []string) bool {
-		return true
+		return len(vals) == 1 &&
+			utils.InStr(vals[0], []string{"true", "base", "surface", "both"})
 	})
 }
 
