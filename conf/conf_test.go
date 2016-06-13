@@ -752,6 +752,20 @@ func TestGraphClipConf2(t *testing.T) {
 	}
 }
 
+func TestGraphColorsequenceConf(t *testing.T) {
+	conf := GraphColorsequenceConf()
+	if conf.requiredCondition([]string{"podo"}) != true {
+		t.Errorf("fails in TestGraphColorsequenceConf")
+	}
+}
+
+func TestGraphColorsequenceConf2(t *testing.T) {
+	conf := GraphColorsequenceConf()
+	if conf.requiredCondition([]string{"classic", "podo"}) != false {
+		t.Errorf("fails in TestGraphColorsequenceConf2")
+	}
+}
+
 func TestGraphTermConf(t *testing.T) {
 	conf := GraphTermConf()
 	if conf.requiredCondition([]string{"pngs"}) != false {

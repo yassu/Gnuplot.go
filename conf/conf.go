@@ -223,7 +223,6 @@ func GraphConfs() []*Configure {
 		GraphClipConf(),
 		GraphCntrlabelConf(),
 		GraphCntrparamConf(),
-		GraphColorConf(),
 		GraphColorboxConf(),
 		GraphColorsequenceConf(),
 		GraphContourConf(),
@@ -709,12 +708,6 @@ func GraphCntrparamConf() *Configure {
 	})
 }
 
-func GraphColorConf() *Configure {
-	return NewConfigure([]string{"color"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
 func GraphColorboxConf() *Configure {
 	return NewConfigure([]string{"colorbox"}, []string{}, func(vals []string) bool {
 		return true
@@ -722,8 +715,8 @@ func GraphColorboxConf() *Configure {
 }
 
 func GraphColorsequenceConf() *Configure {
-	return NewConfigure([]string{"colorsequence"}, []string{}, func(vals []string) bool {
-		return true
+	return NewConfigure([]string{"colorsequence", "colors"}, []string{}, func(vals []string) bool {
+		return len(vals) == 1 && utils.InStr(vals[0], []string{"default", "classic", "podo"})
 	})
 }
 
