@@ -47,9 +47,8 @@ type PlotElement2d interface {
 
 // Array2d
 type Array2d struct {
-	plotter  Plotter
-	splitNum int
-	array    [][2]float64
+	plotter Plotter
+	array   [][2]float64
 }
 
 func NewArray2d() *Array2d {
