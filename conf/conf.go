@@ -109,6 +109,23 @@ var COLOR_NAMES = []string{
 
 var POSITIONS = []string{"x", "y", "first", "second", "graph", "screen", "character"}
 
+func Array2dConfs() []*Configure {
+	return []*Configure{
+		PStyleTitleConf(),
+		PStyleWithConf(),
+		PStyleLineColorConf(),
+		PStyleLineTypeConf(),
+		PStyleLineWidthConf(),
+		PStylePointTypeConf(),
+		PStylePointSizeConf(),
+		PStyleFillConf(),
+		PStyleNoHidden3dConf(),
+		PStyleNoContoursConf(),
+		PStyleNoSurfaceConf(),
+		PStylePaletteConf(),
+		PStyleSplitNumConf()}
+}
+
 func Function2dConfs() []*Configure {
 	return []*Configure{
 		PStyleTitleConf(),
