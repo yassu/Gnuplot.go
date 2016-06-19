@@ -140,6 +140,23 @@ func Function2dConfs() []*Configure {
 		PStyleGoXMaxConf()}
 }
 
+func Array3dConfs() []*Configure {
+	return []*Configure{
+		PStyleTitleConf(),
+		PStyleWithConf(),
+		PStyleLineColorConf(),
+		PStyleLineTypeConf(),
+		PStyleLineWidthConf(),
+		PStylePointTypeConf(),
+		PStylePointSizeConf(),
+		PStyleFillConf(),
+		PStyleNoHidden3dConf(),
+		PStyleNoContoursConf(),
+		PStyleNoSurfaceConf(),
+		PStylePaletteConf(),
+		PStyleSplitNumConf()}
+}
+
 func Function3dConfs() []*Configure {
 	return []*Configure{
 		PStyleTitleConf(),

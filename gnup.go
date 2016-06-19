@@ -429,13 +429,83 @@ func (g *Graph2d) Run() {
 	}
 }
 
-const DefaultFunction3dSplitNum = 100
-
 type PlotElement3d interface {
 	GetData() [][3]float64
 	getGnuData() string
 	gnuplot(filename string) string
 }
+
+// Array3d
+type Array3d struct {
+	plotter Plotter
+	array   [][3]float64
+}
+
+func NewArray3d() *Array3d {
+	array := new(Array3d)
+	array.setConfigure()
+	return array
+}
+
+func (array *Array3d) setConfigure() {
+	for _, conf := range conf.Array3dConfs() {
+		array.plotter.Configure(conf)
+	}
+}
+
+func (array *Array3d) Configure(key string, vals []string) {
+	for j, conf := range array.plotter.configures {
+		if utils.InStr(key, conf.AliasedKeys()) {
+			array.plotter.configures[j].SetVals(vals)
+			return
+		}
+	}
+	panic(fmt.Sprintf("%v is not a key.", key))
+}
+
+func (array Array3d) GetData() [][3]float64 {
+	return array.array
+}
+
+func (array Array3d) getGnuData() string {
+	var s string
+	for _, xs := range array.GetData() {
+		s += fmt.Sprintf("%f %f %f\n", xs[0], xs[1], xs[2])
+	}
+	return s
+}
+
+func (array *Array3d) Append(data [3]float64) {
+	array.array = append(array.array, data)
+}
+
+func (array Array3d) gnuplot(filename string) string {
+	title := array.plotter.GetC("_title")
+	var s = fmt.Sprintf("\"%v\"", filename)
+	if !isDummyVal(title) {
+		s += fmt.Sprintf(" title \"%v\"", title[0])
+	}
+
+	for _, conf := range array.plotter.configures {
+		if !strings.HasPrefix(conf.GetKey(), "_") && !isDummyVal(conf.GetVals()) {
+			vals := conf.GetVals()
+			s += fmt.Sprintf(" %v ", conf.GetKey())
+			if vals[len(vals)-1] == "true" {
+				vals = vals[:len(vals)-1]
+			} else if vals[len(vals)-1] == "false" {
+				vals = vals[:len(vals)-1]
+				s += "no"
+			}
+			for _, val := range vals {
+				s += fmt.Sprintf(" %v", val)
+			}
+		}
+	}
+	return s
+}
+
+// Function3d
+const DefaultFunction3dSplitNum = 100
 
 type Function3d struct {
 	plotter  Plotter
