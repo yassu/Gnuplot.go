@@ -47,9 +47,8 @@ type PlotElement2d interface {
 
 // Array2d
 type Array2d struct {
-	plotter  Plotter
-	splitNum int
-	array    [][2]float64
+	plotter Plotter
+	array   [][2]float64
 }
 
 func NewArray2d() *Array2d {
@@ -59,9 +58,13 @@ func NewArray2d() *Array2d {
 }
 
 func (array *Array2d) setConfigure() {
-	for _, conf := range conf.Array2dConfs() {
+	for _, conf := range array.Confs() {
 		array.plotter.Configure(conf)
 	}
+}
+
+func (array Array2d) Confs() []*conf.Configure {
+	return conf.Array2dConfs()
 }
 
 func (array *Array2d) Configure(key string, vals []string) {
