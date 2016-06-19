@@ -376,6 +376,7 @@ func PStyleTitleConf() *Configure {
 func PStyleWithConf() *Configure {
 	return NewConfigure([]string{"with", "w"}, []string{}, func(vals []string) bool {
 		return len(vals) == 1 && utils.InStr(vals[0], []string{
+			"l",
 			"lines", "dots", "steps", "errorbars", "xerrorbar",
 			"xyerrorlines", "points", "impulses", "fsteps", "errorlines", "xerrorlines",
 			"yerrorlines", "surface", "vectors", "parallelaxes"})

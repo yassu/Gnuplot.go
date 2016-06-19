@@ -210,6 +210,13 @@ func TestPStyleWithConfValidation4(t *testing.T) {
 	}
 }
 
+func TestPStyleWithConfValidation5(t *testing.T) {
+	conf := PStyleWithConf()
+	if conf.requiredCondition([]string{"l"}) != true {
+		t.Errorf("fails in TestPStyleWithConfValidation5")
+	}
+}
+
 func TestPStyleLineColorConfValidation(t *testing.T) {
 	conf := PStyleLineColorConf()
 	if conf.requiredCondition([]string{"blue"}) != true {
