@@ -829,6 +829,41 @@ func TestGraphHidden3dConf3(t *testing.T) {
 	}
 }
 
+func TestGraphDashtypetConf(t *testing.T) {
+	conf := GraphDashtypeConf()
+	if conf.requiredCondition([]string{"3"}) != true {
+		t.Errorf("fails in TestGraphHidden3dConf")
+	}
+}
+
+func TestGraphDashtypetConf2(t *testing.T) {
+	conf := GraphDashtypeConf()
+	if conf.requiredCondition([]string{"3", ". "}) != false {
+		t.Errorf("fails in TestGraphHidden3dConf2")
+	}
+}
+
+func TestGraphDashtypetConf3(t *testing.T) {
+	conf := GraphDashtypeConf()
+	if conf.requiredCondition([]string{".-- "}) != true {
+		t.Errorf("fails in TestGraphHidden3dConf3")
+	}
+}
+
+func TestGraphDashtypetConf4(t *testing.T) {
+	conf := GraphDashtypeConf()
+	if conf.requiredCondition([]string{"(2, 3, 4, 3)"}) != true {
+		t.Errorf("fails in TestGraphHidden3dConf4")
+	}
+}
+
+func TestGraphDashtypetConf5(t *testing.T) {
+	conf := GraphDashtypeConf()
+	if conf.requiredCondition([]string{"(2, 3, 4, 3, 2)"}) != false {
+		t.Errorf("fails in TestGraphHidden4dConf5")
+	}
+}
+
 func TestGraphTermConf(t *testing.T) {
 	conf := GraphTermConf()
 	if conf.requiredCondition([]string{"pngs"}) != false {

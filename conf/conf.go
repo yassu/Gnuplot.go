@@ -762,9 +762,30 @@ func GraphContourConf() *Configure {
 	})
 }
 
+func isDashTypeStr(s string) bool {
+	for _, c := range s {
+		if c != '.' && c != '_' && c != '-' && c != ' ' {
+			return false
+		}
+	}
+	return true
+}
+
 func GraphDashtypeConf() *Configure {
 	return NewConfigure([]string{"dashtype"}, []string{}, func(vals []string) bool {
-		return true
+		// dashtype N
+		if len(vals) == 1 && utils.InStr(vals[0], []string{"1", "2", "3", "4"}) {
+			return true
+		}
+
+		// dashtype "pattern"
+		if len(vals) == 1 && isDashTypeStr(vals[0]) {
+			return true
+		}
+
+		// dashtype (N, N, N, N)
+		r := regexp.MustCompile(`^\([1-4]\s*,\s*[1-4]\s*,\s*[1-4]\s*,\s*[1-4]\s*\)$`)
+		return r.MatchString(vals[0])
 	})
 }
 
