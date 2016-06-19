@@ -1,7 +1,7 @@
 gnup
 ==============
 
-*Version: 0.0.3, Development Status: Beta*
+*Version: 0.0.4, Development Status: Beta*
 
 Caller from golang to gnuplot
 
@@ -62,6 +62,8 @@ Then, when you enter `gnuplot exec.gnu`, you obtain output.
 
 Tasks
 -------
+- [x] Array2d
+- [x] Array3d
 - [ ] write samples by Using gitBook
 - [ ] write all of validations of configures of Function2d or Curve2d
 - [x] support of Function3d
