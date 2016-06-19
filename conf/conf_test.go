@@ -603,17 +603,222 @@ func TestGraphAnglesConf2(t *testing.T) {
 	}
 }
 
-func TestGraphAnglesConf3(t *testing.T) {
-	conf := GraphAnglesConf()
-	if conf.requiredCondition([]string{"false"}) != false {
-		t.Errorf("fails in TestGraphAnglesConf3")
-	}
-}
+// func TestGraphAnglesConf3(t *testing.T) {
+// 	conf := GraphAnglesConf()
+// 	if conf.requiredCondition([]string{"false"}) != false {
+// 		t.Errorf("fails in TestGraphAnglesConf3")
+// 	}
+// }
 
 func TestGraphAnglesConf4(t *testing.T) {
 	conf := GraphAnglesConf()
 	if conf.requiredCondition([]string{"false", "3"}) != false {
 		t.Errorf("fails in TestGraphAnglesConf4")
+	}
+}
+
+func TestGraphAutoScaleConf(t *testing.T) {
+	conf := GraphAutoScaleConf()
+	if conf.requiredCondition([]string{"noextend"}) != true {
+		t.Errorf("fails in TestGraphAutoScaleConf")
+	}
+}
+
+func TestGraphAutoScaleConf2(t *testing.T) {
+	conf := GraphAutoScaleConf()
+	if conf.requiredCondition([]string{"fix"}) != true {
+		t.Errorf("fails in TestGraphAutoScaleConf2")
+	}
+}
+
+func TestGraphAutoScaleConf3(t *testing.T) {
+	conf := GraphAutoScaleConf()
+	if conf.requiredCondition([]string{"keepfix"}) != true {
+		t.Errorf("fails in TestGraphAutoScaleConf3")
+	}
+}
+
+func TestGraphAutoScaleConf4(t *testing.T) {
+	conf := GraphAutoScaleConf()
+	if conf.requiredCondition([]string{"x2fixmin"}) != true {
+		t.Errorf("fails in TestGraphAutoScaleConf4")
+	}
+}
+
+func TestGraphBarsConf(t *testing.T) {
+	conf := GraphBarsConf()
+	if conf.requiredCondition([]string{"small"}) != true {
+		t.Errorf("fails in TestGraphBarsConf")
+	}
+}
+
+func TestGraphBarsConf2(t *testing.T) {
+	conf := GraphBarsConf()
+	if conf.requiredCondition([]string{"3.2"}) != true {
+		t.Errorf("fails in TestGraphBarsConf2")
+	}
+}
+
+func TestGraphBarsConf3(t *testing.T) {
+	conf := GraphBarsConf()
+	if conf.requiredCondition([]string{"-3.2"}) != false {
+		t.Errorf("fails in TestGraphBarsConf3")
+	}
+}
+
+func TestGraphBarsConf4(t *testing.T) {
+	conf := GraphBarsConf()
+	if conf.requiredCondition([]string{"front"}) != true {
+		t.Errorf("fails in TestGraphBarsConf4")
+	}
+}
+
+func TestGraphBarsConf5(t *testing.T) {
+	conf := GraphBarsConf()
+	if conf.requiredCondition([]string{"small", "front"}) != true {
+		t.Errorf("fails in TestGraphBarsConf5")
+	}
+}
+
+func TestGraphBarsConf6(t *testing.T) {
+	conf := GraphBarsConf()
+	if conf.requiredCondition([]string{"3.2", "front"}) != true {
+		t.Errorf("fails in TestGraphBarsConf6")
+	}
+}
+
+func TestGraphBmarginConf(t *testing.T) {
+	conf := GraphBmarginConf()
+	if conf.requiredCondition([]string{"3.2"}) != true {
+		t.Errorf("fails in TestGraphBmarginConfConf")
+	}
+}
+
+func TestGraphBmarginConf2(t *testing.T) {
+	conf := GraphBmarginConf()
+	if conf.requiredCondition([]string{"-3.2"}) != false {
+		t.Errorf("fails in TestGraphBmarginConfConf2")
+	}
+}
+
+func TestGraphBmarginConf3(t *testing.T) {
+	conf := GraphBmarginConf()
+	if conf.requiredCondition([]string{"3.2", ""}) != false {
+		t.Errorf("fails in TestGraphBmarginConfConf3")
+	}
+}
+
+// TODO: borderconf
+
+func TestGraphBoxwidthConfTest(t *testing.T) {
+	conf := GraphBoxwidthConf()
+	if conf.requiredCondition([]string{"3.2"}) != true {
+		t.Errorf("fails in TestGraphBoxwidthConfTest")
+	}
+}
+
+func TestGraphBoxwidthConf2(t *testing.T) {
+	conf := GraphBoxwidthConf()
+	if conf.requiredCondition([]string{"absolute"}) != true {
+		t.Errorf("fails in TestGraphBoxwidthConfTest2")
+	}
+}
+
+func TestGraphBoxwidthConf3(t *testing.T) {
+	conf := GraphBoxwidthConf()
+	if conf.requiredCondition([]string{"3.2", "absolute"}) != true {
+		t.Errorf("fails in TestGraphBoxwidthConfTest3")
+	}
+}
+
+func TestGraphBoxwidthConf4(t *testing.T) {
+	conf := GraphBoxwidthConf()
+	if conf.requiredCondition([]string{"-3.2", "absolute"}) != false {
+		t.Errorf("fails in TestGraphBoxwidthConfTest4")
+	}
+}
+
+func TestGraphClipConf(t *testing.T) {
+	conf := GraphClipConf()
+	if conf.requiredCondition([]string{"points"}) != true {
+		t.Errorf("fails in TestGraphClipConf")
+	}
+}
+
+func TestGraphClipConf2(t *testing.T) {
+	conf := GraphClipConf()
+	if conf.requiredCondition([]string{"points", "one"}) != false {
+		t.Errorf("fails in TestGraphClipConf2")
+	}
+}
+
+func TestGraphColorsequenceConf(t *testing.T) {
+	conf := GraphColorsequenceConf()
+	if conf.requiredCondition([]string{"podo"}) != true {
+		t.Errorf("fails in TestGraphColorsequenceConf")
+	}
+}
+
+func TestGraphColorsequenceConf2(t *testing.T) {
+	conf := GraphColorsequenceConf()
+	if conf.requiredCondition([]string{"classic", "podo"}) != false {
+		t.Errorf("fails in TestGraphColorsequenceConf2")
+	}
+}
+
+func TestGraphContourConf(t *testing.T) {
+	conf := GraphContourConf()
+	if conf.requiredCondition([]string{"true"}) != true {
+		t.Errorf("fails in TestGraphContourConf")
+	}
+}
+
+func TestGraphContourConf2(t *testing.T) {
+	conf := GraphContourConf()
+	if conf.requiredCondition([]string{"surface"}) != true {
+		t.Errorf("fails in TestGraphContourConf2")
+	}
+}
+
+func TestGraphContourConf3(t *testing.T) {
+	conf := GraphContourConf()
+	if conf.requiredCondition([]string{"surface", "true"}) != false {
+		t.Errorf("fails in TestGraphContourConf3")
+	}
+}
+
+func TestGraphEncodingConf(t *testing.T) {
+	conf := GraphEncodingConf()
+	if conf.requiredCondition([]string{"true"}) != true {
+		t.Errorf("fails in TestGraphEncodingConf")
+	}
+}
+
+func TestGraphEncodingConf2(t *testing.T) {
+	conf := GraphEncodingConf()
+	if conf.requiredCondition([]string{"iso_8859_1"}) != true {
+		t.Errorf("fails in TestGraphEncodingConf2")
+	}
+}
+
+func TestGraphHidden3dConf(t *testing.T) {
+	conf := GraphHidden3dConf()
+	if conf.requiredCondition([]string{"defaults"}) != true {
+		t.Errorf("fails in TestGraphHidden3dConf")
+	}
+}
+
+func TestGraphHidden3dConf2(t *testing.T) {
+	conf := GraphHidden3dConf()
+	if conf.requiredCondition([]string{"front"}) != true {
+		t.Errorf("fails in TestGraphHidden3dConf2")
+	}
+}
+
+func TestGraphHidden3dConf3(t *testing.T) {
+	conf := GraphHidden3dConf()
+	if conf.requiredCondition([]string{"defaults", "front"}) != true {
+		t.Errorf("fails in TestGraphHidden3dConf3")
 	}
 }
 

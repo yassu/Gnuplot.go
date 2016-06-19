@@ -17,6 +17,11 @@ func isIntStr(s string) bool {
 	return r.MatchString(s)
 }
 
+func isPosNum(s string) bool {
+	r := regexp.MustCompile(`^[+]?[0-9]+[\.]?[0-9]+$`)
+	return r.MatchString(s)
+}
+
 func isNaturalStr(s string) bool {
 	r := regexp.MustCompile(`^[+]?[0-9]+$`)
 	return r.MatchString(s)
@@ -252,7 +257,6 @@ func GraphConfs() []*Configure {
 		GraphClipConf(),
 		GraphCntrlabelConf(),
 		GraphCntrparamConf(),
-		GraphColorConf(),
 		GraphColorboxConf(),
 		GraphColorsequenceConf(),
 		GraphContourConf(),
@@ -604,19 +608,58 @@ func GraphAnglesConf() *Configure {
 
 func GraphAutoScaleConf() *Configure {
 	return NewConfigure([]string{"autoscale"}, []string{}, func(vals []string) bool {
-		return true
+		if len(vals) != 1 {
+			return false
+		}
+		val := vals[0]
+
+		axes := []string{"x", "y", "z", "cb", "x2", "y2", "xy"}
+		for _, axe := range axes {
+			if axe+"min" == val {
+				return true
+			}
+			if axe+"max" == val {
+				return true
+			}
+			if axe+"fixmin" == val {
+				return true
+			}
+			if axe+"fixmax" == val {
+				return true
+			}
+			if axe+"fix" == val {
+				return true
+			}
+		}
+
+		if utils.InStr(vals[0], []string{"fix", "keepfix"}) {
+			return true
+		}
+		if vals[0] == "noextend" {
+			return true
+		}
+		return false
 	})
 }
 
 func GraphBarsConf() *Configure {
 	return NewConfigure([]string{"bars"}, []string{}, func(vals []string) bool {
-		return true
+		if len(vals) == 1 {
+			val := vals[0]
+			return utils.InStr(val, []string{"small", "large", "fullwidth", "front", "back"}) ||
+				isPosNum(val)
+		} else if len(vals) == 2 {
+			return (utils.InStr(vals[0], []string{"small", "large", "fullwidth"}) || isPosNum(vals[0])) &&
+				utils.InStr(vals[1], []string{"front", "back"})
+		} else {
+			return false
+		}
 	})
 }
 
 func GraphBmarginConf() *Configure {
 	return NewConfigure([]string{"bmargin"}, []string{}, func(vals []string) bool {
-		return true
+		return len(vals) == 1 && isPosNum(vals[0])
 	})
 }
 
@@ -628,7 +671,14 @@ func GraphBorderConf() *Configure {
 
 func GraphBoxwidthConf() *Configure {
 	return NewConfigure([]string{"boxwidth"}, []string{}, func(vals []string) bool {
-		return true
+		if len(vals) == 1 {
+			return utils.InStr(vals[0], []string{"absolute", "relative"}) ||
+				isPosNum(vals[0])
+		} else if len(vals) == 2 {
+			return isPosNum(vals[0]) && utils.InStr(vals[1], []string{"absolute", "relative"})
+		} else {
+			return false
+		}
 	})
 }
 
@@ -676,7 +726,7 @@ func GraphClabelConf() *Configure {
 
 func GraphClipConf() *Configure {
 	return NewConfigure([]string{"clip"}, []string{}, func(vals []string) bool {
-		return true
+		return len(vals) == 1 && utils.InStr(vals[0], []string{"points", "one", "two"})
 	})
 }
 
@@ -692,12 +742,6 @@ func GraphCntrparamConf() *Configure {
 	})
 }
 
-func GraphColorConf() *Configure {
-	return NewConfigure([]string{"color"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
 func GraphColorboxConf() *Configure {
 	return NewConfigure([]string{"colorbox"}, []string{}, func(vals []string) bool {
 		return true
@@ -705,14 +749,15 @@ func GraphColorboxConf() *Configure {
 }
 
 func GraphColorsequenceConf() *Configure {
-	return NewConfigure([]string{"colorsequence"}, []string{}, func(vals []string) bool {
-		return true
+	return NewConfigure([]string{"colorsequence", "colors"}, []string{}, func(vals []string) bool {
+		return len(vals) == 1 && utils.InStr(vals[0], []string{"default", "classic", "podo"})
 	})
 }
 
 func GraphContourConf() *Configure {
 	return NewConfigure([]string{"contour"}, []string{}, func(vals []string) bool {
-		return true
+		return len(vals) == 1 &&
+			utils.InStr(vals[0], []string{"true", "base", "surface", "both"})
 	})
 }
 
@@ -760,7 +805,12 @@ func GraphDummyConf() *Configure {
 
 func GraphEncodingConf() *Configure {
 	return NewConfigure([]string{"encoding"}, []string{}, func(vals []string) bool {
-		return true
+		return len(vals) == 1 && utils.InStr(vals[0], []string{
+			"true",
+			"locale",
+			"default", "iso_8859_1", "iso_8859_15", "iso_8859_2", "iso_8859_9",
+			"koi8r", "koi8u", "cp437", "cp850", "cp852", "cp950", "cp1250",
+			"cp1251", "cp1252", "cp1254", "sjis", "utf8"})
 	})
 }
 
@@ -796,9 +846,35 @@ func GraphGridConf() *Configure {
 
 func GraphHidden3dConf() *Configure {
 	return NewConfigure([]string{"hidden3d"}, []string{}, func(vals []string) bool {
-		return true
+		vals = vals[:]
+		if len(vals) >= 1 && vals[0] == "defaults" {
+			vals = vals[1:]
+		}
+		if len(vals) >= 1 && utils.InStr(vals[0], []string{"front", "back"}) {
+			vals = vals[1:]
+		}
+		if len(vals) >= 2 && vals[0] == "offset" && isIntStr(vals[1]) {
+			vals = vals[2:]
+		} else if len(vals) >= 1 && vals[0] == "nooffset" {
+			vals = vals[1:]
+		}
+		// TODO: until
+
+		if len(vals) == 0 {
+			return true
+		} else {
+			return false
+		}
 	})
 }
+
+// set hidden3d {defaults} |
+//              { {front|back}
+//                {{offset <offset>} | {nooffset}}
+//                {trianglepattern <bitpattern>}
+//                {{undefined <level>} | {noundefined}}
+//                {{no}altdiagonal}
+//                {{no}bentover} }
 
 func GraphHistoryConf() *Configure {
 	return NewConfigure([]string{"history"}, []string{}, func(vals []string) bool {
