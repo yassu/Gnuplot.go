@@ -45,6 +45,82 @@ type PlotElement2d interface {
 	gnuplot(filename string) string
 }
 
+// Array2d
+type Array2d struct {
+	plotter  Plotter
+	splitNum int
+	array    [][2]float64
+}
+
+func NewArray2d() *Array2d {
+	array := new(Array2d)
+	array.setConfigure()
+	return array
+}
+
+func (array *Array2d) setConfigure() {
+	for _, conf := range conf.Array2dConfs() {
+		array.plotter.Configure(conf)
+	}
+}
+
+func (array *Array2d) Configure(key string, vals []string) {
+	for j, conf := range array.plotter.configures {
+		if utils.InStr(key, conf.AliasedKeys()) {
+			array.plotter.configures[j].SetVals(vals)
+			return
+		}
+	}
+	panic(fmt.Sprintf("%v is not a key.", key))
+}
+
+func (array *Array2d) Configures(sconf map[string][]string) {
+	for key, vals := range sconf {
+		array.Configure(key, vals)
+	}
+}
+
+func (array Array2d) GetData() [][2]float64 {
+	return array.array
+}
+
+func (array Array2d) getGnuData() string {
+	var s string
+	for _, xs := range array.GetData() {
+		s += fmt.Sprintf("%f %f\n", xs[0], xs[1])
+	}
+	return s
+}
+
+func (array *Array2d) Append(data [2]float64) {
+	array.array = append(array.array, data)
+}
+
+func (array Array2d) gnuplot(filename string) string {
+	title := array.plotter.GetC("_title")
+	var s = fmt.Sprintf("\"%v\"", filename)
+	if !isDummyVal(title) {
+		s += fmt.Sprintf(" title \"%v\"", title[0])
+	}
+
+	for _, conf := range array.plotter.configures {
+		if !strings.HasPrefix(conf.GetKey(), "_") && !isDummyVal(conf.GetVals()) {
+			vals := conf.GetVals()
+			s += fmt.Sprintf(" %v ", conf.GetKey())
+			if vals[len(vals)-1] == "true" {
+				vals = vals[:len(vals)-1]
+			} else if vals[len(vals)-1] == "false" {
+				vals = vals[:len(vals)-1]
+				s += "no"
+			}
+			for _, val := range vals {
+				s += fmt.Sprintf(" %v", val)
+			}
+		}
+	}
+	return s
+}
+
 // Function2d
 const DefaultFunction2dSplitNum int = 1000
 
