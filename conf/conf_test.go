@@ -864,6 +864,27 @@ func TestGraphDashtypetConf5(t *testing.T) {
 	}
 }
 
+func TestGrapLmarginConf(t *testing.T) {
+	conf := GraphLmarginConf()
+	if conf.requiredCondition([]string{"true"}) != true {
+		t.Errorf("fails in TestGrapLmarginConf")
+	}
+}
+
+func TestGrapLmarginConf2(t *testing.T) {
+	conf := GraphLmarginConf()
+	if conf.requiredCondition([]string{"3.3"}) != true {
+		t.Errorf("fails in TestGrapLmarginConf2")
+	}
+}
+
+func TestGraphPointsizeConf(t *testing.T) {
+	conf := GraphPointsizeConf()
+	if conf.requiredCondition([]string{"3.2"}) != true {
+		t.Errorf("fails in TestGraphPointsizeConf")
+	}
+}
+
 func TestGraphTermConf(t *testing.T) {
 	conf := GraphTermConf()
 	if conf.requiredCondition([]string{"pngs"}) != false {

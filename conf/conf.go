@@ -304,7 +304,6 @@ func GraphConfs() []*Configure {
 		GraphOriginConf(),
 		GraphOutputConf(),
 		GraphPaletteConf(),
-		GraphParametricConf(),
 		GraphPaxisConf(),
 		GraphPm3dConf(),
 		GraphPointintervalboxConf(),
@@ -942,7 +941,7 @@ func GraphLinkConf() *Configure {
 
 func GraphLmarginConf() *Configure {
 	return NewConfigure([]string{"lmargin"}, []string{}, func(vals []string) bool {
-		return true
+		return (len(vals) == 1 && (vals[0] == "true") || isPosNum(vals[0]))
 	})
 }
 
@@ -1078,12 +1077,6 @@ func GraphPaletteConf() *Configure {
 	})
 }
 
-func GraphParametricConf() *Configure {
-	return NewConfigure([]string{"parametric"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
 func GraphPaxisConf() *Configure {
 	return NewConfigure([]string{"paxis"}, []string{}, func(vals []string) bool {
 		return true
@@ -1104,7 +1097,7 @@ func GraphPointintervalboxConf() *Configure {
 
 func GraphPointsizeConf() *Configure {
 	return NewConfigure([]string{"pointsize"}, []string{}, func(vals []string) bool {
-		return true
+		return len(vals) == 1 && isPosNum(vals[0])
 	})
 }
 
