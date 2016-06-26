@@ -1065,12 +1065,6 @@ func GraphOriginConf() *Configure {
 	})
 }
 
-func GraphOutputConf() *Configure {
-	return NewConfigure([]string{"output"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
 func GraphPaletteConf() *Configure {
 	return NewConfigure([]string{"palette"}, []string{}, func(vals []string) bool {
 		return true
