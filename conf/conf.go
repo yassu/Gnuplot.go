@@ -302,7 +302,6 @@ func GraphConfs() []*Configure {
 		GraphObjectConf(),
 		GraphOffsetsConf(),
 		GraphOriginConf(),
-		GraphOutputConf(),
 		GraphPaletteConf(),
 		GraphPaxisConf(),
 		GraphPm3dConf(),
