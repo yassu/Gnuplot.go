@@ -247,54 +247,22 @@ func GraphConfs() []*Configure {
 		GraphBmarginConf(),
 		GraphBorderConf(),
 		GraphBoxwidthConf(),
-		GraphCbdataConf(),
-		GraphCbdticsConf(),
-		GraphCblabelConf(),
-		GraphCbmticsConf(),
-		GraphCbrangeConf(),
-		GraphCbticsConf(),
-		GraphClabelConf(),
-		GraphClipConf(),
-		GraphCntrlabelConf(),
-		GraphCntrparamConf(),
-		GraphColorboxConf(),
-		GraphColorsequenceConf(),
 		GraphContourConf(),
 		GraphDashtypeConf(),
-		GraphDataConf(),
-		GraphDatafileConf(),
-		GraphDateSpecifiersConf(),
-		GraphDecimalsignConf(),
 		GraphDgrid3dConf(),
-		GraphDummyConf(),
 		GraphEncodingConf(),
-		GraphFitConf(),
-		GraphFontPathConf(),
-		GraphFormatConf(),
-		GraphFunctionConf(),
 		GraphGridConf(),
 		GraphHidden3dConf(),
-		GraphHistoryConf(),
-		GraphHistorysizeConf(),
-		GraphIsosamplesConf(),
 		GraphKeyConf(),
 		GraphLabelConf(),
 		GraphLinetypeConf(),
 		GraphLinkConf(),
 		GraphLmarginConf(),
-		GraphLoadpathConf(),
-		GraphLocaleConf(),
-		GraphLogConf(),
-		GraphLogscaleConf(),
-		GraphMacrosConf(),
 		GraphMappingConf(),
 		GraphMarginConf(),
 		GraphMarginsConf(),
-		GraphMissingConf(),
 		GraphMonochromeConf(),
-		GraphMouseConf(),
 		GraphMultiplotConf(),
-		GraphMx2ticsConf(),
 		GraphMxticsConf(),
 		GraphMy2ticsConf(),
 		GraphMyticsConf(),
@@ -303,25 +271,17 @@ func GraphConfs() []*Configure {
 		GraphOffsetsConf(),
 		GraphOriginConf(),
 		GraphPaletteConf(),
-		GraphPaxisConf(),
 		GraphPm3dConf(),
 		GraphPointintervalboxConf(),
 		GraphPointsizeConf(),
 		GraphPolarConf(),
 		GraphPolarConf(),
-		GraphPsdirConf(),
-		GraphRaxisConf(),
 		GraphRmarginConf(),
 		GraphRrangeConf(),
 		GraphRticsConf(),
-		GraphSamplesConf(),
 		GraphSizeConf(),
-		GraphStyleConf(),
 		GraphSurfaceConf(),
-		GraphTableConf(),
 		GraphTermConf(),
-		GraphTerminalConf(),
-		GraphTermoptionConf(),
 		GraphTicsConf(),
 		GraphTicscaleConf(),
 		GraphTicslevelcaleConf(),
@@ -681,78 +641,6 @@ func GraphBoxwidthConf() *Configure {
 	})
 }
 
-func GraphCbdataConf() *Configure {
-	return NewConfigure([]string{"cbdata"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphCbdticsConf() *Configure {
-	return NewConfigure([]string{"cbdtics"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphCblabelConf() *Configure {
-	return NewConfigure([]string{"cblabel"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphCbmticsConf() *Configure {
-	return NewConfigure([]string{"cbmtics"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphCbrangeConf() *Configure {
-	return NewConfigure([]string{"cbrange"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphCbticsConf() *Configure {
-	return NewConfigure([]string{"cbtics"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphClabelConf() *Configure {
-	return NewConfigure([]string{"clabel"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphClipConf() *Configure {
-	return NewConfigure([]string{"clip"}, []string{}, func(vals []string) bool {
-		return len(vals) == 1 && utils.InStr(vals[0], []string{"points", "one", "two"})
-	})
-}
-
-func GraphCntrlabelConf() *Configure {
-	return NewConfigure([]string{"cntrlabel"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphCntrparamConf() *Configure {
-	return NewConfigure([]string{"cntrparam"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphColorboxConf() *Configure {
-	return NewConfigure([]string{"colorbox"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphColorsequenceConf() *Configure {
-	return NewConfigure([]string{"colorsequence", "colors"}, []string{}, func(vals []string) bool {
-		return len(vals) == 1 && utils.InStr(vals[0], []string{"default", "classic", "podo"})
-	})
-}
-
 func GraphContourConf() *Configure {
 	return NewConfigure([]string{"contour"}, []string{}, func(vals []string) bool {
 		return len(vals) == 1 &&
@@ -787,38 +675,8 @@ func GraphDashtypeConf() *Configure {
 	})
 }
 
-func GraphDataConf() *Configure {
-	return NewConfigure([]string{"data"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphDatafileConf() *Configure {
-	return NewConfigure([]string{"datafile"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphDateSpecifiersConf() *Configure {
-	return NewConfigure([]string{"date_specifiers"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphDecimalsignConf() *Configure {
-	return NewConfigure([]string{"decimalsign"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
 func GraphDgrid3dConf() *Configure {
 	return NewConfigure([]string{"dgrid3d"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphDummyConf() *Configure {
-	return NewConfigure([]string{"dummy"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
@@ -831,30 +689,6 @@ func GraphEncodingConf() *Configure {
 			"default", "iso_8859_1", "iso_8859_15", "iso_8859_2", "iso_8859_9",
 			"koi8r", "koi8u", "cp437", "cp850", "cp852", "cp950", "cp1250",
 			"cp1251", "cp1252", "cp1254", "sjis", "utf8"})
-	})
-}
-
-func GraphFitConf() *Configure {
-	return NewConfigure([]string{"fit"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphFontPathConf() *Configure {
-	return NewConfigure([]string{"fontpath"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphFormatConf() *Configure {
-	return NewConfigure([]string{"format"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphFunctionConf() *Configure {
-	return NewConfigure([]string{"function"}, []string{}, func(vals []string) bool {
-		return true
 	})
 }
 
@@ -896,24 +730,6 @@ func GraphHidden3dConf() *Configure {
 //                {{no}altdiagonal}
 //                {{no}bentover} }
 
-func GraphHistoryConf() *Configure {
-	return NewConfigure([]string{"history"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphHistorysizeConf() *Configure {
-	return NewConfigure([]string{"historysize"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphIsosamplesConf() *Configure {
-	return NewConfigure([]string{"isosamples"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
 func GraphKeyConf() *Configure {
 	return NewConfigure([]string{"key"}, []string{}, func(vals []string) bool {
 		return true
@@ -927,7 +743,7 @@ func GraphLabelConf() *Configure {
 }
 
 func GraphLinetypeConf() *Configure {
-	return NewConfigure([]string{"label"}, []string{}, func(vals []string) bool {
+	return NewConfigure([]string{"line"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
@@ -941,36 +757,6 @@ func GraphLinkConf() *Configure {
 func GraphLmarginConf() *Configure {
 	return NewConfigure([]string{"lmargin"}, []string{}, func(vals []string) bool {
 		return (len(vals) == 1 && (vals[0] == "true") || isPosNum(vals[0]))
-	})
-}
-
-func GraphLoadpathConf() *Configure {
-	return NewConfigure([]string{"loadpath"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphLocaleConf() *Configure {
-	return NewConfigure([]string{"locale"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphLogConf() *Configure {
-	return NewConfigure([]string{"log"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphLogscaleConf() *Configure {
-	return NewConfigure([]string{"logscale"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphMacrosConf() *Configure {
-	return NewConfigure([]string{"macros"}, []string{}, func(vals []string) bool {
-		return true
 	})
 }
 
@@ -992,32 +778,14 @@ func GraphMarginsConf() *Configure {
 	})
 }
 
-func GraphMissingConf() *Configure {
-	return NewConfigure([]string{"missing"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
 func GraphMonochromeConf() *Configure {
 	return NewConfigure([]string{"monochrome"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func GraphMouseConf() *Configure {
-	return NewConfigure([]string{"mouse"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
 func GraphMultiplotConf() *Configure {
 	return NewConfigure([]string{"multiplot"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphMx2ticsConf() *Configure {
-	return NewConfigure([]string{"mx2tics"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
@@ -1070,12 +838,6 @@ func GraphPaletteConf() *Configure {
 	})
 }
 
-func GraphPaxisConf() *Configure {
-	return NewConfigure([]string{"paxis"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
 func GraphPm3dConf() *Configure {
 	return NewConfigure([]string{"pm3d"}, []string{}, func(vals []string) bool {
 		return true
@@ -1100,24 +862,6 @@ func GraphPolarConf() *Configure {
 	})
 }
 
-func GraphPrintConf() *Configure {
-	return NewConfigure([]string{"print"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphPsdirConf() *Configure {
-	return NewConfigure([]string{"psdir"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphRaxisConf() *Configure {
-	return NewConfigure([]string{"raxis"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
 func GraphRmarginConf() *Configure {
 	return NewConfigure([]string{"rmargin"}, []string{}, func(vals []string) bool {
 		return true
@@ -1136,32 +880,14 @@ func GraphRticsConf() *Configure {
 	})
 }
 
-func GraphSamplesConf() *Configure {
-	return NewConfigure([]string{"samples"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
 func GraphSizeConf() *Configure {
 	return NewConfigure([]string{"size"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
 
-func GraphStyleConf() *Configure {
-	return NewConfigure([]string{"style"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
 func GraphSurfaceConf() *Configure {
 	return NewConfigure([]string{"surface"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphTableConf() *Configure {
-	return NewConfigure([]string{"table"}, []string{}, func(vals []string) bool {
 		return true
 	})
 }
@@ -1184,18 +910,6 @@ func GraphTermConf() *Configure {
 				"xterm"})
 	})
 	// TODO: in case of len(vals) >= 2
-}
-
-func GraphTerminalConf() *Configure {
-	return NewConfigure([]string{"terminal"}, []string{}, func(vals []string) bool {
-		return true
-	})
-}
-
-func GraphTermoptionConf() *Configure {
-	return NewConfigure([]string{"termoption"}, []string{}, func(vals []string) bool {
-		return true
-	})
 }
 
 func GraphTicsConf() *Configure {
